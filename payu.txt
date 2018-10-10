@@ -1,6 +1,6 @@
-====
+=====================
 Shiney new Payu stuff
-====
+=====================
 
 :subtitle: New and upcoming features
 :author: Aidan Heerdegen
@@ -12,10 +12,13 @@ Shiney new Payu stuff
 What is Payu?
 =============
 
-Payu is a python based "scientific workflow manager"
+Payu is
+-------
+
+ ... a python based "scientific workflow manager"
 
 Huh?
-----------
+----
 
 That means it runs your model for you. in short:
 

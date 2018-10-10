@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <title>payu</title>
+  <meta name="author" content="Aidan Heerdegen">
+  <meta name="dcterms.date" content="2018-10-17">
+  <title>Shiney new Payu stuff</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -45,59 +47,56 @@
 
     <div class="slides">
 
-
-<section class="slide level2">
-
-<table>
-<thead>
-<tr class="header">
-<th>Shiney new Payu stuff</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td><dl>
-<dt>subtitle</dt>
-<dd><p>New and upcoming features</p>
-</dd>
-</dl></td>
-</tr>
-<tr class="odd">
-<td><dl>
-<dt>author</dt>
-<dd><p>Aidan Heerdegen</p>
-</dd>
-</dl></td>
-</tr>
-<tr class="even">
-<td><dl>
-<dt>description</dt>
-<dd><p>A training course to introduce new and upcoming features</p>
-</dd>
-</dl></td>
-</tr>
-<tr class="odd">
-<td><dl>
-<dt>date</dt>
-<dd><p>17 October 2018</p>
-</dd>
-</dl></td>
-</tr>
-<tr class="even">
-<td>What is Payu?</td>
-</tr>
-</tbody>
-</table>
-<p>Payu is a python based &quot;scientific workflow manager&quot;</p>
+<section id="title-slide">
+  <div class="reveal" style="text-align: right;">
+    <img src="img/nci_logo.png"
+         style="background: none; border: none; box-shadow: none;
+         width: 30%"
+         alt="NCI">
+  </div>
+  <h1 class="title">Shiney new Payu stuff</h1>
+  <p class="subtitle" style="text-align: left;"><p>New and upcoming features</p></p>
+  <p class="author" style="text-align: right;">Aidan Heerdegen</p>
+  <p class="date" style="text-align: right;">17 October 2018</p>
 </section>
-<section><section id="huh" class="title-slide slide level1"><h1>Huh?</h1></section><section id="using-payu" class="slide level2">
-<h2>Using Payu</h2>
+
+<section><section id="what-is-payu" class="title-slide slide level1"><h1>What is Payu?</h1></section><section id="payu-is" class="slide level2">
+<h2>Payu is</h2>
+<blockquote>
+<p>... a python based &quot;scientific workflow manager&quot;</p>
+</blockquote>
+</section><section id="huh" class="slide level2">
+<h2>Huh?</h2>
+<p>That means it runs your model for you. in short:</p>
+<ul>
+<li>Setup model run directory</li>
+<li>Run the model</li>
+<li>Move outputs/restarts to an archive directory</li>
+<li>Clean up the run directory</li>
+<li>Run again (if instructed to do so)</li>
+</ul>
 </section></section>
-<section id="using-an-experiment" class="title-slide slide level1"><h1>Using an experiment</h1></section>
-<section id="run-the-experiment" class="title-slide slide level1"><h1>Run the experiment</h1></section>
+<section><section id="using-payu" class="title-slide slide level1"><h1>Using Payu</h1></section><section id="using-an-experiment" class="slide level2">
+<h2>Using an experiment</h2>
+<p>(Recap from last week)</p>
+<p>Clone an existing experiment (usually in <code>$HOME</code>):</p>
+<pre class="sourceCode sh"><code>cd $HOME
+mkdir -p mom
+cd mom
+git clone /short/public/mxw900/payucourse/expt/bowl1</code></pre>
+<p>This is the &quot;<em>control directory</em>&quot; for <code>bowl1</code></p>
+</section><section id="run-the-experiment" class="slide level2">
+<h2>Run the experiment</h2>
+<p>Use the system payu:</p>
+<pre><code>module load payu/0.9.2</code></pre>
+<p>This job is pre-configured, run it!</p>
+<pre class="sourceCode sh"><code>cd bowl1
+payu run</code></pre>
+<ul>
+<li>Model will run in <code>work/</code></li>
+<li>Output saved to <code>archive/</code></li>
+</ul>
+</section></section>
     </div>
   </div>
 
