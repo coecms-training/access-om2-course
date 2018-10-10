@@ -2,7 +2,6 @@
 Shiney new Payu stuff
 ====
 
-:title: Shiney new Payu stuff
 :subtitle: New and upcoming features
 :author: Aidan Heerdegen
 :description: A training course to introduce new and upcoming features
