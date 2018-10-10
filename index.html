@@ -3,9 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="Marshall Ward">
-  <meta name="dcterms.date" content="2018-10-03">
-  <title>Payu</title>
+  <title>payu</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -47,678 +45,66 @@
 
     <div class="slides">
 
-<section id="title-slide">
-  <div class="reveal" style="text-align: right;">
-    <img src="img/nci_logo.png"
-         style="background: none; border: none; box-shadow: none;
-         width: 30%"
-         alt="NCI">
-  </div>
-  <h1 class="title">Payu</h1>
-  <p class="subtitle" style="text-align: left;"><p>A climate model workflow manager</p></p>
-  <p class="author" style="text-align: right;">Marshall Ward</p>
-  <p class="date" style="text-align: right;">3 October 2018</p>
+
+<section class="slide level2">
+
+<table>
+<thead>
+<tr class="header">
+<th>Shiney new Payu stuff</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td><dl>
+<dt>title</dt>
+<dd><p>Shiney new Payu stuff</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td><dl>
+<dt>subtitle</dt>
+<dd><p>New and upcoming features</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td><dl>
+<dt>author</dt>
+<dd><p>Aidan Heerdegen</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td><dl>
+<dt>description</dt>
+<dd><p>A training course to introduce new and upcoming features</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="even">
+<td><dl>
+<dt>date</dt>
+<dd><p>17 October 2018</p>
+</dd>
+</dl></td>
+</tr>
+<tr class="odd">
+<td>What is Payu?</td>
+</tr>
+</tbody>
+</table>
+<p>Payu is a python based &quot;scientific workflow manager&quot;</p>
 </section>
-
-<section><section id="what-is-payu" class="title-slide slide level1"><h1>What is Payu?</h1></section><section id="etymology" class="slide level2">
-<h2>Etymology</h2>
-<ul>
-<li><p><em>P</em>ython on v<em>AYU</em></p>
-<p>Vayu was Raijin's predecessor and has passed away...</p>
-<p>...but Payu lives on!</p></li>
-</ul>
-</section><section id="motivation" class="slide level2">
-<h2>Motivation</h2>
-<aside class="notes">
-<p>Not only were we using scripts for all of our models, but we also were using more and more variations of scripts for various tasks.</p>
-<p>Version control had not quite caught on yet, but I don't think it would have addressed our problems anyway.</p>
-</aside>
-<p>Long ago, we managed many, many jobscripts.</p>
-<dl>
-<dt>Many kinds of scripts:</dt>
-<dd><p>bash, tcsh, ksh, ...</p>
-</dd>
-<dt>Many different models:</dt>
-<dd><p>MOM, MITgcm, Q-GCM, ACCESS, ...</p>
-</dd>
-</dl>
-<p>Juggling and sharing scripts was becoming a problem!</p>
-</section><section class="slide level2">
-
-<aside class="notes">
-<p>Andy Hogg is probably the progenitor of Payu. As Python became more popular in the group and we started using it for non-scientific tasks, Andy asked me why we don't just use Python for everything?</p>
-<p>I probably took this suggestion too literally.</p>
-<p>Here is a picture of Andy doing some important scientific computing.</p>
-</aside>
-<p><img data-src="img/andy_at_nci.png" alt="image" /></p>
-<p>&quot;Why not just do everything in Python?&quot;</p>
-</section><section id="prehistoric-payu" class="slide level2">
-<h2>Prehistoric Payu</h2>
-<aside class="notes">
-<p>There were even older versions which looked like bash scripts written in Python, which are so terrible that they're not even worth sharing.</p>
-</aside>
-<pre class="sourceCode python"><code>from payu import gold
-
-def main():
-    expt = gold(forcing=&#39;andrew&#39;)
-
-    expt.setup()
-    expt.run()
-    expt.archive()
-    if expt.counter &lt; expt.max_counter:
-        expt.resubmit()
-
-if __name__ == &#39;__main__&#39;:
-    main()</code></pre>
+<section><section id="huh" class="title-slide slide level1"><h1>Huh?</h1></section><section id="using-payu" class="slide level2">
+<h2>Using Payu</h2>
 </section></section>
-<section><section id="using-payu" class="title-slide slide level1"><h1>Using Payu</h1></section><section id="using-an-experiment" class="slide level2">
-<h2>Using an experiment</h2>
-<p>Clone an existing experiment (usually in <code>$HOME</code>):</p>
-<pre class="sourceCode sh"><code>cd $HOME
-mkdir -p mom
-cd mom
-git clone /short/public/mxw900/payucourse/expt/bowl1</code></pre>
-<p>This is the &quot;<em>control directory</em>&quot; for <code>bowl1</code></p>
-</section><section id="run-the-experiment" class="slide level2">
-<h2>Run the experiment</h2>
-<p>Use the system payu:</p>
-<pre><code>module load payu/0.9.2</code></pre>
-<p>This job is pre-configured, run it!</p>
-<pre class="sourceCode sh"><code>cd bowl1
-payu run</code></pre>
-<ul>
-<li>Model will run in <code>work/</code></li>
-<li>Output saved to <code>archive/</code></li>
-</ul>
-</section><section id="your-experiment" class="slide level2">
-<h2>Your experiment</h2>
-<p>Your Payu configuration file:</p>
-<ul>
-<li><code>config.yaml</code></li>
-</ul>
-<p>Your model (MOM) configuration files:</p>
-<ul>
-<li><code>input.nml</code></li>
-<li><code>diag_table</code></li>
-<li><code>data_table</code></li>
-<li><code>field_table</code></li>
-</ul>
-</section><section id="experiment-configuration" class="slide level2">
-<h2>Experiment Configuration</h2>
-<pre class="sourceCode yaml"><code># PBS
-queue: express
-ncpus: 4
-walltime: 0:10:00
-mem: 1GB
-jobname: bowl1
-
-# Model
-model: mom
-input: /short/public/mxw900/payucourse/input/bowl1
-exe: /short/public/mxw900/payucourse/bin/mom51_solo_default
-collate: False</code></pre>
-</section><section id="inspecting-the-output" class="slide level2">
-<h2>Inspecting the output</h2>
-<table>
-<tbody>
-<tr class="odd">
-<td><code>mom.out</code></td>
-<td>Model output</td>
-</tr>
-<tr class="even">
-<td><code>mom.err</code></td>
-<td>Model error</td>
-</tr>
-<tr class="odd">
-<td><code>bowl1.o${jobid}</code></td>
-<td>PBS (payu) output</td>
-</tr>
-<tr class="even">
-<td><code>bowl1.e${jobid}</code></td>
-<td>PBS (payu) error</td>
-</tr>
-<tr class="odd">
-<td><code>archive/output000</code></td>
-<td>Model output files</td>
-</tr>
-<tr class="even">
-<td><code>archive/restart000</code></td>
-<td>Restart (pickup) files</td>
-</tr>
-</tbody>
-</table>
-</section><section id="cleaning-up" class="slide level2">
-<h2>Cleaning up</h2>
-<p>To clear <code>work/</code> and save PBS logs:</p>
-<pre><code>payu sweep</code></pre>
-<p>Or to completely delete the experiment:</p>
-<pre><code>payu sweep --hard</code></pre>
-<p>This wipes output, restarts, and logs! (<code>archive/$expt</code>)</p>
-</section></section>
-<section><section id="anatomy-of-an-experiment" class="title-slide slide level1"><h1>Anatomy of an Experiment</h1></section><section id="control-vs-laboratory" class="slide level2">
-<h2>Control vs Laboratory</h2>
-<dl>
-<dt>Control path: <code>${HOME}/mom/bowl1</code></dt>
-<dd><p>User-configured (text) input</p>
-</dd>
-<dt>Laboratory: <code>/short/$PROJECT/$USER/$MODEL/</code></dt>
-<dd><p>Executables, data input, output, etc.</p>
-</dd>
-</dl>
-<p>You &quot;control&quot; the laboratory externally</p>
-</section><section id="laboratory-overview" class="slide level2">
-<h2>Laboratory overview</h2>
-<table>
-<tbody>
-<tr class="odd">
-<td><code>archive</code></td>
-<td>Experiment output and restarts</td>
-</tr>
-<tr class="even">
-<td><code>bin</code></td>
-<td>Model executables</td>
-</tr>
-<tr class="odd">
-<td><code>codebase</code></td>
-<td>Model Source code repository</td>
-</tr>
-<tr class="even">
-<td><code>input</code></td>
-<td>Static input files</td>
-</tr>
-<tr class="odd">
-<td><code>work</code></td>
-<td>Ongoing (or failed) experiments</td>
-</tr>
-</tbody>
-</table>
-<p>&quot;<code>payu init -m mom</code>&quot; will create these directories</p>
-<p>(But usually not necessary)</p>
-</section><section id="a-simple-configuration" class="slide level2">
-<h2>A simple configuration</h2>
-<p>We use the YAML format</p>
-<pre class="sourceCode yaml"><code>model: mom6
-name: om4_gm_test
-
-queue: normal
-jobname: mom6_om4
-walltime: 20:00
-ncpus: 960
-mem: 1500GB
-
-exe: mom6_intel17
-input:
-    - om4_grid
-    - om4_atm</code></pre>
-<p>Most variables have &quot;sensible&quot; defaults</p>
-</section><section id="a-more-complex-configuration" class="slide level2">
-<h2>A more complex configuration</h2>
-<pre class="sourceCode yaml"><code># PBS configuration
-queue: normal
-project: fp0
-walltime: 02:30:00
-jobname: om2_jra55
-ncpus: 1153
-mem: 2000GB
-
-#platform:
-#   nodesize: 28
-
-laboratory: /short/fp0/mxw900/cosima
-repeat: True
-
-collate:
-    walltime: 4:00:00
-    mem: 30GB
-    ncpus: 4
-    queue: express
-    flags: -n4 -z -m -r
-
-# Model configuration
-model: access
-submodels:
-    - name: coupler
-      model: oasis
-      input: oasis_025
-      ncpus: 0
-
-    - name: atmosphere
-      model: matm
-      exe: matm
-      #input: jra55-0.8_025
-      input: /short/v45/mxw900/cosima/nc64
-      ncpus: 1
-
-    - name: ocean
-      model: mom
-      exe: mom
-      input:
-          - mom
-          # - iaf-sw21d
-      ncpus: 960
-
-    - name: ice
-      model: cice
-      exe: cice_nohalo
-      input: cice
-      ncpus: 192
-
-calendar:
-    runtime:
-        years: 0
-        months: 0
-        days: 30
-    start:
-        year: 1
-        month: 1
-        days: 1
-
-# Misc
-env:
-    SCOREP_TOTAL_MEMORY: 1073741824
-    SCOREP_MPI_ENABLE_GROUPS: all
-    SCOREP_METRIC_RUSAGE: all</code></pre>
-<p>(Note: Slightly out of date!)</p>
-</section><section id="configuring-your-experiment" class="slide level2">
-<h2>Configuring your experiment</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>model</code></td>
-<td>Model type</td>
-<td>(required!)</td>
-</tr>
-<tr class="even">
-<td><code>name</code></td>
-<td>Experiment name</td>
-<td>Expt directory</td>
-</tr>
-<tr class="odd">
-<td><code>exe</code></td>
-<td>Executable</td>
-<td>Set by driver</td>
-</tr>
-<tr class="even">
-<td><code>input</code></td>
-<td>Model inputs</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-<p>Paths can be absolute or relative to the lab path</p>
-</section><section id="scheduler-configuration" class="slide level2">
-<h2>Scheduler configuration</h2>
-<table>
-<thead>
-<tr class="header">
-<th>Config</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>queue</code></td>
-<td>PBS Queue</td>
-<td><code>normal</code></td>
-</tr>
-<tr class="even">
-<td><code>project</code></td>
-<td>SU Account</td>
-<td><code>$PROJECT</code></td>
-</tr>
-<tr class="odd">
-<td><code>jobname</code></td>
-<td>Queue job name</td>
-<td><code>name</code></td>
-</tr>
-<tr class="even">
-<td><code>walltime</code></td>
-<td>Time request</td>
-<td>(From PBS)</td>
-</tr>
-<tr class="odd">
-<td><code>ncpus</code></td>
-<td>CPU request</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td><code>mem</code></td>
-<td>RAM request</td>
-<td>Max node mem</td>
-</tr>
-</tbody>
-</table>
-<p><code>qsub_flags</code> for everything else</p>
-</section><section id="cpu-requests" class="slide level2">
-<h2>CPU requests</h2>
-<p>Normally <code>ncpus</code> will increase itself to match the node, but more control is available:</p>
-<table style="width:50%;">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 19%" />
-<col style="width: 13%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Config</td>
-<td>Description</td>
-<td>Default</td>
-</tr>
-<tr class="even">
-<td>platform</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>→nodesize</td>
-<td>Node CPUs</td>
-<td>16</td>
-</tr>
-<tr class="even">
-<td>→nodemem</td>
-<td>Node RAM</td>
-<td>32 (GB)</td>
-</tr>
-</tbody>
-</table>
-<p>This is currently required to use the Broadwell nodes:</p>
-<pre class="sourceCode yaml"><code>platform:
-   nodesize: 28
-   nodemem: 128</code></pre>
-</section><section id="the-work-directory" class="slide level2">
-<h2>The work directory</h2>
-<p>Run the following to inspect (and test) your run:</p>
-<pre class="sourceCode sh"><code>payu setup</code></pre>
-<p>This will create your <code>work/</code> directory in the lab</p>
-</section><section id="inside-the-work-directory" class="slide level2">
-<h2>Inside the work directory</h2>
-<aside class="notes">
-<p>I don't know what <span class="title-ref">log</span> is, maybe Nic does?</p>
-</aside>
-<p>Inspect the symbolic link to <code>work</code> and its contents:</p>
-<pre><code>work/
-|-- INPUT
-|   |-- gotmturb.inp -&gt; /short/fp0/mxw900/real_mom/input/bowl1/gotmturb.inp
-|   |-- grid_spec.nc -&gt; /short/fp0/mxw900/real_mom/input/bowl1/grid_spec.nc
-|   `-- ocean_temp_salt.res.nc -&gt; /short/fp0/mxw900/real_mom/input/...
-|-- RESTART
-|-- config.yaml
-|-- data_table
-|-- diag_table
-|-- field_table
-|-- input.nml
-`-- log</code></pre>
-<p>Your config files are copied, and sometimes modified.</p>
-<p>Your input data is symlinked.</p>
-</section></section>
-<section><section id="feature-overview" class="title-slide slide level1"><h1>Feature overview</h1></section><section id="multiple-runs" class="slide level2">
-<h2>Multiple runs</h2>
-<aside class="notes">
-<p>This is useful for crazy people who do analysis on restart files.</p>
-</aside>
-<p>To do multiple runs in sequence:</p>
-<pre class="sourceCode "><code>payu run -n 20</code></pre>
-<p>We save every output, and every 5th restart.</p>
-<p>To change the rate:</p>
-<pre><code>restart_freq: 1</code></pre>
-</section><section id="path-control" class="slide level2">
-<h2>Path control</h2>
-<aside class="notes">
-<p>Just about every path can be explicitly set, though at some point it does get a bit weird to, say, change the control path...</p>
-</aside>
-<p>Default paths can be set explicitly</p>
-<table>
-<tbody>
-<tr class="odd">
-<td><code>shortpath</code></td>
-<td>Root (&quot;short&quot;) path</td>
-</tr>
-<tr class="even">
-<td><code>laboratory</code></td>
-<td>Laboratory path</td>
-</tr>
-<tr class="odd">
-<td><code>experiment</code></td>
-<td>Experiment path</td>
-</tr>
-<tr class="even">
-<td><code>control</code></td>
-<td>Control path</td>
-</tr>
-</tbody>
-</table>
-<p>Suppose you want to run out of <code>x77</code> but be changed under <code>e14</code>? Set the <code>shortpath</code>!</p>
-</section><section id="mpi-support" class="slide level2">
-<h2>MPI support</h2>
-<p>MPI support is very explicit at the moment:</p>
-<aside class="notes">
-<p>We used to rely on NCI wrapper scripts to fix the MPI module, but they have moved away from this feature. So for now, we usually have to explicitly set the MPI module.</p>
-<p>Also, these particular settings are nonsense together, they're just various examples.</p>
-</aside>
-<pre class="sourceCode yaml"><code>mpi:
-    module: openmpi/2.1.1-debug
-    modulepath: /home/157/mxw157/modules
-    flags:
-       - -mca orte_output_filename log
-       - -mca pml yalla
-    runcmd: map --profile mpiexec</code></pre>
-<p>Sometimes the NCI wrappers will adjust the module to match the executable, but it's generally a good idea to set it correctly here.</p>
-</section><section id="userscript-support" class="slide level2">
-<h2>Userscript support</h2>
-<p>Subcommands and scripts can be injected after key steps</p>
-<pre class="sourceCode yaml"><code>userscripts:
-   init: &#39;echo &quot;some_data&quot; &gt; input.nml&#39;
-   setup: patch_inputs.py
-   run: &#39;qsub postprocess.sh&#39;
-
-postscript: sync_output_to_gdata.sh</code></pre>
-<p>These will run after the prescribed section. <code>postscript</code> runs after collation.</p>
-</section><section id="supported-models" class="slide level2">
-<h2>Supported models</h2>
-<p>To see the supported models:</p>
-<pre><code>payu list</code></pre>
-<p>But expect some atrophy...</p>
-</section></section>
-<section><section id="forking-and-sharing-experiments" class="title-slide slide level1"><h1>Forking and sharing experiments</h1></section><section id="creating-a-new-experiment" class="slide level2">
-<h2>Creating a new experiment</h2>
-<aside class="notes">
-<p>Sharing experiments is new, but we are working on improving this experience</p>
-</aside>
-<p>Let's have some <strong>FUN</strong> and increase the timestep:</p>
-<pre><code>cd ../mom   # Or whatever
-git clone bowl1 bowl2
-cd bowl2</code></pre>
-<p>We are in a hurry, so let's make <code>dt_ocean</code> in <code>input.nml</code> very large:</p>
-<pre><code>f90nml -g ocean_model_nml -v dt_ocean=86400 input.nml &gt; tmp.nml
-mv tmp.nml input.nml</code></pre>
-<p>(Or use a text editor)</p>
-</section><section id="recording-your-progress" class="slide level2">
-<h2>Recording your progress</h2>
-<p>Track your changes to the run:</p>
-<pre><code>git log</code></pre>
-<p>and responsible people <em>always</em> document their changes:</p>
-<pre><code>git commit -am &quot;Testing a large timestep&quot;</code></pre>
-<p>But if you're lazy then payu will commit upon completion.</p>
-<p>Let's run it!</p>
-</section><section id="failure" class="slide level2">
-<h2>FAILURE</h2>
-<p><img data-src="img/angry.jpg" alt="image" /></p>
-<p>Your run crashed!!!</p>
-</section><section id="inspecting-failed-jobs" class="slide level2">
-<h2>Inspecting failed jobs</h2>
-<p>Failed jobs retain <code>mom.out</code>, <code>mom.err</code>, and <code>work/</code>.</p>
-<p>From <code>mom.err</code>:</p>
-<pre><code>FATAL from PE    2: ==&gt;Error: time step instability detected for baroclinic gravity waves in ocean_model_mod
-
-forrtl: error (78): process killed (SIGTERM)</code></pre>
-<p>Errors are saved to <code>archive/error_logs</code> with PBS job IDs.</p>
-<p>(Note: Error logs can get big fast!)</p>
-</section><section id="github-integration" class="slide level2">
-<h2>GitHub integration</h2>
-<aside class="notes">
-<p>Here, show off git remote as well as the .ssh directory</p>
-</aside>
-<p>You can sync your experiment on GitHub:</p>
-<pre><code>payu ghsetup
-payu push</code></pre>
-<p>Visit your experiment in GitHub!</p>
-<p>NOTE: This will create SSH keys in your <code>$HOME/.ssh</code> directory.</p>
-</section><section id="other-github-features" class="slide level2">
-<h2>Other GitHub features</h2>
-<aside class="notes">
-<p>Remember to do a bit of a tech demo to mxw900-raijin here.</p>
-<dl>
-<dt>The unmentioned features are:</dt>
-<dd><ul>
-<li>name (on github)</li>
-<li>username</li>
-<li>sshid (ssh key path)</li>
-<li>private</li>
-<li>remote name (payu)</li>
-</ul>
-</dd>
-</dl>
-</aside>
-<p>You should set a description for your run:</p>
-<pre class="sourceCode yaml"><code>description: A very fun experiment</code></pre>
-<p>You can also save jobs to an organization:</p>
-<pre class="sourceCode yaml"><code>runlog:
-   organization: mxw900-raijin</code></pre>
-<p>There are a few other features here, and someday they may be documented!</p>
-<p>Currently &quot;<code>payu push</code>&quot; is manual, but we could make it automatic.</p>
-</section></section>
-<section><section id="coupled-models" class="title-slide slide level1"><h1>Coupled Models</h1></section><section id="coupled-configuration" class="slide level2">
-<h2>Coupled configuration</h2>
-<p>Yes, Payu supports coupled models!</p>
-<pre class="sourceCode yaml"><code>model: access-om2
-input: /short/public/access-om2/input_38570c62/common_01deg_jra55
-submodels:
-    - name: atmosphere
-      model: yatm
-      exe: libom2/yatm_impi.exe
-      input: /short/public/access-om2/input_38570c62/yatm_01deg
-      ncpus: 1
-
-    - name: ocean
-      model: mom
-      exe: libom2/fms_ACCESS-OM_impi.x
-      input: /short/public/access-om2/input_38570c62/mom_01deg
-      ncpus: 4358
-
-    - name: ice
-      model: cice5
-      exe: libom2/cice_auscom_3600x2700_2000p_impi.exe
-      input: /short/public/access-om2/input_38570c62/cice_01deg
-      ncpus: 2000</code></pre>
-</section><section id="layout-of-a-coupled-model" class="slide level2">
-<h2>Layout of a coupled model</h2>
-<p>Inputs, work and output are separated by the <code>name</code>:</p>
-<pre><code>libom2_1deg
-|-- accessom2.nml
-|-- archive -&gt; /short/fp0/mxw900/access-om2/archive/libom2_1deg
-|-- atmosphere
-|   |-- atm.nml
-|   |-- checksums.txt
-|   `-- forcing.json
-|-- config.yaml
-|-- ice
-|   |-- cice_in.nml
-|   |-- input_ice.nml
-|   |-- input_ice_gfdl.nml
-|   `-- input_ice_monin.nml
-|-- namcouple
-|-- ocean
-|   |-- checksums.txt
-|   |-- data_table
-|   |-- diag_table
-|   |-- field_table
-|   `-- input.nml
-|-- sync_output_to_gdata.sh
-`-- sync_restarts_to_gdata.sh</code></pre>
-<p>Common files (<code>accessom2.nml</code>, <code>namcouple</code>) are in the top directory.</p>
-<p>Work directories have a similar structure.</p>
-</section></section>
-<section><section id="troubleshooting" class="title-slide slide level1"><h1>Troubleshooting</h1></section><section id="model-crashes" class="slide level2">
-<h2>Model crashes</h2>
-<p>If you see this error in your PBS log:</p>
-<pre><code>payu: Model exited with error code 134; aborting.&quot;</code></pre>
-<p>then it means the model crashed and payu has halted execution.</p>
-<p>Check your error logs to figure out the problem.</p>
-</section><section id="various-python-errors" class="slide level2">
-<h2>Various Python errors</h2>
-<p>Sometimes a missing file or misconfigured experiment will cause an error in Python:</p>
-<pre><code>Traceback (most recent call last):
-  File &quot;/home/157/mxw157/python/payu/bin/payu&quot;, line 8, in &lt;module&gt;
-    cli.parse()
-  File &quot;/home/157/mxw157/python/payu/payu/cli.py&quot;, line 61, in parse
-    run_cmd(**args)
-  File &quot;/home/157/mxw157/python/payu/payu/subcommands/setup_cmd.py&quot;, line 18, in runcmd
-    expt.setup(force_archive=force_archive)
-  File &quot;/home/157/mxw157/python/payu/payu/experiment.py&quot;, line 353, in setup
-    model.setup()
-  File &quot;/home/157/mxw157/python/payu/payu/models/mom.py&quot;, line 69, in setup
-    super(Mom, self).setup()
-  File &quot;/home/157/mxw157/python/payu/payu/models/model.py&quot;, line 151, in setup
-    shutil.copy(f_path, self.work_path)
-  File &quot;/apps/python/2.7.6/lib/python2.7/shutil.py&quot;, line 119, in copy
-    copyfile(src, dst)
-  File &quot;/apps/python/2.7.6/lib/python2.7/shutil.py&quot;, line 82, in copyfile
-    with open(src, &#39;rb&#39;) as fsrc:
-IOError: [Errno 2] No such file or directory: &#39;/home/157/mxw157/mom/course/bowl2_course/input.nml&#39;</code></pre>
-<p>Run <code>payu setup</code> and test that the experiment is set up properly.</p>
-</section><section id="cloning-issues" class="slide level2">
-<h2>Cloning issues</h2>
-<p>Many <code>config.yaml</code> contain relative paths for inputs and executables, which can make sharing difficult!</p>
-<p>Either copy (or symlink) their files into your local lab, or modify your <code>config.yaml</code> to use absolute paths.</p>
-<p>On the developer end, we are thinking of better solutions here...</p>
-</section><section id="please-send-me-your-job-script" class="slide level2">
-<h2>&quot;Please send me your job script&quot;</h2>
-<p>NCI will often request a job script, which is a challenge because we don't have one!</p>
-<p>... but, NCI is starting to understand, and CMS is usually prepared to run interference.</p>
-</section></section>
-<section><section id="summary" class="title-slide slide level1"><h1>Summary</h1></section><section id="what-does-payu-do" class="slide level2">
-<h2>What does Payu do?</h2>
-<ul>
-<li>Common interface for many models</li>
-<li>Manages your inputs, executables, outputs, and restarts</li>
-<li>Tracks changes to your experiment</li>
-<li>Provides hooks to configure and control your job</li>
-<li>Enables sharing of configurations and inputs</li>
-</ul>
-</section><section id="special-thanks" class="slide level2">
-<h2>Special Thanks</h2>
-<table style="width:84%;">
-<colgroup>
-<col style="width: 28%" />
-<col style="width: 26%" />
-<col style="width: 28%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><img data-src="img/paul.jpg" alt="paul" /></td>
-<td><img data-src="img/nic.jpeg" alt="nic" /></td>
-<td><img data-src="img/aidan.jpeg" alt="aidan" /></td>
-</tr>
-</tbody>
-</table>
-<p>Paul Spence suffered through the earliest version of Payu, and helped mold it into a usable application.</p>
-<p>Nic Hannah and Aidan Heerdegen have been top-level contributors and maintainers for a very long time.</p>
-<p>Thank you!!</p>
-</section><section id="future-works" class="slide level2">
-<h2>Future works</h2>
-<p>Work only stops when people stop asking for features.</p>
-<p>Questions?</p>
-<p>What would you like to see?</p>
-<p>Even better, contribute!</p>
-</section></section>
+<section id="using-an-experiment" class="title-slide slide level1"><h1>Using an experiment</h1></section>
+<section id="run-the-experiment" class="title-slide slide level1"><h1>Run the experiment</h1></section>
     </div>
   </div>
 
