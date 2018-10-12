@@ -107,38 +107,69 @@ payu run</code></pre>
 <p><img data-src="img/waco_kid.gif" alt="image" /></p>
 </section><section class="slide level2">
 
+<aside class="notes">
+<p>That is it collates tiled outputs to multiple files, which makes model input and output faster</p>
+<p>Directly copies the compressed chunks from one file to another, skipping the decompress/recompress step</p>
+</aside>
 <p>But seriously fast, hence the name <strong>mppnccombine-fast</strong></p>
 <p><a href="https://github.com/coecms/mppnccombine-fast">https://github.com/coecms/mppnccombine-fast</a></p>
 <ul>
 <li>Written by Scott Wales</li>
-<li>Collates (combines) any FMS model output (MOM5/MOM6/GOLD) that is tiled, that is output to multiple files to make input and output faster</li>
-<li>Designed to be particularly fast with netCDF4 compressed data, as it directly copies the compressed chunks from one file to another, skipping the decompress/recompress step</li>
+<li>Collates any FMS model output (MOM5/MOM6/GOLD) that is tiled, that is output to multiple files to make input and output faster</li>
+<li>Particularly fast with netCDF4 compressed data</li>
 </ul>
 </section><section id="requirements" class="slide level2">
 <h2>Requirements</h2>
 <ul>
-<li><span class="title-ref">mppnccombine-fast</span> executable. Either copy from <span class="title-ref">/short/public/access-om2/mppnccombine-fast</span> or grab the source code and compile yourself</li>
-<li>Place where your model config will find it, either in <span class="title-ref">/short/$PROJECT/$model/bin</span> or somewhere else and specify the fullpath in the <span class="title-ref">config.yaml</span> (see later)</li>
-<li>A version of <span class="title-ref">payu</span> of <span class="title-ref">0.10</span> or greater (<span class="title-ref">module load payu/0.10</span> on <span class="title-ref">raijin</span>)</li>
-<li>Updated <span class="title-ref">config.yaml</span> syntax</li>
+<li><code>mppnccombine-fast</code> executable. Either copy from <code>/short/public/access-om2/mppnccombine-fast</code> or get source code and compile</li>
+<li>Place in <code>/short/$PROJECT/$model/bin</code> or somewhere else and specify the fullpath</li>
+<li>A version of <code>payu</code> of <code>0.10</code> or greater (<code>module load payu/0.10</code> on <code>raijin</code>)</li>
+<li>Updated <code>config.yaml</code> syntax</li>
 </ul>
 </section><section id="new-syntax" class="slide level2">
 <h2>New Syntax</h2>
-<p>The new syntax replaces the kludgey and horrible every expanding set of options with <span class="title-ref">collate_</span> prepended to them.</p>
+<p>Replaces kludgey <code>collate_</code> options with <code>collate</code> dictionary</p>
 <p>Old syntax:</p>
-<p><code>`yaml collate: true collate_mem: 16GB collate_queue: express collate_ncpus: 4 collate_flags: -n4 -r</code>`</p>
+<pre class="sourceCode yaml"><code>collate: true
+collate_mem: 16GB
+collate_queue: express
+collate_ncpus: 4
+collate_flags: -n4 -r</code></pre>
 <p>New syntax:</p>
-<p><code>`yaml collate:      enable: true      queue: express      mpi: true      ncpus: 4      threads: 2      flags: -n4 -r      # exe: /full/path/to/mppnccombine-fast</code>`</p>
+<pre class="sourceCode yaml
+collate:
+enable: true
+queue: express
+mpi: true
+ncpus: 4
+threads: 2
+flags: -n4 -r
+# exe: /full/path/to/mppnccombine-fast"><code></code></pre>
 </section><section id="resource-requirements" class="slide level2">
 <h2>Resource requirements</h2>
-<p>Memory use is modest, and should only depend on chunksize in the compressed file, not on the overall size of the file being written, so resolution independent.</p>
-<p>Unfortunately a memory leak bug in the underlying <span class="title-ref">HDF5</span> library means memory use will go up with the number of times data is written to a collated file. It is difficult to predict, but 2-4GB per thread has been the upper limit observed so far.</p>
-<p>Time should be minutes.</p>
+<aside class="notes">
+<p>Memory use should only depend on chunksize in the compressed file, not on the overall size of the file being written, so resolution independent.</p>
+<p>Unfortunately a memory leak bug in the underlying <code>HDF5</code> library means memory use will go up with the number of times data is written to a collated file. It is difficult to predict, but 2-4GB per thread has been the upper limit observed so far.</p>
 <p>No speed-up for low resolution outputs (MPI overhead swamps fast run times). Quarter degree 10-50x faster. Tenth 100x faster.</p>
+</aside>
+<ul>
+<li>Memory independent of resolution</li>
+<li>Modest memory use (&lt;4GB per thread)</li>
+<li>Walltime should be minutes.</li>
+<li>No speed-up for low resolution (1 deg global model)</li>
+</ul>
 </section></section>
 <section><section id="upcoming-features" class="title-slide slide level1"><h1>Upcoming features</h1></section><section id="file-tracking" class="slide level2">
 <h2>File Tracking</h2>
 <p>Wanted to do this since forever.</p>
+</section><section id="key-advantages" class="slide level2">
+<h2>Key Advantages</h2>
+<ul>
+<li>Track input files use for each model run</li>
+<li>Reproducibly run previous experiment</li>
+<li>Share experiments more easily as input files all specified</li>
+<li>Flexibility with specifying path to input files</li>
+</ul>
 </section></section>
 <section><section id="access-om2-model-configs" class="title-slide slide level1"><h1>ACCESS-OM2 Model Configs</h1></section><section id="access-om2-01" class="slide level2">
 <h2>ACCESS-OM2-01</h2>
