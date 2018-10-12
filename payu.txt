@@ -81,3 +81,8 @@ Faster than the Waco Kid
 
 .. image:: img/waco_kid.gif
 
+
+----
+
+Does an empty title work?
+

@@ -65,7 +65,7 @@ $for(include-before)$
 $include-before$
 $endfor$
   <div class="reveal"
-       style="background: url(img/abstract-1780333.png);
+       style="background: url(img/abstract-1780333_crop.png);
               background-size: cover;">
 
     <header style="width: 10%; position: absolute; top: 2%; left: 2%;">
