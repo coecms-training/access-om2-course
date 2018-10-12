@@ -79,5 +79,5 @@ How fast?
 
 Faster than the Waco Kid
 
-.. image:: img/waco_kid.png
+.. image:: img/waco_kid.gif
 
