@@ -136,6 +136,8 @@ Old syntax:
     collate_ncpus: 4
     collate_flags: -n4 -r
 
+-----
+
 New syntax:
 
 .. code:: yaml
@@ -162,9 +164,7 @@ Resource requirements
     No speed-up for low resolution outputs (MPI overhead swamps fast run times). Quarter degree 10-50x faster. 
     Tenth 100x faster.
 
-* Memory independent of resolution
-
-* Modest memory use (<4GB per thread)
+* Memory independent of resolution (<4GB per thread)
 
 * Walltime should be minutes.
 
@@ -197,8 +197,15 @@ ACCESS-OM2 Model Configs
 ========================
 
 
-The ACCESS-OM2 There is a model hierarchy from 1 degree global to 0.1 degree global, Ocean/Ice
-model forced with atmospheric data.
+ACCESS-OM2 model hierarchy from 1 degree global to 0.1 degree global, Ocean/Ice
+model forced with atmospheric data and almost identical model parameters.
+
+Single ``access-om2`` repository
+
+https://github.com/OceansAus/access-om2
+
+Components
+----------
 
 Ocean Model is ``MOM5``, ice is modified ``CICE5``, atmosphere is ``libaccessom2``, coupler is 
 a modified version of ``OASIS3-MCT``.
@@ -208,13 +215,9 @@ https://github.com/OceansAus/cice5
 https://github.com/OceansAus/libaccessom2
 https://github.com/OceansAus/oasis3-mct
 
-All are wrapped up into a single ``access-om`` repository
 
-https://github.com/OceansAus/access-om2
-
-
-ACCESS-OM2-01
--------------
+ACCESS-OM2
+----------
 
 Nominal 1 degree global resolution
 
@@ -224,4 +227,18 @@ Forcing Data
 
 JRA-55-do RYF and IAF (1955-present)
 
+https://github.com/OceansAus/1deg_jra55_iaf
+https://github.com/OceansAus/1deg_jra55_ryf
+
+
+ACCESS-OM2-025
+--------------
+
+Nominal 0.25 degree global resolution
+
+
+ACCESS-OM2-01
+--------------
+
+Nominal 0.1 degree global resolution
 

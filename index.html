@@ -135,6 +135,8 @@ collate_mem: 16GB
 collate_queue: express
 collate_ncpus: 4
 collate_flags: -n4 -r</code></pre>
+</section><section class="slide level2">
+
 <p>New syntax:</p>
 <pre class="sourceCode yaml
 collate:
@@ -153,8 +155,7 @@ flags: -n4 -r
 <p>No speed-up for low resolution outputs (MPI overhead swamps fast run times). Quarter degree 10-50x faster. Tenth 100x faster.</p>
 </aside>
 <ul>
-<li>Memory independent of resolution</li>
-<li>Modest memory use (&lt;4GB per thread)</li>
+<li>Memory independent of resolution (&lt;4GB per thread)</li>
 <li>Walltime should be minutes.</li>
 <li>No speed-up for low resolution (1 deg global model)</li>
 </ul>
@@ -171,12 +172,23 @@ flags: -n4 -r
 <li>Flexibility with specifying path to input files</li>
 </ul>
 </section></section>
-<section><section id="access-om2-model-configs" class="title-slide slide level1"><h1>ACCESS-OM2 Model Configs</h1></section><section id="access-om2-01" class="slide level2">
-<h2>ACCESS-OM2-01</h2>
+<section><section id="access-om2-model-configs" class="title-slide slide level1"><h1>ACCESS-OM2 Model Configs</h1></section><section id="components" class="slide level2">
+<h2>Components</h2>
+<p>Ocean Model is <code>MOM5</code>, ice is modified <code>CICE5</code>, atmosphere is <code>libaccessom2</code>, coupler is a modified version of <code>OASIS3-MCT</code>.</p>
+<p><a href="https://github.com/mom-ocean/MOM5">https://github.com/mom-ocean/MOM5</a> <a href="https://github.com/OceansAus/cice5">https://github.com/OceansAus/cice5</a> <a href="https://github.com/OceansAus/libaccessom2">https://github.com/OceansAus/libaccessom2</a> <a href="https://github.com/OceansAus/oasis3-mct">https://github.com/OceansAus/oasis3-mct</a></p>
+</section><section id="access-om2" class="slide level2">
+<h2>ACCESS-OM2</h2>
 <p>Nominal 1 degree global resolution</p>
 </section><section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
 <p>JRA-55-do RYF and IAF (1955-present)</p>
+<p><a href="https://github.com/OceansAus/1deg_jra55_iaf">https://github.com/OceansAus/1deg_jra55_iaf</a> <a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a></p>
+</section><section id="access-om2-025" class="slide level2">
+<h2>ACCESS-OM2-025</h2>
+<p>Nominal 0.25 degree global resolution</p>
+</section><section id="access-om2-01" class="slide level2">
+<h2>ACCESS-OM2-01</h2>
+<p>Nominal 0.1 degree global resolution</p>
 </section></section>
     </div>
   </div>
