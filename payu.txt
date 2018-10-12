@@ -254,13 +254,13 @@ https://github.com/OceansAus/access-om2
 Components
 ----------
 
-Ocean Model is ``MOM5``, ice is modified ``CICE5``, atmosphere is ``libaccessom2``, coupler is 
-a modified version of ``OASIS3-MCT``.
+========== ================ =========================================
+Ocean      ``MOM5``         https://github.com/mom-ocean/MOM5
+Ice        ``CICE5``        https://github.com/OceansAus/cice5
+Atmosphere ``libaccessom2`` https://github.com/OceansAus/libaccessom2
+Coupler    ``OASIS3-MCT``   https://github.com/OceansAus/oasis3-mct
+========== ================ =========================================
 
-https://github.com/mom-ocean/MOM5
-https://github.com/OceansAus/cice5
-https://github.com/OceansAus/libaccessom2
-https://github.com/OceansAus/oasis3-mct
 
 
 ACCESS-OM2
