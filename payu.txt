@@ -254,9 +254,6 @@ https://github.com/OceansAus/access-om2
 Components
 ----------
 
-
-```MOM5`` <https://github.com/mom-ocean/MOM5>`_
-
 ========== ================
 Ocean      ``MOM5``        
 Ice        ``CICE5``       
@@ -264,6 +261,7 @@ Atmosphere ``libaccessom2``
 Coupler    ``OASIS3-MCT``  
 ========== ================
 
+Code
 ----
 
 ================ =========================================
