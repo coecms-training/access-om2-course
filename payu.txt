@@ -218,11 +218,11 @@ What is tracked?
 
 Three separate manifest files:
 
-===================  ===========
-``mf_exe.yml``       Executables 
-``mf_inputs.yml``    Inputs
-``mf_restarts.yml``  Restarts
-===================  ===========
+=========== ===================
+Executables ``mf_exe.yml``
+Inputs      ``mf_inputs.yml``    
+Restarts    ``mf_restarts.yml``
+=========== ===================
 
 
 How is it tracked?
