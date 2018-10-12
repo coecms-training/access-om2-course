@@ -1,6 +1,6 @@
 URL=http://lab.hakim.se/reveal-js
 REPO=https://github.com/hakimel/reveal.js/archive/master.zip
-THEME=nci
+THEME=white
 FLAGS=-s \
 	  -f rst -t revealjs \
 	  --slide-level=2 \
