@@ -72,3 +72,12 @@ New features
 
 Fast MOM (FMS) collation
 ------------------------
+
+There is a new mppnccombine in town, and it's fast.
+
+How fast? 
+
+Faster than the Waco Kid
+
+.. image:: img/waco_kid.png
+
