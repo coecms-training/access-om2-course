@@ -121,12 +121,8 @@ Requirements
 * Updated ``config.yaml`` syntax
 
 
-New Syntax
+Old Syntax
 ----------
-
-Replaces kludgey ``collate_`` options with dictionary
-
-Old syntax:
 
 .. code:: yaml
 
@@ -136,7 +132,9 @@ Old syntax:
     collate_ncpus: 4
     collate_flags: -n4 -r
 
------
+
+New syntax
+----------
 
 .. notes::
    Must specify mpi to use mppnccombine-fast.
@@ -149,7 +147,7 @@ Old syntax:
    Fewer flags, as mppnccombine-fast has fewer options
    
 
-New syntax:
+Replaces kludgey ``collate_`` options with dictionary
 
 .. code:: yaml
 
@@ -220,11 +218,11 @@ What is tracked?
 
 Three separate manifest files:
 
-* Executables ``mf_exe.yml``
+* ``mf_exe.yml`` - Executables 
 
-* Inputs  ``mf_inputs.yml``
+* ``mf_inputs.yml`` - Inputs
 
-* Restarts  ``mf_restarts.yml``
+* ``mf_restarts.yml`` - Restarts
 
 
 How is it tracked?
@@ -232,7 +230,7 @@ How is it tracked?
 
 Manifest file, which is a ``YaML`` file (like ``config.yml``)
 
-.. code:yaml
+.. code::yaml
 
     format: yamanifest
     version: 1.0

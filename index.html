@@ -126,21 +126,19 @@ payu run</code></pre>
 <li>A version of <code>payu</code> of <code>0.10</code> or greater (<code>module load payu/0.10</code> on <code>raijin</code>)</li>
 <li>Updated <code>config.yaml</code> syntax</li>
 </ul>
-</section><section id="new-syntax" class="slide level2">
-<h2>New Syntax</h2>
-<p>Replaces kludgey <code>collate_</code> options with dictionary</p>
-<p>Old syntax:</p>
+</section><section id="old-syntax" class="slide level2">
+<h2>Old Syntax</h2>
 <pre class="sourceCode yaml"><code>collate: true
 collate_mem: 16GB
 collate_queue: express
 collate_ncpus: 4
 collate_flags: -n4 -r</code></pre>
-</section><section class="slide level2">
-
+</section><section id="new-syntax" class="slide level2">
+<h2>New syntax</h2>
 <aside class="notes">
 <p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options</p>
 </aside>
-<p>New syntax:</p>
+<p>Replaces kludgey <code>collate_</code> options with dictionary</p>
 <pre class="sourceCode yaml"><code>collate:
      enable: true
      queue: express
@@ -183,13 +181,21 @@ collate_flags: -n4 -r</code></pre>
 </aside>
 <p>Three separate manifest files:</p>
 <ul>
-<li>Executables <code>mf_exe.yml</code></li>
-<li>Inputs <code>mf_inputs.yml</code></li>
-<li>Restarts <code>mf_restarts.yml</code></li>
+<li><code>mf_exe.yml</code> - Executables</li>
+<li><code>mf_inputs.yml</code> - Inputs</li>
+<li><code>mf_restarts.yml</code> - Restarts</li>
 </ul>
 </section><section id="how-is-it-tracked" class="slide level2">
 <h2>How is it tracked?</h2>
 <p>Manifest file, which is a <code>YaML</code> file (like <code>config.yml</code>)</p>
+<pre class="sourceCode yaml"><code>format: yamanifest
+version: 1.0
+---
+work/fms_MOM_SIS.intel14.fpe0.O2.ompi1.10.2:
+  fullpath: /short/v45/aph502/mom/bin/fms_MOM_SIS.intel14.fpe0.O2.ompi1.10.2
+  hashes:
+    binhash: 74b079574d3160fd2024ca928f3097a0
+    md5: e10bf223ae2564701ae310d341bbe63b</code></pre>
 </section></section>
 <section><section id="access-om2-model-configs" class="title-slide slide level1"><h1>ACCESS-OM2 Model Configs</h1></section><section id="components" class="slide level2">
 <h2>Components</h2>
