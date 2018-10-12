@@ -255,7 +255,7 @@ Components
 ----------
 
 
-`Python <http://www.python.org/>`_.
+```MOM5`` <https://github.com/mom-ocean/MOM5>`_
 
 ========== ================ =================================
 Ocean      ``MOM5``         `github.com/mom-ocean/MOM5 <https://github.com/mom-ocean/MOM5>`_
@@ -263,20 +263,6 @@ Ice        ``CICE5``        `github.com/OceansAus/cice5_<https://github.com/Ocea
 Atmosphere ``libaccessom2`` `github.com/OceansAus/libaccessom2_ <https://github.com/OceansAus/libaccessom2>`_
 Coupler    ``OASIS3-MCT``   `github.com/OceansAus/oasis3-mct_ <https://github.com/OceansAus/oasis3-mct>`_
 ========== ================ =================================
-
------
-
-========== ================ =================================
-Ocean      ``MOM5``         github.com/mom-ocean/MOM5_
-Ice        ``CICE5``        github.com/OceansAus/cice5_
-Atmosphere ``libaccessom2`` github.com/OceansAus/libaccessom2_
-Coupler    ``OASIS3-MCT``   github.com/OceansAus/oasis3-mct_
-========== ================ =================================
-
-.. _github.com/mom-ocean/MOM5: https://github.com/mom-ocean/MOM5
-.. _github.com/OceansAus/cice5: https://github.com/OceansAus/cice5
-.. _github.com/OceansAus/libaccessom2: https://github.com/OceansAus/libaccessom2
-.. _github.com/OceansAus/oasis3-mct: https://github.com/OceansAus/oasis3-mct
 
 
 ACCESS-OM2
