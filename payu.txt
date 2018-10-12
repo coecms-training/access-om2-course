@@ -216,8 +216,6 @@ What is tracked?
    run, unless a flag is specified to reproduce a run, in which case any difference will
    flag an error and stop
 
-Three separate manifest files:
-
 =========== ===================
 Executables ``mf_exe.yml``
 Inputs      ``mf_inputs.yml``    
