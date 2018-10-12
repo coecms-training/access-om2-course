@@ -235,7 +235,7 @@ Manifest file, which is a ``YaML`` file (like ``config.yml``)
     format: yamanifest
     version: 1.0
     ---
-    work/fms_MOM_SIS.intel14
+    work/fms_MOM_SIS.intel14:
       fullpath: /short/v45/aph502/mom/bin/fms_MOM_SIS.intel14
       hashes:
         binhash: 74b079574d3160fd2024ca928f3097a0
