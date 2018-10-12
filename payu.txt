@@ -66,3 +66,9 @@ This job is pre-configured, run it!
 * Model will run in ``work/``
 
 * Output saved to ``archive/``
+
+New features
+=========
+
+Fast MOM (FMS) collation
+----
