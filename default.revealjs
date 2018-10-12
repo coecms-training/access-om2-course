@@ -81,7 +81,7 @@ $endfor$
 $if(title)$
 <section id="$idprefix$title-slide">
   <div class="reveal" style="text-align: right;">
-    <img src="img/nci_logo.png"
+    <img src="img/CE-ARC-logo-lockup-1000.png"
          style="background: none; border: none; box-shadow: none;
          width: 30%"
          alt="NCI">
