@@ -124,7 +124,7 @@ Requirements
 New Syntax
 ----------
 
-Replaces kludgey ``collate_`` options with ``collate`` dictionary
+Replaces kludgey ``collate_`` options with dictionary
 
 Old syntax:
 
@@ -138,6 +138,17 @@ Old syntax:
 
 -----
 
+.. notes::
+   Must specify mpi to use mppnccombine-fast.
+   Minimum of 2 cpus, so can't use copyq
+   ncpus per thread is ncpus / nthreads
+   nthreads defaults to 1
+   ncpus defaults to 2
+   enable defaults to true
+   Don't need to specify flags, enable or exe
+   Fewer flags, as mppnccombine-fast has fewer options
+   
+
 New syntax:
 
 .. code:: yaml
@@ -145,10 +156,12 @@ New syntax:
     collate:
          enable: true
          queue: express
+         memory: 4GB
+         walltime: 00:30:00
          mpi: true
          ncpus: 4
          threads: 2
-         flags: -n4 -r
+         # flags: -v
          # exe: /full/path/to/mppnccombine-fast
 
 
@@ -187,12 +200,48 @@ Key Advantages
 
 * Track input files use for each model run
 
-* Reproducibly run previous experiment
+* Reproducibly re-run previous experiment
 
 * Share experiments more easily as input files all specified
 
 * Flexibility with specifying path to input files
 
+
+What is tracked?
+----------------
+
+.. notes:: 
+   Executables and inputs are not expected to change. Can specify a flag to either warn 
+   if they do and stop, or update manifest and continue
+   
+   Restarts are the opposite, and by default are always expected to be different for each
+   run, unless a flag is specified to reproduce a run, in which case any difference will
+   flag an error and stop
+
+Three separate manifest files:
+
+* Executables ``mf_exe.yml``
+
+* Inputs  ``mf_inputs.yml``
+
+* Restarts  ``mf_restarts.yml``
+
+
+How is it tracked?
+------------------
+
+Manifest file, which is a ``YaML`` file (like ``config.yml``)
+
+.. code:yaml
+
+    format: yamanifest
+    version: 1.0
+    ---
+    work/fms_MOM_SIS.intel14.fpe0.O2.ompi1.10.2:
+      fullpath: /short/v45/aph502/mom/bin/fms_MOM_SIS.intel14.fpe0.O2.ompi1.10.2
+      hashes:
+        binhash: 74b079574d3160fd2024ca928f3097a0
+        md5: e10bf223ae2564701ae310d341bbe63b
 
 
 ACCESS-OM2 Model Configs

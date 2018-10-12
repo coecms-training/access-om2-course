@@ -128,7 +128,7 @@ payu run</code></pre>
 </ul>
 </section><section id="new-syntax" class="slide level2">
 <h2>New Syntax</h2>
-<p>Replaces kludgey <code>collate_</code> options with <code>collate</code> dictionary</p>
+<p>Replaces kludgey <code>collate_</code> options with dictionary</p>
 <p>Old syntax:</p>
 <pre class="sourceCode yaml"><code>collate: true
 collate_mem: 16GB
@@ -137,14 +137,19 @@ collate_ncpus: 4
 collate_flags: -n4 -r</code></pre>
 </section><section class="slide level2">
 
+<aside class="notes">
+<p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options</p>
+</aside>
 <p>New syntax:</p>
 <pre class="sourceCode yaml"><code>collate:
      enable: true
      queue: express
+     memory: 4GB
+     walltime: 00:30:00
      mpi: true
      ncpus: 4
      threads: 2
-     flags: -n4 -r
+     # flags: -v
      # exe: /full/path/to/mppnccombine-fast</code></pre>
 </section><section id="resource-requirements" class="slide level2">
 <h2>Resource requirements</h2>
@@ -166,10 +171,25 @@ collate_flags: -n4 -r</code></pre>
 <h2>Key Advantages</h2>
 <ul>
 <li>Track input files use for each model run</li>
-<li>Reproducibly run previous experiment</li>
+<li>Reproducibly re-run previous experiment</li>
 <li>Share experiments more easily as input files all specified</li>
 <li>Flexibility with specifying path to input files</li>
 </ul>
+</section><section id="what-is-tracked" class="slide level2">
+<h2>What is tracked?</h2>
+<aside class="notes">
+<p>Executables and inputs are not expected to change. Can specify a flag to either warn if they do and stop, or update manifest and continue</p>
+<p>Restarts are the opposite, and by default are always expected to be different for each run, unless a flag is specified to reproduce a run, in which case any difference will flag an error and stop</p>
+</aside>
+<p>Three separate manifest files:</p>
+<ul>
+<li>Executables <code>mf_exe.yml</code></li>
+<li>Inputs <code>mf_inputs.yml</code></li>
+<li>Restarts <code>mf_restarts.yml</code></li>
+</ul>
+</section><section id="how-is-it-tracked" class="slide level2">
+<h2>How is it tracked?</h2>
+<p>Manifest file, which is a <code>YaML</code> file (like <code>config.yml</code>)</p>
 </section></section>
 <section><section id="access-om2-model-configs" class="title-slide slide level1"><h1>ACCESS-OM2 Model Configs</h1></section><section id="components" class="slide level2">
 <h2>Components</h2>
