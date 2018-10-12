@@ -68,7 +68,7 @@ This job is pre-configured, run it!
 * Output saved to ``archive/``
 
 New features
-=========
+============
 
 Fast MOM (FMS) collation
-----
+------------------------
