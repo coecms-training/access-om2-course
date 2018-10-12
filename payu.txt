@@ -218,17 +218,17 @@ What is tracked?
 
 Three separate manifest files:
 
-* ``mf_exe.yml`` - Executables 
-
-* ``mf_inputs.yml`` - Inputs
-
-* ``mf_restarts.yml`` - Restarts
+===================  ===========
+``mf_exe.yml``       Executables 
+``mf_inputs.yml``    Inputs
+``mf_restarts.yml``  Restarts
+===================  ===========
 
 
 How is it tracked?
 ------------------
 
-Manifest file, which is a ``YaML`` file (like ``config.yml``)
+yamanifest file, which is a ``YaML`` file (like ``config.yml``)
 
 .. code::yaml
 
