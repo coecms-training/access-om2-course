@@ -141,6 +141,7 @@ Old syntax:
 New syntax:
 
 .. code:: yaml
+
     collate:
          enable: true
          queue: express
@@ -149,6 +150,7 @@ New syntax:
          threads: 2
          flags: -n4 -r
          # exe: /full/path/to/mppnccombine-fast
+
 
 Resource requirements
 ---------------------
