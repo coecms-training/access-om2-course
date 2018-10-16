@@ -487,7 +487,7 @@ Running an ACCESS-OM2 model
 
 https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start
 
-.. code: bash
+.. code::bash
 
     module load payu/0.10
     git clone https://github.com/OceansAus/1deg_jra55_iaf
