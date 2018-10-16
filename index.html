@@ -67,9 +67,9 @@
 </blockquote>
 </section><section id="huh" class="slide level2">
 <h2>Huh?</h2>
-<p>That means it runs your model for you. in short:</p>
+<p>That means it runs your model for you. In short:</p>
 <ul>
-<li>Setup model run directory</li>
+<li>Setup model run directory (<code>work</code>)</li>
 <li>Run the model</li>
 <li>Move outputs/restarts to an archive directory</li>
 <li>Clean up the run directory</li>
@@ -97,8 +97,9 @@ payu run</code></pre>
 <li>Output saved to <code>archive/</code></li>
 </ul>
 </section></section>
-<section><section id="new-features" class="title-slide slide level1"><h1>New features</h1></section><section id="fast-mom-fms-collation" class="slide level2">
-<h2>Fast MOM (FMS) collation</h2>
+<section id="new-features" class="title-slide slide level1"><h1>New features</h1></section>
+<section><section id="fast-mom-fms-collation" class="title-slide slide level1"><h1>Fast MOM (FMS) collation</h1></section><section class="slide level2">
+
 <p>There is a new mppnccombine in town ... and it's fast.</p>
 <p>How fast?</p>
 </section><section class="slide level2">
@@ -115,14 +116,17 @@ payu run</code></pre>
 <p><a href="https://github.com/coecms/mppnccombine-fast">https://github.com/coecms/mppnccombine-fast</a></p>
 <ul>
 <li>Written by Scott Wales</li>
-<li>Collates any FMS model output (MOM5/MOM6/GOLD) that is tiled, that is output to multiple files to make input and output faster</li>
+<li>Collates any tiled FMS model output (MOM5/MOM6/GOLD)</li>
 <li>Particularly fast with netCDF4 compressed data</li>
 </ul>
 </section><section id="requirements" class="slide level2">
 <h2>Requirements</h2>
 <ul>
-<li><code>mppnccombine-fast</code> executable. Either copy from <code>/short/public/access-om2/mppnccombine-fast</code> or get source code and compile</li>
-<li>Place in <code>/short/$PROJECT/$model/bin</code> or somewhere else and specify the fullpath</li>
+<li>Copy <code>/short/public/aph502/mppnccombine-fast</code> to <code>/short/$PROJECT/$model/bin</code></li>
+</ul>
+<p>or</p>
+<ul>
+<li>Specify full path in <code>config.yml</code></li>
 <li>A version of <code>payu</code> of <code>0.10</code> or greater (<code>module load payu/0.10</code> on <code>raijin</code>)</li>
 <li>Updated <code>config.yaml</code> syntax</li>
 </ul>
@@ -138,7 +142,7 @@ collate_flags: -n4 -r</code></pre>
 <aside class="notes">
 <p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options Don't get your hopes up Ryan, I haven't written restart collation, but when it is done, adding restart:true will collate restarts when the restart cleaning is done</p>
 </aside>
-<p>Replaces kludgey <code>collate_</code> options with dictionary</p>
+<p>Replaces multiple <code>collate_</code> options with dictionary</p>
 <pre class="sourceCode yaml"><code>collate:
      enable: true
      queue: express
@@ -166,8 +170,7 @@ collate_flags: -n4 -r</code></pre>
 </section><section id="layout-affects-efficiency" class="slide level2">
 <h2>Layout affects efficiency</h2>
 <ul>
-<li>Chunk sizes chosen automatically by the netCDF4 library</li>
-<li>Chunk sizes depend on tile size</li>
+<li>Chunk sizes chosen automatically by netCDF4 and depend on tile size</li>
 <li>Inconsistent tile sizes =&gt; inconsistent chunk sizes</li>
 <li>Inconsistent chunk sizes makes program slow (has to uncompress/compress)</li>
 <li>Make processor layout an integer divisor of grid</li>
@@ -181,7 +184,7 @@ io_layout = 8, 6</code></pre>
 <ul>
 <li>1920 CPUs</li>
 <li>Tiles are 22.5 x 36</li>
-<li>IO tile is 180 x 180.</li>
+<li>IO tiles are 180 x 180</li>
 <li>Fine for collating normal data but slow for untiled data (restarts and regional output)</li>
 </ul>
 </section><section id="improved-layout" class="slide level2">
@@ -192,11 +195,27 @@ io_layout = 10, 6</code></pre>
 <ul>
 <li>1920 CPUs</li>
 <li>Tiles are 24 x 10</li>
-<li>IO tile is 144 x 180.</li>
+<li>IO tile is 144 x 180</li>
 <li>Fast for collating tiled and untiled output</li>
 </ul>
-</section><section id="multiple-runs-per-submit" class="slide level2">
-<h2>Multiple runs per submit</h2>
+</section></section>
+<section><section id="multiple-runs-per-submit" class="title-slide slide level1"><h1>Multiple runs per submit</h1></section><section class="slide level2">
+
+<aside class="notes">
+<p>Don't agree with Marshall from first payu training session nf_limits -P project -q queue -n ncpus</p>
+</aside>
+<ul>
+<li>Low CPU count model: walltime up to 48 hours</li>
+<li>Maximise walltime to reduce effect of queue time</li>
+<li><dl>
+<dt>Running a model for 48 hours</dt>
+<dd><ul>
+<li>What if it crashes?</li>
+<li>Output files non optimal</li>
+</ul>
+</dd>
+</dl></li>
+</ul>
 </section></section>
 <section><section id="upcoming-features" class="title-slide slide level1"><h1>Upcoming features</h1></section><section id="file-tracking" class="slide level2">
 <h2>File Tracking</h2>

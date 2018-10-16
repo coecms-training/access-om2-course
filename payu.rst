@@ -20,9 +20,9 @@ Payu is
 Huh?
 ----
 
-That means it runs your model for you. in short:
+That means it runs your model for you. In short:
 
-* Setup model run directory
+* Setup model run directory (``work``)
 
 * Run the model
 
@@ -75,8 +75,11 @@ This job is pre-configured, run it!
 New features
 ============
 
+
 Fast MOM (FMS) collation
-------------------------
+========================
+
+----
 
 There is a new mppnccombine in town ... and it's fast.
 
@@ -104,7 +107,7 @@ https://github.com/coecms/mppnccombine-fast
 
 * Written by Scott Wales
 
-* Collates any FMS model output (MOM5/MOM6/GOLD) that is tiled, that is output to multiple files to make input and output faster
+* Collates any tiled FMS model output (MOM5/MOM6/GOLD)
 
 * Particularly fast with netCDF4 compressed data
 
@@ -112,9 +115,11 @@ https://github.com/coecms/mppnccombine-fast
 Requirements
 ------------
 
-* ``mppnccombine-fast`` executable. Either copy from ``/short/public/access-om2/mppnccombine-fast`` or get source code and compile
+* Copy ``/short/public/aph502/mppnccombine-fast`` to ``/short/$PROJECT/$model/bin`` 
 
-* Place in ``/short/$PROJECT/$model/bin`` or somewhere else and specify the fullpath
+or 
+
+* Specify full path in ``config.yml``
 
 * A version of ``payu`` of ``0.10`` or greater (``module load payu/0.10`` on ``raijin``)
 
@@ -150,7 +155,7 @@ New syntax
      will collate restarts when the restart cleaning is done
    
 
-Replaces kludgey ``collate_`` options with dictionary
+Replaces multiple ``collate_`` options with dictionary
 
 .. code:: yaml
 
@@ -193,9 +198,7 @@ Resource requirements
 Layout affects efficiency
 -------------------------
 
-* Chunk sizes chosen automatically by the netCDF4 library
-
-* Chunk sizes depend on tile size
+* Chunk sizes chosen automatically by netCDF4 and depend on tile size
 
 * Inconsistent tile sizes => inconsistent chunk sizes
 
@@ -220,7 +223,7 @@ Quarter degree MOM-SIS model is 1440 x 1080.
 
 * Tiles are 22.5 x 36
 
-* IO tile is 180 x 180. 
+* IO tiles are 180 x 180
 
 * Fine for collating normal data but slow for untiled data (restarts and regional output) 
 
@@ -239,14 +242,27 @@ Quarter degree MOM-SIS model is 1440 x 1080.
 
 * Tiles are 24 x 10
 
-* IO tile is 144 x 180. 
+* IO tile is 144 x 180
 
 * Fast for collating tiled and untiled output
 
 
 Multiple runs per submit
-------------------------
+========================
 
+----
+
+.. notes:: 
+    Don't agree with Marshall from first payu training session
+    nf_limits -P project -q queue -n ncpus
+
+* Low CPU count model: walltime up to 48 hours
+
+* Maximise walltime to reduce effect of queue time
+
+* Running a model for 48 hours 
+   - What if it crashes?
+   - Output files non optimal
 
 
 Upcoming features
