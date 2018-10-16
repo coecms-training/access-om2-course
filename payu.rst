@@ -344,8 +344,8 @@ How is it tracked?
 * Each file (symlink) in work is dictionary key 
 
 
-Example yamanifest file
------------------------
+Example
+-------
 
 * ``fullpath`` is the actual location of the file 
 
@@ -370,25 +370,23 @@ Hierachy of hashes
    binhash uses datestamp and size combined with first 100MB of a file.
    Not guaranteed unique, but likely to detect if the file has changed
 
-* Yamanifest supports multiple hashes
+* yamanifest supports multiple hashes => hierachy of hashes
 
-* Allows a hierachy of hashes
+* Unique hashes (md5, sha128) take too long on large files
 
-* Unique hashes (md5, sha128, sha256) are time consuming to run on large files
+* Fast hashing to check for file changes
 
-* Fast (not guaranteed unique) hashing used for fast checking for file changes
-
-* Can still request full hash check when necessary (or periodically?)
+* Use unique hash check when necessary (or periodically?)
 
 
-ACCESS-OM2 Model Configs
-========================
+ACCESS-OM2
+==========
 
 
 ACCESS-OM2 model hierarchy from 1 degree global to 0.1 degree global, Ocean/Ice
 model forced with atmospheric data and almost identical model parameters.
 
-Single ``access-om2`` repository
+Single ``access-om2`` repository with all code and configs
 
 https://github.com/OceansAus/access-om2
 
@@ -412,10 +410,26 @@ Code
 ``OASIS3-MCT``   https://github.com/OceansAus/oasis3-mct
 ================ =========================================
 
+Forcing Data
+------------
+
+* Uses JRA-55 reanalysis derivative product JRA55-do
+
+http://jra.kishou.go.jp/JRA-55/index_en.html
+https://www.sciencedirect.com/science/article/pii/S146350031830235X
+
+* IAF (Interannual Forcing) : JRA55-do (1955-present) 
+* RYF (Repeat Year Forcing) : MayYrX+1 - MayYr of JRA55-do 
+   X = 84,91,03
+
+https://github.com/OceansAus/1deg_jra55_iaf
+https://github.com/OceansAus/1deg_jra55_ryf
 ACCESS-OM2
 ----------
 
 Nominal 1 degree global resolution
+
+https://github.com/OceansAus/1deg_jra55_ryf
 
 ACCESS-OM2-025
 --------------
@@ -428,11 +442,3 @@ ACCESS-OM2-01
 
 Nominal 0.1 degree global resolution
 
-
-Forcing Data
-------------
-
-JRA-55-do RYF and IAF (1955-present)
-
-https://github.com/OceansAus/1deg_jra55_iaf
-https://github.com/OceansAus/1deg_jra55_ryf

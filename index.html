@@ -38,7 +38,7 @@
               background-size: cover;"> -->
 
     <header style="width: 10%; position: absolute; top: 2%; left: 2%;">
-      <img src="img/nci_logo_small.png">
+      <img src="img/CE-logo-COL-clex-horiz-screen.png">
     </header>
 
     <footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;">
@@ -266,8 +266,8 @@ collate_flags: -n4 -r</code></pre>
 <li>Creates a <code>YaML</code> file</li>
 <li>Each file (symlink) in work is dictionary key</li>
 </ul>
-</section><section id="example-yamanifest-file" class="slide level2">
-<h2>Example yamanifest file</h2>
+</section><section id="example-1" class="slide level2">
+<h2>Example</h2>
 <ul>
 <li><code>fullpath</code> is the actual location of the file</li>
 <li>The hashes uniquely identify file</li>
@@ -286,14 +286,13 @@ work/fms_MOM_SIS.intel14:
 <p>binhash uses datestamp and size combined with first 100MB of a file. Not guaranteed unique, but likely to detect if the file has changed</p>
 </aside>
 <ul>
-<li>Yamanifest supports multiple hashes</li>
-<li>Allows a hierachy of hashes</li>
-<li>Unique hashes (md5, sha128, sha256) are time consuming to run on large files</li>
-<li>Fast (not guaranteed unique) hashing used for fast checking for file changes</li>
-<li>Can still request full hash check when necessary (or periodically?)</li>
+<li>yamanifest supports multiple hashes =&gt; hierachy of hashes</li>
+<li>Unique hashes (md5, sha128) take too long on large files</li>
+<li>Fast hashing to check for file changes</li>
+<li>Use unique hash check when necessary (or periodically?)</li>
 </ul>
 </section></section>
-<section><section id="access-om2-model-configs" class="title-slide slide level1"><h1>ACCESS-OM2 Model Configs</h1></section><section id="components" class="slide level2">
+<section><section id="access-om2" class="title-slide slide level1"><h1>ACCESS-OM2</h1></section><section id="components" class="slide level2">
 <h2>Components</h2>
 <table>
 <tbody>
@@ -337,19 +336,29 @@ work/fms_MOM_SIS.intel14:
 </tr>
 </tbody>
 </table>
-</section><section id="access-om2" class="slide level2">
-<h2>ACCESS-OM2</h2>
+</section><section id="forcing-data" class="slide level2">
+<h2>Forcing Data</h2>
+<ul>
+<li>Uses JRA-55 reanalysis derivative product JRA55-do</li>
+</ul>
+<p><a href="http://jra.kishou.go.jp/JRA-55/index_en.html">http://jra.kishou.go.jp/JRA-55/index_en.html</a> <a href="https://www.sciencedirect.com/science/article/pii/S146350031830235X">https://www.sciencedirect.com/science/article/pii/S146350031830235X</a></p>
+<ul>
+<li>IAF (Interannual Forcing) : JRA55-do (1955-present)</li>
+<li><dl>
+<dt>RYF (Repeat Year Forcing) : MayYrX+1 - MayYr of JRA55-do</dt>
+<dd><p>X = 84,91,03</p>
+</dd>
+</dl></li>
+</ul>
+<p><a href="https://github.com/OceansAus/1deg_jra55_iaf">https://github.com/OceansAus/1deg_jra55_iaf</a> <a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a> ACCESS-OM2 ----------</p>
 <p>Nominal 1 degree global resolution</p>
+<p><a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a></p>
 </section><section id="access-om2-025" class="slide level2">
 <h2>ACCESS-OM2-025</h2>
 <p>Nominal 0.25 degree global resolution</p>
 </section><section id="access-om2-01" class="slide level2">
 <h2>ACCESS-OM2-01</h2>
 <p>Nominal 0.1 degree global resolution</p>
-</section><section id="forcing-data" class="slide level2">
-<h2>Forcing Data</h2>
-<p>JRA-55-do RYF and IAF (1955-present)</p>
-<p><a href="https://github.com/OceansAus/1deg_jra55_iaf">https://github.com/OceansAus/1deg_jra55_iaf</a> <a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a></p>
 </section></section>
     </div>
   </div>
