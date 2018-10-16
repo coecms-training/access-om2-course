@@ -76,8 +76,8 @@ New features
 ============
 
 
-Fast MOM (FMS) collation
-========================
+Fast MOM collation
+==================
 
 ----
 
@@ -261,8 +261,12 @@ Multiple runs per submit
 * Maximise walltime to reduce effect of queue time
 
 * Running a model for 48 hours 
-   - What if it crashes?
-   - Output files non optimal
+    - What if it crashes?
+    - Output files non optimal
+
+subsperun
+---------
+
 
 
 Upcoming features
