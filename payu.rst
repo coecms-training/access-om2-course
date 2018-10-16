@@ -119,7 +119,7 @@ Requirements
 
 or 
 
-* Specify full path in ``config.yml``
+* Specify full path in ``config.yaml``
 
 * A version of ``payu`` of ``0.10`` or greater (``module load payu/0.10`` on ``raijin``)
 
@@ -212,7 +212,14 @@ Layout affects efficiency
 Example
 -------
 
-Quarter degree MOM-SIS model is 1440 x 1080. 
+.. notes:: 
+    Might think with io_layout would make consistent tile sizes, but the 
+    decomposition algorithm has already chosen some distribution of different
+    tile sizes that cannot be evenly combined with io_layout
+    Surprise to me to!
+    
+
+Quarter degree MOM-SIS model: 1440 x 1080. 
 
 .. code:: fortran
 
@@ -223,15 +230,15 @@ Quarter degree MOM-SIS model is 1440 x 1080.
 
 * Tiles are 22.5 x 36
 
-* IO tiles are 180 x 180
+* IO tiles are 184 x 180, and 176 x 180
 
-* Fine for collating normal data but slow for untiled data (restarts and regional output) 
+* Slow for collating normal data and slow for untiled data (restarts and regional output) 
 
 
 Improved Layout
 ---------------
 
-Quarter degree MOM-SIS model is 1440 x 1080. 
+Quarter degree MOM-SIS model: 1440 x 1080. 
 
 .. code:: fortran
 
@@ -247,8 +254,8 @@ Quarter degree MOM-SIS model is 1440 x 1080.
 * Fast for collating tiled and untiled output
 
 
-Multiple runs per submit
-========================
+Runs per submit
+===============
 
 ----
 
@@ -266,9 +273,18 @@ Multiple runs per submit
 * A single model run: What if crashes? Output non optimal?
 
 
-subsperun
----------
+runspersub
+----------
 
+* Run the model multiple times per PBS submit
+
+.. code:: yaml
+
+    runsperub: true
+    collate_mem: 16GB
+    collate_queue: express
+    collate_ncpus: 4
+    collate_flags: -n4 -r
 
 
 Upcoming features
@@ -277,13 +293,13 @@ Upcoming features
 File Tracking
 -------------
 
-Wanted to do this since forever.
+Wanted to do this since forever
 
 
 Key Advantages
 --------------
 
-* Track input files use for each model run
+* Track input files used for each model run
 
 * Reproducibly re-run previous experiment
 
@@ -304,9 +320,9 @@ What is tracked?
    flag an error and stop
 
 =========== ===================
-Executables ``mf_exe.yml``
-Inputs      ``mf_inputs.yml``    
-Restarts    ``mf_restarts.yml``
+Executables ``mf_exe.yaml``
+Inputs      ``mf_inputs.yaml``    
+Restarts    ``mf_restarts.yaml``
 =========== ===================
 
 
@@ -315,12 +331,25 @@ How is it tracked?
 
 .. notes:: 
    Note there is a header and a version string, can ignore
+   All files in work are either config files (which are tracked
+     by git) or symbolic links to files elsewhere on filesystem
+   Issues with getting this working has to do with enforcing this
+     for all models - can be difficult with hardwired paths etc
+     
+
+* Uses yamanifest 
+
+* Creates a ``YaML`` file 
+
+* Each file (symlink) in work is dictionary key 
 
 
-yamanifest file, which is a ``YaML`` file (like ``config.yml``) with each file path in 
-the local work directory as a key in a dictionary. ``fullpath`` is the location on the
-file which is symbolically linked into the work directory. The hashes uniquely identify
-the file
+Example yamanifest file
+-----------------------
+
+* ``fullpath`` is the actual location of the file 
+
+* The hashes uniquely identify file
 
 .. code::yaml
 
@@ -332,6 +361,7 @@ the file
       hashes:
         binhash: 74b079574d3160fd2024ca928f3097a0
         md5: e10bf223ae2564701ae310d341bbe63b
+
 
 Hierachy of hashes
 ------------------
