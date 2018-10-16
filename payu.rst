@@ -228,7 +228,7 @@ Quarter degree MOM-SIS model: 1440 x 1080.
 
 * 1920 CPUs
 
-* Tiles are 22.5 x 36
+* Tiles are 22 x 36 and 23 x 36
 
 * IO tiles are 184 x 180, and 176 x 180
 
@@ -266,26 +266,29 @@ Runs per submit
     255 < 24 hrs < 512
     512 < 10 hrs < 1024
 
-* Low CPU count model: walltime up to 48 hours
+* For low CPU count model: walltime up to 48 hours
 
 * Maximise walltime to reduce effect of queue time
 
-* A single model run: What if crashes? Output non optimal?
+* A single 48 hourr model run: What if crashes? Output non optimal?
 
 
 runspersub
 ----------
 
+.. notes:: 
+     Runspersub to the rescue!
+    
 * Run a 2hr model 23 times per PBS submit
+
+* Set ``walltime`` to allow for ``runspersub`` runs of the model
+
+* If ``Walltime`` exceeded last run will crash (and time for just that run wasted) and ``payu`` will not resubmit
 
 .. code:: yaml
 
     runspersub: 23
     walltime: 48:00:00
-
-* Set ``walltime`` to allow for ``runspersub`` runs of the model
-
-* If ``Walltime`` exceeded last run will crash (and time for just that run wasted) and ``payu`` will not resubmit
 
 
 Resubmission
@@ -299,9 +302,9 @@ Resubmission
 
     payu run -n 50
 
-* Without ``runspersub`` specified, would be 50 PBS submissions
+* ``runspersub: 1``: 50 PBS submissions, single run in each
 
-* With ``runspersub: 23``, 3 PBS submissions, 23, 23 and 4 model runs in each
+* ``runspersub: 23``: 3 PBS submissions, 23/23/4 model runs respectively
 
 
 Upcoming features
@@ -310,11 +313,16 @@ Upcoming features
 File Tracking
 -------------
 
-Wanted to do this since forever
+Wanted to do this for a long long time
 
 
 Key Advantages
 --------------
+
+.. notes:: 
+     Very early in this job, there was a "dodgy aerosol file" that had
+         been used in some simulations, but hard/impossible to say which
+         runs/files were affected
 
 * Track input files used for each model run
 
@@ -323,6 +331,8 @@ Key Advantages
 * Share experiments more easily as input files all specified
 
 * Flexibility with specifying path to input files
+
+* Identify all runs using specified file (possible future feature)
 
 
 What is tracked?
@@ -399,13 +409,13 @@ Hierachy of hashes
 ACCESS-OM2
 ==========
 
-
-ACCESS-OM2 model hierarchy from 1 degree global to 0.1 degree global, Ocean/Ice
+ACCESS-OM2 model suite from 1 degree global to 0.1 degree global, Ocean/Ice
 model forced with atmospheric data and almost identical model parameters.
 
 Single ``access-om2`` repository with all code and configs
 
 https://github.com/OceansAus/access-om2
+
 
 Components
 ----------
@@ -417,6 +427,7 @@ Atmosphere ``libaccessom2``
 Coupler    ``OASIS3-MCT``  
 ========== ================
 
+
 Code
 ----
 
@@ -426,6 +437,7 @@ Code
 ``libaccessom2`` https://github.com/OceansAus/libaccessom2
 ``OASIS3-MCT``   https://github.com/OceansAus/oasis3-mct
 ================ =========================================
+
 
 Forcing Data
 ------------
@@ -438,6 +450,7 @@ https://www.sciencedirect.com/science/article/pii/S146350031830235X
 * IAF (Interannual Forcing) : JRA55-do (1955-present) 
 * RYF (Repeat Year Forcing) : MayYrX+1 - MayYr of JRA55-do 
    X = 84,91,03
+
 
 ACCESS-OM2
 ----------

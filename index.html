@@ -186,7 +186,7 @@ collate_flags: -n4 -r</code></pre>
 io_layout = 8, 6</code></pre>
 <ul>
 <li>1920 CPUs</li>
-<li>Tiles are 22.5 x 36</li>
+<li>Tiles are 22 x 36 and 23 x 36</li>
 <li>IO tiles are 184 x 180, and 176 x 180</li>
 <li>Slow for collating normal data and slow for untiled data (restarts and regional output)</li>
 </ul>
@@ -208,21 +208,22 @@ io_layout = 10, 6</code></pre>
 <p>Don't agree with Marshall from first payu training session nf_limits -P project -q queue -n ncpus 48 hrs &lt; 256 CPUs 255 &lt; 24 hrs &lt; 512 512 &lt; 10 hrs &lt; 1024</p>
 </aside>
 <ul>
-<li>Low CPU count model: walltime up to 48 hours</li>
+<li>For low CPU count model: walltime up to 48 hours</li>
 <li>Maximise walltime to reduce effect of queue time</li>
-<li>A single model run: What if crashes? Output non optimal?</li>
+<li>A single 48 hourr model run: What if crashes? Output non optimal?</li>
 </ul>
 </section><section id="runspersub" class="slide level2">
 <h2>runspersub</h2>
+<aside class="notes">
+<p>Runspersub to the rescue!</p>
+</aside>
 <ul>
 <li>Run a 2hr model 23 times per PBS submit</li>
-</ul>
-<pre class="sourceCode yaml"><code>runspersub: 23
-walltime: 48:00:00</code></pre>
-<ul>
 <li>Set <code>walltime</code> to allow for <code>runspersub</code> runs of the model</li>
 <li>If <code>Walltime</code> exceeded last run will crash (and time for just that run wasted) and <code>payu</code> will not resubmit</li>
 </ul>
+<pre class="sourceCode yaml"><code>runspersub: 23
+walltime: 48:00:00</code></pre>
 </section><section id="resubmission" class="slide level2">
 <h2>Resubmission</h2>
 <ul>
@@ -231,20 +232,24 @@ walltime: 48:00:00</code></pre>
 </ul>
 <pre class="sourceCode bash"><code>payu run -n 50</code></pre>
 <ul>
-<li>Without <code>runspersub</code> specified, would be 50 PBS submissions</li>
-<li>With <code>runspersub: 23</code>, 3 PBS submissions, 23, 23 and 4 model runs in each</li>
+<li><code>runspersub: 1</code>: 50 PBS submissions, single run in each</li>
+<li><code>runspersub: 23</code>: 3 PBS submissions, 23/23/4 model runs respectively</li>
 </ul>
 </section></section>
 <section><section id="upcoming-features" class="title-slide slide level1"><h1>Upcoming features</h1></section><section id="file-tracking" class="slide level2">
 <h2>File Tracking</h2>
-<p>Wanted to do this since forever</p>
+<p>Wanted to do this for a long long time</p>
 </section><section id="key-advantages" class="slide level2">
 <h2>Key Advantages</h2>
+<aside class="notes">
+<p>Very early in this job, there was a &quot;dodgy aerosol file&quot; that had been used in some simulations, but hard/impossible to say which runs/files were affected</p>
+</aside>
 <ul>
 <li>Track input files used for each model run</li>
 <li>Reproducibly re-run previous experiment</li>
 <li>Share experiments more easily as input files all specified</li>
 <li>Flexibility with specifying path to input files</li>
+<li>Identify all runs using specified file (possible future feature)</li>
 </ul>
 </section><section id="what-is-tracked" class="slide level2">
 <h2>What is tracked?</h2>
