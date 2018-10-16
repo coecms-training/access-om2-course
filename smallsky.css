@@ -218,6 +218,7 @@ body {
 .reveal a {
   color: #3b759e;
   text-decoration: none;
+  font-size: 0.6em;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
   transition: color .15s ease; }

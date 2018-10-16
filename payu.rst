@@ -2,7 +2,7 @@
 Payu Features and Configs
 =========================
 
-:subtitle: New features and running ACCESS-OM2 payu models
+:subtitle: New features and running ACCESS-OM2 models
 :author: Aidan Heerdegen
 :description: A training course to introduce new and upcoming features
 :date: 17 October 2018
