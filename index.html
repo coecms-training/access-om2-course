@@ -210,30 +210,31 @@ io_layout = 10, 6</code></pre>
 <ul>
 <li>For low CPU count model: walltime up to 48 hours</li>
 <li>Maximise walltime to reduce effect of queue time</li>
-<li>A single 48 hourr model run: What if crashes? Output non optimal?</li>
+<li>A single 48 hour model run: What if crashes? Output non optimal?</li>
 </ul>
 </section><section id="runspersub" class="slide level2">
 <h2>runspersub</h2>
 <aside class="notes">
-<p>Runspersub to the rescue!</p>
+<p>Runspersub to the rescue! Being conservative with walltime in case some runs take &gt; 2hr When last run crashes, only time of last run is lost</p>
 </aside>
-<ul>
-<li>Run a 2hr model 23 times per PBS submit</li>
-<li>Set <code>walltime</code> to allow for <code>runspersub</code> runs of the model</li>
-<li>If <code>Walltime</code> exceeded last run will crash (and time for just that run wasted) and <code>payu</code> will not resubmit</li>
-</ul>
 <pre class="sourceCode yaml"><code>runspersub: 23
 walltime: 48:00:00</code></pre>
+<ul>
+<li>Say model takes 2hr per run</li>
+<li>Above config would run the model 23 times per PBS submit</li>
+<li><code>walltime</code> must allow for <code>runspersub</code> runs of the model</li>
+<li>If <code>Walltime</code> exceeded last run will crash. <code>payu</code> will not resubmit</li>
+</ul>
 </section><section id="resubmission" class="slide level2">
 <h2>Resubmission</h2>
 <ul>
 <li><code>payu</code> can resubmit itself with <code>-n</code> command line option</li>
-<li>Using same model example:</li>
+<li>Using same model example if I wanted 50 runs of the model:</li>
 </ul>
 <pre class="sourceCode bash"><code>payu run -n 50</code></pre>
 <ul>
-<li><code>runspersub: 1</code>: 50 PBS submissions, single run in each</li>
-<li><code>runspersub: 23</code>: 3 PBS submissions, 23/23/4 model runs respectively</li>
+<li><code>runspersub: 1</code> =&gt; 50 PBS submissions, single run in each</li>
+<li><code>runspersub: 23</code> =&gt; 3 PBS submissions, 23/23/4 model runs respectively</li>
 </ul>
 </section></section>
 <section><section id="upcoming-features" class="title-slide slide level1"><h1>Upcoming features</h1></section><section id="file-tracking" class="slide level2">
@@ -275,9 +276,6 @@ walltime: 48:00:00</code></pre>
 </table>
 </section><section id="how-is-it-tracked" class="slide level2">
 <h2>How is it tracked?</h2>
-<aside class="notes">
-<p>Note there is a header and a version string, can ignore All files in work are either config files (which are tracked by git) or symbolic links to files elsewhere on filesystem Issues with getting this working has to do with enforcing this for all models - can be difficult with hardwired paths etc</p>
-</aside>
 <ul>
 <li>Uses yamanifest</li>
 <li>Creates a <code>YaML</code> file</li>
@@ -285,6 +283,9 @@ walltime: 48:00:00</code></pre>
 </ul>
 </section><section id="example-1" class="slide level2">
 <h2>Example</h2>
+<aside class="notes">
+<p>Note there is a header and a version string, can ignore All files in work are either config files (which are tracked by git) or symbolic links to files elsewhere on filesystem Issues with getting this working has to do with enforcing this for all models - can be difficult with hardwired paths etc</p>
+</aside>
 <ul>
 <li><code>fullpath</code> is the actual location of the file</li>
 <li>The hashes uniquely identify file</li>
@@ -355,6 +356,9 @@ work/fms_MOM_SIS.intel14:
 </table>
 </section><section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
+<aside class="notes">
+<p>Compact way of representing RYF8485 RYF9091 and RYF 0304</p>
+</aside>
 <ul>
 <li>Uses JRA-55 reanalysis derivative product JRA55-do</li>
 </ul>
@@ -380,6 +384,12 @@ work/fms_MOM_SIS.intel14:
 </section><section id="access-om2-01" class="slide level2">
 <h2>ACCESS-OM2-01</h2>
 <p>Nominal 0.1 degree global resolution</p>
+</section><section id="how-to-an-access-om2-model" class="slide level2">
+<h2>How to an ACCESS-OM2 model</h2>
+<ul>
+<li>Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github</li>
+</ul>
+<p><a href="https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start">https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start</a></p>
 </section></section>
     </div>
   </div>

@@ -270,7 +270,7 @@ Runs per submit
 
 * Maximise walltime to reduce effect of queue time
 
-* A single 48 hourr model run: What if crashes? Output non optimal?
+* A single 48 hour model run: What if crashes? Output non optimal?
 
 
 runspersub
@@ -278,17 +278,21 @@ runspersub
 
 .. notes:: 
      Runspersub to the rescue!
+     Being conservative with walltime in case some runs take > 2hr
+     When last run crashes, only time of last run is lost
     
-* Run a 2hr model 23 times per PBS submit
-
-* Set ``walltime`` to allow for ``runspersub`` runs of the model
-
-* If ``Walltime`` exceeded last run will crash (and time for just that run wasted) and ``payu`` will not resubmit
-
 .. code:: yaml
 
     runspersub: 23
     walltime: 48:00:00
+
+* Say model takes 2hr per run 
+
+* Above config would run the model 23 times per PBS submit
+
+* ``walltime`` must allow for ``runspersub`` runs of the model
+
+* If ``Walltime`` exceeded last run will crash. ``payu`` will not resubmit
 
 
 Resubmission
@@ -296,15 +300,15 @@ Resubmission
 
 * ``payu`` can resubmit itself with ``-n`` command line option
 
-* Using same model example:
+* Using same model example if I wanted 50 runs of the model:
 
 .. code:: bash
 
     payu run -n 50
 
-* ``runspersub: 1``: 50 PBS submissions, single run in each
+* ``runspersub: 1`` => 50 PBS submissions, single run in each
 
-* ``runspersub: 23``: 3 PBS submissions, 23/23/4 model runs respectively
+* ``runspersub: 23`` => 3 PBS submissions, 23/23/4 model runs respectively
 
 
 Upcoming features
@@ -356,14 +360,6 @@ Restarts    ``mf_restarts.yaml``
 How is it tracked?
 ------------------
 
-.. notes:: 
-   Note there is a header and a version string, can ignore
-   All files in work are either config files (which are tracked
-     by git) or symbolic links to files elsewhere on filesystem
-   Issues with getting this working has to do with enforcing this
-     for all models - can be difficult with hardwired paths etc
-     
-
 * Uses yamanifest 
 
 * Creates a ``YaML`` file 
@@ -374,6 +370,13 @@ How is it tracked?
 Example
 -------
 
+.. notes:: 
+   Note there is a header and a version string, can ignore
+   All files in work are either config files (which are tracked
+     by git) or symbolic links to files elsewhere on filesystem
+   Issues with getting this working has to do with enforcing this
+     for all models - can be difficult with hardwired paths etc
+     
 * ``fullpath`` is the actual location of the file 
 
 * The hashes uniquely identify file
@@ -442,12 +445,16 @@ Code
 Forcing Data
 ------------
 
+.. notes:: 
+   Compact way of representing RYF8485 RYF9091 and RYF 0304
+
 * Uses JRA-55 reanalysis derivative product JRA55-do
 
 http://jra.kishou.go.jp/JRA-55/index_en.html
 https://www.sciencedirect.com/science/article/pii/S146350031830235X
 
 * IAF (Interannual Forcing) : JRA55-do (1955-present) 
+
 * RYF (Repeat Year Forcing) : MayYrX+1 - MayYr of JRA55-do 
    X = 84,91,03
 
@@ -473,3 +480,17 @@ ACCESS-OM2-01
 
 Nominal 0.1 degree global resolution
 
+
+How to an ACCESS-OM2 model
+--------------------------
+
+* Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github
+
+https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start
+
+.. code: bash
+
+    module load payu/0.10
+    git clone https://github.com/OceansAus/1deg_jra55_iaf
+    cd 1deg_jra55_iaf 
+    payu init
