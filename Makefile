@@ -10,7 +10,9 @@ FLAGS=-s \
 	  --template=default.revealjs \
 	  --no-highlight
 
-all: index.html reveal.js
+DATE=$(shell date)
+
+all: index.html reveal.js commit install
 
 reveal.js:
 	wget -N ${REPO}
@@ -20,6 +22,12 @@ reveal.js:
 
 index.html: payu.rst
 	pandoc ${FLAGS} $^ -o $@
+
+commit: 
+	git commit -a -m 'Automatic build on ${DATE}'
+
+install: 
+	git push
 
 clean:
 	rm -f index.html 
