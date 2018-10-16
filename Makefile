@@ -1,6 +1,6 @@
 URL=http://lab.hakim.se/reveal-js
 REPO=https://github.com/hakimel/reveal.js/archive/master.zip
-THEME=sky
+THEME=smallsky
 FLAGS=-s \
 	  -f rst -t revealjs \
 	  --slide-level=2 \
@@ -18,7 +18,7 @@ reveal.js:
 	wget -N ${REPO}
 	unzip master.zip
 	mv reveal.js-master reveal.js
-	cp nci.css reveal.js/css/theme/
+	cp smallsky.css reveal.js/css/theme/
 
 index.html: payu.rst
 	pandoc ${FLAGS} $^ -o $@
