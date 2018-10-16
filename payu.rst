@@ -455,8 +455,7 @@ https://www.sciencedirect.com/science/article/pii/S146350031830235X
 
 * IAF (Interannual Forcing) : JRA55-do (1955-present) 
 
-* RYF (Repeat Year Forcing) : MayYrX+1 - MayYr of JRA55-do 
-   X = 84,91,03
+* RYF (Repeat Year Forcing) : RYF8485, RYF9091, RYF0304
 
 
 ACCESS-OM2
@@ -481,8 +480,8 @@ ACCESS-OM2-01
 Nominal 0.1 degree global resolution
 
 
-How to an ACCESS-OM2 model
---------------------------
+Running an ACCESS-OM2 model
+---------------------------
 
 * Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github
 
