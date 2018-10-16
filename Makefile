@@ -19,6 +19,7 @@ reveal.js:
 	unzip master.zip
 	mv reveal.js-master reveal.js
 	cp smallsky.css reveal.js/css/theme/
+	git add reveal.js/css/theme/smallsky.css
 
 index.html: payu.rst
 	pandoc ${FLAGS} $^ -o $@
