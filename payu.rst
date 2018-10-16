@@ -238,7 +238,7 @@ Quarter degree MOM-SIS model is 1440 x 1080.
     layout = 60, 36
     io_layout = 10, 6
 
-* 1920 CPUs
+* 2160 CPUs
 
 * Tiles are 24 x 10
 
@@ -255,14 +255,16 @@ Multiple runs per submit
 .. notes:: 
     Don't agree with Marshall from first payu training session
     nf_limits -P project -q queue -n ncpus
+    48 hrs < 256 CPUs
+    255 < 24 hrs < 512
+    512 < 10 hrs < 1024
 
 * Low CPU count model: walltime up to 48 hours
 
 * Maximise walltime to reduce effect of queue time
 
-* Running a model for 48 hours 
-    - What if it crashes?
-    - Output files non optimal
+* A single model run: What if crashes? Output non optimal?
+
 
 subsperun
 ---------
