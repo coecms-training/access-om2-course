@@ -18,7 +18,7 @@ reveal.js:
 	mv reveal.js-master reveal.js
 	cp nci.css reveal.js/css/theme/
 
-index.html: payu.txt
+index.html: payu.rst
 	pandoc ${FLAGS} $^ -o $@
 
 clean:

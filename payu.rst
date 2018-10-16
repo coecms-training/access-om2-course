@@ -276,16 +276,6 @@ ACCESS-OM2
 
 Nominal 1 degree global resolution
 
-
-Forcing Data
-------------
-
-JRA-55-do RYF and IAF (1955-present)
-
-https://github.com/OceansAus/1deg_jra55_iaf
-https://github.com/OceansAus/1deg_jra55_ryf
-
-
 ACCESS-OM2-025
 --------------
 
@@ -297,3 +287,11 @@ ACCESS-OM2-01
 
 Nominal 0.1 degree global resolution
 
+
+Forcing Data
+------------
+
+JRA-55-do RYF and IAF (1955-present)
+
+https://github.com/OceansAus/1deg_jra55_iaf
+https://github.com/OceansAus/1deg_jra55_ryf
