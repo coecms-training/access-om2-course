@@ -145,6 +145,9 @@ New syntax
    enable defaults to true
    Don't need to specify flags, enable or exe
    Fewer flags, as mppnccombine-fast has fewer options
+   Don't get your hopes up Ryan, I haven't written restart
+     collation, but when it is done, adding restart:true
+     will collate restarts when the restart cleaning is done
    
 
 Replaces kludgey ``collate_`` options with dictionary
@@ -161,6 +164,7 @@ Replaces kludgey ``collate_`` options with dictionary
          threads: 2
          # flags: -v
          # exe: /full/path/to/mppnccombine-fast
+         # restart: true
 
 
 Resource requirements
@@ -184,6 +188,65 @@ Resource requirements
 * No speed-up for low resolution (1 deg global model) 
 
 * Minimum of 2 cpus
+
+
+Layout affects efficiency
+-------------------------
+
+* Chunk sizes chosen automatically by the netCDF4 library
+
+* Chunk sizes depend on tile size
+
+* Inconsistent tile sizes => inconsistent chunk sizes
+
+* Inconsistent chunk sizes makes program slow (has to uncompress/compress)
+
+* Make processor layout an integer divisor of grid
+
+* Make io_layout an integer divisor of layout  
+
+
+Example
+-------
+
+Quarter degree MOM-SIS model is 1440 x 1080. 
+
+.. code:: fortran
+
+    layout = 64, 30
+    io_layout = 8, 6
+
+* 1920 CPUs
+
+* Tiles are 22.5 x 36
+
+* IO tile is 180 x 180. 
+
+* Fine for collating normal data but slow for untiled data (restarts and regional output) 
+
+
+Improved Layout
+---------------
+
+Quarter degree MOM-SIS model is 1440 x 1080. 
+
+.. code:: fortran
+
+    layout = 60, 36
+    io_layout = 10, 6
+
+* 1920 CPUs
+
+* Tiles are 24 x 10
+
+* IO tile is 144 x 180. 
+
+* Fast for collating tiled and untiled output
+
+
+Multiple runs per submit
+------------------------
+
 
 
 Upcoming features
@@ -228,7 +291,14 @@ Restarts    ``mf_restarts.yml``
 How is it tracked?
 ------------------
 
-yamanifest file, which is a ``YaML`` file (like ``config.yml``)
+.. notes:: 
+   Note there is a header and a version string, can ignore
+
+
+yamanifest file, which is a ``YaML`` file (like ``config.yml``) with each file path in 
+the local work directory as a key in a dictionary. ``fullpath`` is the location on the
+file which is symbolically linked into the work directory. The hashes uniquely identify
+the file
 
 .. code::yaml
 
@@ -240,6 +310,23 @@ yamanifest file, which is a ``YaML`` file (like ``config.yml``)
       hashes:
         binhash: 74b079574d3160fd2024ca928f3097a0
         md5: e10bf223ae2564701ae310d341bbe63b
+
+Hierachy of hashes
+------------------
+
+.. notes:: 
+   binhash uses datestamp and size combined with first 100MB of a file.
+   Not guaranteed unique, but likely to detect if the file has changed
+
+* Yamanifest supports multiple hashes
+
+* Allows a hierachy of hashes
+
+* Unique hashes (md5, sha128, sha256) are time consuming to run on large files
+
+* Fast (not guaranteed unique) hashing used for fast checking for file changes
+
+* Can still request full hash check when necessary (or periodically?)
 
 
 ACCESS-OM2 Model Configs

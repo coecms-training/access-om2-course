@@ -136,7 +136,7 @@ collate_flags: -n4 -r</code></pre>
 </section><section id="new-syntax" class="slide level2">
 <h2>New syntax</h2>
 <aside class="notes">
-<p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options</p>
+<p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options Don't get your hopes up Ryan, I haven't written restart collation, but when it is done, adding restart:true will collate restarts when the restart cleaning is done</p>
 </aside>
 <p>Replaces kludgey <code>collate_</code> options with dictionary</p>
 <pre class="sourceCode yaml"><code>collate:
@@ -148,7 +148,8 @@ collate_flags: -n4 -r</code></pre>
      ncpus: 4
      threads: 2
      # flags: -v
-     # exe: /full/path/to/mppnccombine-fast</code></pre>
+     # exe: /full/path/to/mppnccombine-fast
+     # restart: true</code></pre>
 </section><section id="resource-requirements" class="slide level2">
 <h2>Resource requirements</h2>
 <aside class="notes">
@@ -162,6 +163,40 @@ collate_flags: -n4 -r</code></pre>
 <li>No speed-up for low resolution (1 deg global model)</li>
 <li>Minimum of 2 cpus</li>
 </ul>
+</section><section id="layout-affects-efficiency" class="slide level2">
+<h2>Layout affects efficiency</h2>
+<ul>
+<li>Chunk sizes chosen automatically by the netCDF4 library</li>
+<li>Chunk sizes depend on tile size</li>
+<li>Inconsistent tile sizes =&gt; inconsistent chunk sizes</li>
+<li>Inconsistent chunk sizes makes program slow (has to uncompress/compress)</li>
+<li>Make processor layout an integer divisor of grid</li>
+<li>Make io_layout an integer divisor of layout</li>
+</ul>
+</section><section id="example" class="slide level2">
+<h2>Example</h2>
+<p>Quarter degree MOM-SIS model is 1440 x 1080.</p>
+<pre class="sourceCode fortran"><code>layout = 64, 30
+io_layout = 8, 6</code></pre>
+<ul>
+<li>1920 CPUs</li>
+<li>Tiles are 22.5 x 36</li>
+<li>IO tile is 180 x 180.</li>
+<li>Fine for collating normal data but slow for untiled data (restarts and regional output)</li>
+</ul>
+</section><section id="improved-layout" class="slide level2">
+<h2>Improved Layout</h2>
+<p>Quarter degree MOM-SIS model is 1440 x 1080.</p>
+<pre class="sourceCode fortran"><code>layout = 60, 36
+io_layout = 10, 6</code></pre>
+<ul>
+<li>1920 CPUs</li>
+<li>Tiles are 24 x 10</li>
+<li>IO tile is 144 x 180.</li>
+<li>Fast for collating tiled and untiled output</li>
+</ul>
+</section><section id="multiple-runs-per-submit" class="slide level2">
+<h2>Multiple runs per submit</h2>
 </section></section>
 <section><section id="upcoming-features" class="title-slide slide level1"><h1>Upcoming features</h1></section><section id="file-tracking" class="slide level2">
 <h2>File Tracking</h2>
@@ -198,7 +233,10 @@ collate_flags: -n4 -r</code></pre>
 </table>
 </section><section id="how-is-it-tracked" class="slide level2">
 <h2>How is it tracked?</h2>
-<p>yamanifest file, which is a <code>YaML</code> file (like <code>config.yml</code>)</p>
+<aside class="notes">
+<p>Note there is a header and a version string, can ignore</p>
+</aside>
+<p>yamanifest file, which is a <code>YaML</code> file (like <code>config.yml</code>) with each file path in the local work directory as a key in a dictionary. <code>fullpath</code> is the location on the file which is symbolically linked into the work directory. The hashes uniquely identify the file</p>
 <pre class="sourceCode yaml"><code>format: yamanifest
 version: 1.0
 ---
@@ -207,6 +245,18 @@ work/fms_MOM_SIS.intel14:
   hashes:
     binhash: 74b079574d3160fd2024ca928f3097a0
     md5: e10bf223ae2564701ae310d341bbe63b</code></pre>
+</section><section id="hierachy-of-hashes" class="slide level2">
+<h2>Hierachy of hashes</h2>
+<aside class="notes">
+<p>binhash uses datestamp and size combined with first 100MB of a file. Not guaranteed unique, but likely to detect if the file has changed</p>
+</aside>
+<ul>
+<li>Yamanifest supports multiple hashes</li>
+<li>Allows a hierachy of hashes</li>
+<li>Unique hashes (md5, sha128, sha256) are time consuming to run on large files</li>
+<li>Fast (not guaranteed unique) hashing used for fast checking for file changes</li>
+<li>Can still request full hash check when necessary (or periodically?)</li>
+</ul>
 </section></section>
 <section><section id="access-om2-model-configs" class="title-slide slide level1"><h1>ACCESS-OM2 Model Configs</h1></section><section id="components" class="slide level2">
 <h2>Components</h2>
