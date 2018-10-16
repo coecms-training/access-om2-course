@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="Aidan Heerdegen">
   <meta name="dcterms.date" content="2018-10-17">
-  <title>More Payu Features and ACCESSOM2</title>
+  <title>Payu Features and Configs</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -54,7 +54,7 @@
          width: 30%"
          alt="NCI">
   </div>
-  <h1 class="title">More Payu Features and ACCESSOM2</h1>
+  <h1 class="title">Payu Features and Configs</h1>
   <p class="subtitle" style="text-align: left;"><p>New features and running ACCESS-OM2 payu models</p></p>
   <p class="author" style="text-align: right;">Aidan Heerdegen</p>
   <p class="date" style="text-align: right;">17 October 2018</p>
@@ -215,13 +215,25 @@ io_layout = 10, 6</code></pre>
 </section><section id="runspersub" class="slide level2">
 <h2>runspersub</h2>
 <ul>
-<li>Run the model multiple times per PBS submit</li>
+<li>Run a 2hr model 23 times per PBS submit</li>
 </ul>
-<pre class="sourceCode yaml"><code>runsperub: true
-collate_mem: 16GB
-collate_queue: express
-collate_ncpus: 4
-collate_flags: -n4 -r</code></pre>
+<pre class="sourceCode yaml"><code>runspersub: 23
+walltime: 48:00:00</code></pre>
+<ul>
+<li>Set <code>walltime</code> to allow for <code>runspersub</code> runs of the model</li>
+<li>If <code>Walltime</code> exceeded last run will crash (and time for just that run wasted) and <code>payu</code> will not resubmit</li>
+</ul>
+</section><section id="resubmission" class="slide level2">
+<h2>Resubmission</h2>
+<ul>
+<li><code>payu</code> can resubmit itself with <code>-n</code> command line option</li>
+<li>Using same model example:</li>
+</ul>
+<pre class="sourceCode bash"><code>payu run -n 50</code></pre>
+<ul>
+<li>Without <code>runspersub</code> specified, would be 50 PBS submissions</li>
+<li>With <code>runspersub: 23</code>, 3 PBS submissions, 23, 23 and 4 model runs in each</li>
+</ul>
 </section></section>
 <section><section id="upcoming-features" class="title-slide slide level1"><h1>Upcoming features</h1></section><section id="file-tracking" class="slide level2">
 <h2>File Tracking</h2>

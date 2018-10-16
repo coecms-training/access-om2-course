@@ -1,6 +1,6 @@
-================================
-More Payu Features and ACCESSOM2
-================================
+=========================
+Payu Features and Configs
+=========================
 
 :subtitle: New features and running ACCESS-OM2 payu models
 :author: Aidan Heerdegen
@@ -276,15 +276,32 @@ Runs per submit
 runspersub
 ----------
 
-* Run the model multiple times per PBS submit
+* Run a 2hr model 23 times per PBS submit
 
 .. code:: yaml
 
-    runsperub: true
-    collate_mem: 16GB
-    collate_queue: express
-    collate_ncpus: 4
-    collate_flags: -n4 -r
+    runspersub: 23
+    walltime: 48:00:00
+
+* Set ``walltime`` to allow for ``runspersub`` runs of the model
+
+* If ``Walltime`` exceeded last run will crash (and time for just that run wasted) and ``payu`` will not resubmit
+
+
+Resubmission
+------------
+
+* ``payu`` can resubmit itself with ``-n`` command line option
+
+* Using same model example:
+
+.. code:: bash
+
+    payu run -n 50
+
+* Without ``runspersub`` specified, would be 50 PBS submissions
+
+* With ``runspersub: 23``, 3 PBS submissions, 23, 23 and 4 model runs in each
 
 
 Upcoming features
