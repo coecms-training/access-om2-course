@@ -179,9 +179,11 @@ Resource requirements
 
 * Memory independent of resolution (<4GB per thread)
 
-* Walltime should be minutes.
+* Walltime in minutes
 
 * No speed-up for low resolution (1 deg global model) 
+
+* Minimum of 2 cpus
 
 
 Upcoming features
