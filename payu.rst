@@ -1,8 +1,8 @@
-=====================
-Shiney new Payu stuff
-=====================
+================================
+More Payu Features and ACCESSOM2
+================================
 
-:subtitle: New and upcoming features
+:subtitle: New features and running ACCESS-OM2 payu models
 :author: Aidan Heerdegen
 :description: A training course to introduce new and upcoming features
 :date: 17 October 2018
@@ -422,13 +422,14 @@ https://www.sciencedirect.com/science/article/pii/S146350031830235X
 * RYF (Repeat Year Forcing) : MayYrX+1 - MayYr of JRA55-do 
    X = 84,91,03
 
-https://github.com/OceansAus/1deg_jra55_iaf
-https://github.com/OceansAus/1deg_jra55_ryf
 ACCESS-OM2
 ----------
 
-Nominal 1 degree global resolution
+* Nominal 1 degree global resolution
 
+* Both RYF and IAF configurations
+
+https://github.com/OceansAus/1deg_jra55_iaf
 https://github.com/OceansAus/1deg_jra55_ryf
 
 ACCESS-OM2-025
