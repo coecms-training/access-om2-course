@@ -544,6 +544,7 @@ The PBS and platform specific options for ``normalbw`` queue
         nodesize: 28
         nodemem: 128
 
+
 -----
 
 The model options
