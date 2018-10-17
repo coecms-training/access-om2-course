@@ -8,6 +8,17 @@ Payu Features and Configs
 :date: 17 October 2018
 
 
+Outline
+=======
+
+# payu recap
+
+# New payu features
+
+# Upcoming payu features
+
+# Running ACCESS-OM2 models
+
 
 What is Payu?
 =============
@@ -445,10 +456,7 @@ Code
 Forcing Data
 ------------
 
-.. notes:: 
-   Compact way of representing RYF8485 RYF9091 and RYF 0304
-
-* Uses JRA-55 reanalysis derivative product JRA55-do
+* Uses JRA55 reanalysis derivative product JRA55-do
 
 http://jra.kishou.go.jp/JRA-55/index_en.html
 https://www.sciencedirect.com/science/article/pii/S146350031830235X
@@ -462,34 +470,122 @@ ACCESS-OM2
 ----------
 
 * Nominal 1 degree global resolution
-
-* Both RYF and IAF configurations
+* JRA55 RYF and IAF, and CORE-II configurations
 
 https://github.com/OceansAus/1deg_jra55_iaf
 https://github.com/OceansAus/1deg_jra55_ryf
+https://github.com/OceansAus/1deg_core_nyf
+
 
 ACCESS-OM2-025
 --------------
 
-Nominal 0.25 degree global resolution
+* Nominal 0.25 degree global resolution
+* JRA55 RYF and IAF configurations
+
+https://github.com/OceansAus/025deg_jra55_ryf
+https://github.com/OceansAus/025deg_jra55_iaf
 
 
 ACCESS-OM2-01
 --------------
 
-Nominal 0.1 degree global resolution
+.. notes:: 
+   Don't suggest anyone runs this without contacting COSIMA
+     as runs are expensive and a bit tricky to get running
+     on raijin. 
+
+* Nominal 0.1 degree global resolution
+* JRA55 RYF and IAF configurations
+* Minimal JRA55 IAF configuration (fewer cores)
+
+https://github.com/OceansAus/01deg_jra55_iaf
+https://github.com/OceansAus/01deg_jra55_ryf
+https://github.com/OceansAus/minimal_01deg_jra55_iaf
 
 
 Running an ACCESS-OM2 model
 ---------------------------
 
+.. notes:: 
+   Can run in a branch to keep config clean
+   Can fork 
+
 * Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github
 
 https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start
+
+.. notes:: 
+   All executables and 
+   Can fork 
+
+Use the 1 deg JRA55 IAF configuration:
 
 .. code::bash
 
     module load payu/0.10
     git clone https://github.com/OceansAus/1deg_jra55_iaf
     cd 1deg_jra55_iaf 
-    payu init
+    payu run
+
+-----
+
+The PBS and platform specific options for ``normalbw`` queue
+
+.. code::yaml
+    
+    # PBS configuration
+    queue: normalbw
+    walltime: 1:00:00
+    jobname: 1deg_jra55_iaf
+    ncpus: 252
+
+    platform:
+        nodesize: 28
+        nodemem: 128
+
+-----
+
+The model options
+
+.. code::yaml
+    
+    # Model configuration
+    name: common
+    model: access-om2
+    input: /short/public/access-om2/input_2407a7bc/common_1deg_jra55
+    submodels:
+        - name: atmosphere
+          model: yatm
+          exe: /short/public/access-om2/bin/yatm_037e4b61.exe
+          input: /short/public/access-om2/input_2407a7bc/yatm_1deg
+          ncpus: 1
+
+        - name: ocean
+          model: mom
+          exe: /short/public/access-om2/bin/fms_ACCESS-OM_304fe837.x
+          input: /short/public/access-om2/input_2407a7bc/mom_1deg
+          ncpus: 216
+
+        - name: ice
+          model: cice5
+          exe: /short/public/access-om2/bin/cice_auscom_360x300_24p_5a56b59a.exe
+          input: /short/public/access-om2/input_2407a7bc/cice_1deg
+          ncpus: 24
+
+----
+
+Miscellaneous options (including collation)
+
+.. code::yaml
+    
+    # Misc
+    collate: true
+    stacksize: unlimited
+    collate_walltime: 1:00:00
+    collate_exe: /short/public/access-om2/bin/mppnccombine
+    qsub_flags: -lother=hyperthread -W umask=027
+    # postscript: sync_output_to_gdata.sh
+
+
+

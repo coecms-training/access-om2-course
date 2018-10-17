@@ -60,6 +60,7 @@
   <p class="date" style="text-align: right;">17 October 2018</p>
 </section>
 
+<section id="outline" class="title-slide slide level1"><h1>Outline</h1></section>
 <section><section id="what-is-payu" class="title-slide slide level1"><h1>What is Payu?</h1></section><section id="payu-is" class="slide level2">
 <h2>Payu is</h2>
 <blockquote>
@@ -356,11 +357,8 @@ work/fms_MOM_SIS.intel14:
 </table>
 </section><section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
-<aside class="notes">
-<p>Compact way of representing RYF8485 RYF9091 and RYF 0304</p>
-</aside>
 <ul>
-<li>Uses JRA-55 reanalysis derivative product JRA55-do</li>
+<li>Uses JRA55 reanalysis derivative product JRA55-do</li>
 </ul>
 <p><a href="http://jra.kishou.go.jp/JRA-55/index_en.html">http://jra.kishou.go.jp/JRA-55/index_en.html</a> <a href="https://www.sciencedirect.com/science/article/pii/S146350031830235X">https://www.sciencedirect.com/science/article/pii/S146350031830235X</a></p>
 <ul>
@@ -371,25 +369,91 @@ work/fms_MOM_SIS.intel14:
 <h2>ACCESS-OM2</h2>
 <ul>
 <li>Nominal 1 degree global resolution</li>
-<li>Both RYF and IAF configurations</li>
+<li>JRA55 RYF and IAF, and CORE-II configurations</li>
 </ul>
-<p><a href="https://github.com/OceansAus/1deg_jra55_iaf">https://github.com/OceansAus/1deg_jra55_iaf</a> <a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a></p>
+<p><a href="https://github.com/OceansAus/1deg_jra55_iaf">https://github.com/OceansAus/1deg_jra55_iaf</a> <a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a> <a href="https://github.com/OceansAus/1deg_core_nyf">https://github.com/OceansAus/1deg_core_nyf</a></p>
 </section><section id="access-om2-025" class="slide level2">
 <h2>ACCESS-OM2-025</h2>
-<p>Nominal 0.25 degree global resolution</p>
+<ul>
+<li>Nominal 0.25 degree global resolution</li>
+<li>JRA55 RYF and IAF configurations</li>
+</ul>
+<p><a href="https://github.com/OceansAus/025deg_jra55_ryf">https://github.com/OceansAus/025deg_jra55_ryf</a> <a href="https://github.com/OceansAus/025deg_jra55_iaf">https://github.com/OceansAus/025deg_jra55_iaf</a></p>
 </section><section id="access-om2-01" class="slide level2">
 <h2>ACCESS-OM2-01</h2>
-<p>Nominal 0.1 degree global resolution</p>
+<aside class="notes">
+<p>Don't suggest anyone runs this without contacting COSIMA as runs are expensive and a bit tricky to get running on raijin.</p>
+</aside>
+<ul>
+<li>Nominal 0.1 degree global resolution</li>
+<li>JRA55 RYF and IAF configurations</li>
+<li>Minimal JRA55 IAF configuration (fewer cores)</li>
+</ul>
+<p><a href="https://github.com/OceansAus/01deg_jra55_iaf">https://github.com/OceansAus/01deg_jra55_iaf</a> <a href="https://github.com/OceansAus/01deg_jra55_ryf">https://github.com/OceansAus/01deg_jra55_ryf</a> <a href="https://github.com/OceansAus/minimal_01deg_jra55_iaf">https://github.com/OceansAus/minimal_01deg_jra55_iaf</a></p>
 </section><section id="running-an-access-om2-model" class="slide level2">
 <h2>Running an ACCESS-OM2 model</h2>
+<aside class="notes">
+<p>Can run in a branch to keep config clean Can fork</p>
+</aside>
 <ul>
 <li>Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github</li>
 </ul>
 <p><a href="https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start">https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start</a></p>
+<aside class="notes">
+<p>All executables and Can fork</p>
+</aside>
+<p>Use the 1 deg JRA55 IAF configuration:</p>
 <pre class="sourceCode bash"><code>module load payu/0.10
 git clone https://github.com/OceansAus/1deg_jra55_iaf
 cd 1deg_jra55_iaf 
-payu init</code></pre>
+payu run</code></pre>
+</section><section class="slide level2">
+
+<p>The PBS and platform specific options for <code>normalbw</code> queue</p>
+<pre class="sourceCode yaml"><code># PBS configuration
+queue: normalbw
+walltime: 1:00:00
+jobname: 1deg_jra55_iaf
+ncpus: 252
+
+platform:
+    nodesize: 28
+    nodemem: 128</code></pre>
+</section><section class="slide level2">
+
+<p>The model options</p>
+<pre class="sourceCode yaml"><code># Model configuration
+name: common
+model: access-om2
+input: /short/public/access-om2/input_2407a7bc/common_1deg_jra55
+submodels:
+    - name: atmosphere
+      model: yatm
+      exe: /short/public/access-om2/bin/yatm_037e4b61.exe
+      input: /short/public/access-om2/input_2407a7bc/yatm_1deg
+      ncpus: 1
+
+    - name: ocean
+      model: mom
+      exe: /short/public/access-om2/bin/fms_ACCESS-OM_304fe837.x
+      input: /short/public/access-om2/input_2407a7bc/mom_1deg
+      ncpus: 216
+
+    - name: ice
+      model: cice5
+      exe: /short/public/access-om2/bin/cice_auscom_360x300_24p_5a56b59a.exe
+      input: /short/public/access-om2/input_2407a7bc/cice_1deg
+      ncpus: 24</code></pre>
+</section><section class="slide level2">
+
+<p>Miscellaneous options (including collation)</p>
+<pre class="sourceCode yaml"><code># Misc
+collate: true
+stacksize: unlimited
+collate_walltime: 1:00:00
+collate_exe: /short/public/access-om2/bin/mppnccombine
+qsub_flags: -lother=hyperthread -W umask=027
+# postscript: sync_output_to_gdata.sh</code></pre>
 </section></section>
     </div>
   </div>
