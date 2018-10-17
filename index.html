@@ -80,7 +80,7 @@
 <ul>
 <li>Setup model run directory (<code>work</code>)</li>
 <li>Run the model</li>
-<li>Move outputs/restarts to an archive directory</li>
+<li>Move outputs/restarts to <code>archive</code> directory</li>
 <li>Clean up the run directory</li>
 <li>Run again (if instructed to do so)</li>
 </ul>
@@ -99,6 +99,7 @@
 <aside class="notes">
 <p>That is it collates tiled outputs to multiple files, which makes model input and output faster</p>
 <p>Directly copies the compressed chunks from one file to another, skipping the decompress/recompress step</p>
+<p>Example of the raison d'etre of CMS, to improve researcher productivity</p>
 </aside>
 <p>But seriously fast, hence the name <strong>mppnccombine-fast</strong></p>
 <p><a href="https://github.com/coecms/mppnccombine-fast">https://github.com/coecms/mppnccombine-fast</a></p>
@@ -130,7 +131,7 @@ collate_flags: -n4 -r</code></pre>
 <aside class="notes">
 <p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options Don't get your hopes up Ryan, I haven't written restart collation, but when it is done, adding restart:true will collate restarts when the restart cleaning is done</p>
 </aside>
-<p>Replaces multiple <code>collate_</code> options with dictionary</p>
+<p>Replaces <code>collate_</code> options with dictionary</p>
 <pre class="sourceCode yaml"><code>collate:
      enable: true
      queue: express
@@ -211,7 +212,7 @@ walltime: 48:00:00</code></pre>
 <li>Say model takes 2hr per run</li>
 <li>Above config would run the model 23 times per PBS submit</li>
 <li><code>walltime</code> must allow for <code>runspersub</code> runs of the model</li>
-<li>If <code>Walltime</code> exceeded last run will crash. <code>payu</code> will not resubmit</li>
+<li>If <code>walltime</code> exceeded last run will crash. <code>payu</code> will not resubmit</li>
 </ul>
 </section><section id="resubmission" class="slide level2">
 <h2>Resubmission</h2>

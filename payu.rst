@@ -39,7 +39,7 @@ That means it runs your model for you. In short:
 
 * Run the model
 
-* Move outputs/restarts to an archive directory
+* Move outputs/restarts to ``archive`` directory
 
 * Clean up the run directory
 
@@ -73,6 +73,8 @@ Probably not faster than the Waco Kid
    That is it collates tiled outputs to multiple files, which makes model input and output faster
 
    Directly copies the compressed chunks from one file to another, skipping the decompress/recompress step
+
+   Example of the raison d'etre of CMS, to improve researcher  productivity
 
 
 
@@ -130,7 +132,7 @@ New syntax
      will collate restarts when the restart cleaning is done
    
 
-Replaces multiple ``collate_`` options with dictionary
+Replaces ``collate_`` options with dictionary
 
 .. code:: yaml
 
@@ -267,7 +269,7 @@ runspersub
 
 * ``walltime`` must allow for ``runspersub`` runs of the model
 
-* If ``Walltime`` exceeded last run will crash. ``payu`` will not resubmit
+* If ``walltime`` exceeded last run will crash. ``payu`` will not resubmit
 
 
 Resubmission
