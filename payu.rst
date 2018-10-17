@@ -341,7 +341,7 @@ How is it tracked?
 
 * Creates a ``YaML`` file 
 
-* Each file (symlink) in work is dictionary key 
+* Each file (symlink) in ``work`` is dictionary key 
 
 
 Example
