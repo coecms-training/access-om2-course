@@ -11,13 +11,13 @@ Payu Features and Configs
 Outline
 =======
 
-# payu recap
+* payu recap
 
-# New payu features
+* New payu features
 
-# Upcoming payu features
+* Upcoming payu features
 
-# Running ACCESS-OM2 models
+* Running ACCESS-OM2 models
 
 
 What is Payu?
@@ -43,44 +43,6 @@ That means it runs your model for you. In short:
 
 * Run again (if instructed to do so)
   
-
-Using Payu
-==========
-
-Using an experiment
--------------------
-
-(Recap from last week)
-
-Clone an existing experiment (usually in ``$HOME``):
-
-.. code:: sh
-
-   cd $HOME
-   mkdir -p mom
-   cd mom
-   git clone /short/public/mxw900/payucourse/expt/bowl1
-
-This is the "*control directory*" for ``bowl1``
-
-
-Run the experiment
-------------------
-
-Use the system payu::
-
-   module load payu/0.9.2
-
-This job is pre-configured, run it!
-
-.. code:: sh
-
-   cd bowl1
-   payu run
-
-* Model will run in ``work/``
-
-* Output saved to ``archive/``
 
 
 New features
