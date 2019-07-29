@@ -30,7 +30,7 @@
   <!--[if lt IE 9]>
   <script src="./reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
-  <base href="https://aidanheerdegen.github.io/payucourse2/index.html">
+  <base href="https://coecms-training.github.io/payucourse2/index.html">
 </head>
 <body>
   <div class="reveal">
@@ -42,7 +42,7 @@
     </header>
 
     <footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;">
-      <code>https://aidanheerdegen.github.io/payucourse2/index.html</code>
+      <code>https://.githu-training.io/payucourse2/index.html</code>
     </footer>
 
     <div class="slides">
@@ -72,7 +72,7 @@
 <section><section id="what-is-payu" class="title-slide slide level1"><h1>What is Payu?</h1></section><section id="payu-is" class="slide level2">
 <h2>Payu is</h2>
 <blockquote>
-<p>... a python based &quot;scientific workflow manager&quot;</p>
+<p>... a python based "scientific workflow manager"</p>
 </blockquote>
 </section><section id="huh" class="slide level2">
 <h2>Huh?</h2>
@@ -121,7 +121,7 @@
 </ul>
 </section><section id="old-syntax" class="slide level2">
 <h2>Old Syntax</h2>
-<pre class="sourceCode yaml"><code>collate: true
+<pre class="yaml"><code>collate: true
 collate_mem: 16GB
 collate_queue: express
 collate_ncpus: 4
@@ -132,7 +132,7 @@ collate_flags: -n4 -r</code></pre>
 <p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options Don't get your hopes up Ryan, I haven't written restart collation, but when it is done, adding restart:true will collate restarts when the restart cleaning is done</p>
 </aside>
 <p>Replaces <code>collate_</code> options with dictionary</p>
-<pre class="sourceCode yaml"><code>collate:
+<pre class="yaml"><code>collate:
      enable: true
      queue: express
      memory: 4GB
@@ -171,7 +171,7 @@ collate_flags: -n4 -r</code></pre>
 <p>Might think with io_layout would make consistent tile sizes, but the decomposition algorithm has already chosen some distribution of different tile sizes that cannot be evenly combined with io_layout Surprise to me to!</p>
 </aside>
 <p>Quarter degree MOM-SIS model: 1440 x 1080.</p>
-<pre class="sourceCode fortran"><code>layout = 64, 30
+<pre class="fortran"><code>layout = 64, 30
 io_layout = 8, 6</code></pre>
 <ul>
 <li>1920 CPUs</li>
@@ -182,7 +182,7 @@ io_layout = 8, 6</code></pre>
 </section><section id="improved-layout" class="slide level2">
 <h2>Improved Layout</h2>
 <p>Quarter degree MOM-SIS model: 1440 x 1080.</p>
-<pre class="sourceCode fortran"><code>layout = 60, 36
+<pre class="fortran"><code>layout = 60, 36
 io_layout = 10, 6</code></pre>
 <ul>
 <li>2160 CPUs</li>
@@ -206,7 +206,7 @@ io_layout = 10, 6</code></pre>
 <aside class="notes">
 <p>Runspersub to the rescue! Being conservative with walltime in case some runs take &gt; 2hr When last run crashes, only time of last run is lost</p>
 </aside>
-<pre class="sourceCode yaml"><code>runspersub: 23
+<pre class="yaml"><code>runspersub: 23
 walltime: 48:00:00</code></pre>
 <ul>
 <li>Say model takes 2hr per run</li>
@@ -220,7 +220,7 @@ walltime: 48:00:00</code></pre>
 <li><code>payu</code> can resubmit itself with <code>-n</code> command line option</li>
 <li>Using same model example if I wanted 50 runs of the model:</li>
 </ul>
-<pre class="sourceCode bash"><code>payu run -n 50</code></pre>
+<pre class="bash"><code>payu run -n 50</code></pre>
 <ul>
 <li><code>runspersub: 1</code> =&gt; 50 PBS submissions, single run in each</li>
 <li><code>runspersub: 23</code> =&gt; 3 PBS submissions, 23/23/4 model runs respectively</li>
@@ -232,7 +232,7 @@ walltime: 48:00:00</code></pre>
 </section><section id="key-advantages" class="slide level2">
 <h2>Key Advantages</h2>
 <aside class="notes">
-<p>Very early in this job, there was a &quot;dodgy aerosol file&quot; that had been used in some simulations, but hard/impossible to say which runs/files were affected</p>
+<p>Very early in this job, there was a "dodgy aerosol file" that had been used in some simulations, but hard/impossible to say which runs/files were affected</p>
 </aside>
 <ul>
 <li>Track input files used for each model run</li>
@@ -279,7 +279,7 @@ walltime: 48:00:00</code></pre>
 <li><code>fullpath</code> is the actual location of the file</li>
 <li>The hashes uniquely identify file</li>
 </ul>
-<pre class="sourceCode yaml"><code>format: yamanifest
+<pre class="yaml"><code>format: yamanifest
 version: 1.0
 ---
 work/fms_MOM_SIS.intel14:
@@ -299,7 +299,9 @@ work/fms_MOM_SIS.intel14:
 <li>Use unique hash check when necessary (or periodically?)</li>
 </ul>
 </section></section>
-<section><section id="access-om2" class="title-slide slide level1"><h1>ACCESS-OM2</h1></section><section id="components" class="slide level2">
+<section><section id="access-om2" class="title-slide slide level1"><h1>ACCESS-OM2</h1><p>ACCESS-OM2 model suite from 1 degree global to 0.1 degree global, Ocean/Ice model forced with atmospheric data and almost identical model parameters.</p>
+<p>Single <code>access-om2</code> repository with all code and configs</p>
+<p><a href="https://github.com/OceansAus/access-om2">https://github.com/OceansAus/access-om2</a></p></section><section id="components" class="slide level2">
 <h2>Components</h2>
 <table>
 <tbody>
@@ -391,14 +393,14 @@ work/fms_MOM_SIS.intel14:
 <p>All executables and Can fork</p>
 </aside>
 <p>Use the 1 deg JRA55 IAF configuration:</p>
-<pre class="sourceCode bash"><code>module load payu/0.10
+<pre class="bash"><code>module load payu/0.10
 git clone https://github.com/OceansAus/1deg_jra55_iaf
 cd 1deg_jra55_iaf 
 payu run</code></pre>
 </section><section class="slide level2">
 
 <p>The PBS and platform specific options for <code>normalbw</code> queue</p>
-<pre class="sourceCode yaml"><code># PBS configuration
+<pre class="yaml"><code># PBS configuration
 queue: normalbw
 walltime: 1:00:00
 jobname: 1deg_jra55_iaf
@@ -410,7 +412,7 @@ platform:
 </section><section class="slide level2">
 
 <p>The model options</p>
-<pre class="sourceCode yaml"><code># Model configuration
+<pre class="yaml"><code># Model configuration
 name: common
 model: access-om2
 input: /short/public/access-om2/input_2407a7bc/common_1deg_jra55
@@ -435,7 +437,7 @@ submodels:
 </section><section class="slide level2">
 
 <p>Miscellaneous options (including collation)</p>
-<pre class="sourceCode yaml"><code># Misc
+<pre class="yaml"><code># Misc
 collate: true
 stacksize: unlimited
 collate_walltime: 1:00:00

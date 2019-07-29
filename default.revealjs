@@ -58,7 +58,7 @@ $endif$
 $for(header-includes)$
   $header-includes$
 $endfor$
-  <base href="https://aidanheerdegen.github.io/payucourse2/index.html">
+  <base href="https://coecms-training.github.io/payucourse2/index.html">
 </head>
 <body>
 $for(include-before)$
@@ -73,7 +73,7 @@ $endfor$
     </header>
 
     <footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;">
-      <code>https://aidanheerdegen.github.io/payucourse2/$outputfile$</code>
+      <code>https://.githu-training.io/payucourse2/$outputfile$</code>
     </footer>
 
     <div class="slides">
