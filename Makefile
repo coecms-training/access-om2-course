@@ -21,7 +21,7 @@ reveal.js:
 	cp smallsky.css reveal.js/css/theme/
 	git add reveal.js/css/theme/smallsky.css
 
-index.html: payu.rst
+index.html: course.rst
 	pandoc ${FLAGS} $^ -o $@
 
 commit: 
