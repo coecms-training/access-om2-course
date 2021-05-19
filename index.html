@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Aidan Heerdegen">
-  <meta name="dcterms.date" content="2018-10-17">
+  <meta name="dcterms.date" content="2021-05-18">
   <title>Payu Features and Configs</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,7 +30,7 @@
   <!--[if lt IE 9]>
   <script src="./reveal.js/lib/js/html5shiv.js"></script>
   <![endif]-->
-  <base href="https://coecms-training.github.io/payucourse2/index.html">
+  <base href="https://coecms-training.github.io/access-om2-course/index.html">
 </head>
 <body>
   <div class="reveal">
@@ -42,7 +42,7 @@
     </header>
 
     <footer style="font-size: 1pc; position: absolute; bottom: 2%; left: 2%;">
-      <code>https://.githu-training.io/payucourse2/index.html</code>
+      <code>https://coecms-training.io/access-om2-course/index.html</code>
     </footer>
 
     <div class="slides">
@@ -55,26 +55,36 @@
          alt="NCI">
   </div>
   <h1 class="title">Payu Features and Configs</h1>
-  <p class="subtitle" style="text-align: left;"><p>New features and running ACCESS-OM2 models</p></p>
+  <p class="subtitle" style="text-align: left;"><p>Running ACCESS-OM2 models</p></p>
   <p class="author" style="text-align: right;">Aidan Heerdegen</p>
-  <p class="date" style="text-align: right;">17 October 2018</p>
+  <p class="date" style="text-align: right;">18 May 2021</p>
 </section>
 
-<section><section id="outline" class="title-slide slide level1"><h1>Outline</h1></section><section class="slide level2">
+<section>
+<section id="outline" class="title-slide slide level1">
+<h1>Outline</h1>
+
+</section>
+<section class="slide level2">
 
 <ul>
 <li>payu recap</li>
-<li>New payu features</li>
-<li>Upcoming payu features</li>
-<li>Running ACCESS-OM2 models</li>
+<li>quickstart guide</li>
+<li>other useful stuff</li>
 </ul>
 </section></section>
-<section><section id="what-is-payu" class="title-slide slide level1"><h1>What is Payu?</h1></section><section id="payu-is" class="slide level2">
+<section>
+<section id="what-is-payu" class="title-slide slide level1">
+<h1>What is Payu?</h1>
+
+</section>
+<section id="payu-is" class="slide level2">
 <h2>Payu is</h2>
 <blockquote>
 <p>... a python based "scientific workflow manager"</p>
 </blockquote>
-</section><section id="huh" class="slide level2">
+</section>
+<section id="huh" class="slide level2">
 <h2>Huh?</h2>
 <p>That means it runs your model for you. In short:</p>
 <ul>
@@ -85,223 +95,14 @@
 <li>Run again (if instructed to do so)</li>
 </ul>
 </section></section>
-<section id="new-features" class="title-slide slide level1"><h1>New features</h1></section>
-<section><section id="fast-mom-collation" class="title-slide slide level1"><h1>Fast MOM collation</h1></section><section class="slide level2">
-
-<p>There is a new mppnccombine in town ... and it's fast.</p>
-<p>How fast?</p>
-</section><section class="slide level2">
-
-<p>Probably not faster than the Waco Kid</p>
-<p><img data-src="img/waco_kid.gif" alt="image" /></p>
-</section><section class="slide level2">
-
-<aside class="notes">
-<p>That is it collates tiled outputs to multiple files, which makes model input and output faster</p>
-<p>Directly copies the compressed chunks from one file to another, skipping the decompress/recompress step</p>
-<p>Example of the raison d'etre of CMS, to improve researcher productivity</p>
-</aside>
-<p>But seriously fast, hence the name <strong>mppnccombine-fast</strong></p>
-<p><a href="https://github.com/coecms/mppnccombine-fast">https://github.com/coecms/mppnccombine-fast</a></p>
-<ul>
-<li>Written by Scott Wales</li>
-<li>Collates any tiled FMS model output (MOM5/MOM6/GOLD)</li>
-<li>Particularly fast with netCDF4 compressed data</li>
-</ul>
-</section><section id="requirements" class="slide level2">
-<h2>Requirements</h2>
-<ul>
-<li>Copy <code>/short/public/aph502/mppnccombine-fast</code> to <code>/short/$PROJECT/$model/bin</code></li>
-</ul>
-<p>or</p>
-<ul>
-<li>Specify full path in <code>config.yaml</code></li>
-<li>A version of <code>payu</code> of <code>0.10</code> or greater (<code>module load payu/0.10</code> on <code>raijin</code>)</li>
-<li>Updated <code>config.yaml</code> syntax</li>
-</ul>
-</section><section id="old-syntax" class="slide level2">
-<h2>Old Syntax</h2>
-<pre class="yaml"><code>collate: true
-collate_mem: 16GB
-collate_queue: express
-collate_ncpus: 4
-collate_flags: -n4 -r</code></pre>
-</section><section id="new-syntax" class="slide level2">
-<h2>New syntax</h2>
-<aside class="notes">
-<p>Must specify mpi to use mppnccombine-fast. Minimum of 2 cpus, so can't use copyq ncpus per thread is ncpus / nthreads nthreads defaults to 1 ncpus defaults to 2 enable defaults to true Don't need to specify flags, enable or exe Fewer flags, as mppnccombine-fast has fewer options Don't get your hopes up Ryan, I haven't written restart collation, but when it is done, adding restart:true will collate restarts when the restart cleaning is done</p>
-</aside>
-<p>Replaces <code>collate_</code> options with dictionary</p>
-<pre class="yaml"><code>collate:
-     enable: true
-     queue: express
-     memory: 4GB
-     walltime: 00:30:00
-     mpi: true
-     ncpus: 4
-     threads: 2
-     # flags: -v
-     # exe: /full/path/to/mppnccombine-fast
-     # restart: true</code></pre>
-</section><section id="resource-requirements" class="slide level2">
-<h2>Resource requirements</h2>
-<aside class="notes">
-<p>Memory use should only depend on chunksize in the compressed file, not on the overall size of the file being written, so resolution independent.</p>
-<p>Unfortunately a memory leak bug in the underlying <code>HDF5</code> library means memory use will go up with the number of times data is written to a collated file. It is difficult to predict, but 2-4GB per thread has been the upper limit observed so far.</p>
-<p>No speed-up for low resolution outputs (MPI overhead swamps fast run times). Quarter degree 10-50x faster. Tenth 100x faster.</p>
-</aside>
-<ul>
-<li>Memory independent of resolution (&lt;4GB per thread)</li>
-<li>Walltime in minutes</li>
-<li>No speed-up for low resolution (1 deg global model)</li>
-<li>Minimum of 2 cpus</li>
-</ul>
-</section><section id="layout-affects-efficiency" class="slide level2">
-<h2>Layout affects efficiency</h2>
-<ul>
-<li>Chunk sizes chosen automatically by netCDF4 and depend on tile size</li>
-<li>Inconsistent tile sizes =&gt; inconsistent chunk sizes</li>
-<li>Inconsistent chunk sizes makes program slow (has to uncompress/compress)</li>
-<li>Make processor layout an integer divisor of grid</li>
-<li>Make io_layout an integer divisor of layout</li>
-</ul>
-</section><section id="example" class="slide level2">
-<h2>Example</h2>
-<aside class="notes">
-<p>Might think with io_layout would make consistent tile sizes, but the decomposition algorithm has already chosen some distribution of different tile sizes that cannot be evenly combined with io_layout Surprise to me to!</p>
-</aside>
-<p>Quarter degree MOM-SIS model: 1440 x 1080.</p>
-<pre class="fortran"><code>layout = 64, 30
-io_layout = 8, 6</code></pre>
-<ul>
-<li>1920 CPUs</li>
-<li>Tiles are 22 x 36 and 23 x 36</li>
-<li>IO tiles are 184 x 180, and 176 x 180</li>
-<li>Slow for collating normal data and slow for untiled data (restarts and regional output)</li>
-</ul>
-</section><section id="improved-layout" class="slide level2">
-<h2>Improved Layout</h2>
-<p>Quarter degree MOM-SIS model: 1440 x 1080.</p>
-<pre class="fortran"><code>layout = 60, 36
-io_layout = 10, 6</code></pre>
-<ul>
-<li>2160 CPUs</li>
-<li>Tiles are 24 x 10</li>
-<li>IO tile is 144 x 180</li>
-<li>Fast for collating tiled and untiled output</li>
-</ul>
-</section></section>
-<section><section id="runs-per-submit" class="title-slide slide level1"><h1>Runs per submit</h1></section><section class="slide level2">
-
-<aside class="notes">
-<p>Don't agree with Marshall from first payu training session nf_limits -P project -q queue -n ncpus 48 hrs &lt; 256 CPUs 255 &lt; 24 hrs &lt; 512 512 &lt; 10 hrs &lt; 1024</p>
-</aside>
-<ul>
-<li>For low CPU count model: walltime up to 48 hours</li>
-<li>Maximise walltime to reduce effect of queue time</li>
-<li>A single 48 hour model run: What if crashes? Output non optimal?</li>
-</ul>
-</section><section id="runspersub" class="slide level2">
-<h2>runspersub</h2>
-<aside class="notes">
-<p>Runspersub to the rescue! Being conservative with walltime in case some runs take &gt; 2hr When last run crashes, only time of last run is lost</p>
-</aside>
-<pre class="yaml"><code>runspersub: 23
-walltime: 48:00:00</code></pre>
-<ul>
-<li>Say model takes 2hr per run</li>
-<li>Above config would run the model 23 times per PBS submit</li>
-<li><code>walltime</code> must allow for <code>runspersub</code> runs of the model</li>
-<li>If <code>walltime</code> exceeded last run will crash. <code>payu</code> will not resubmit</li>
-</ul>
-</section><section id="resubmission" class="slide level2">
-<h2>Resubmission</h2>
-<ul>
-<li><code>payu</code> can resubmit itself with <code>-n</code> command line option</li>
-<li>Using same model example if I wanted 50 runs of the model:</li>
-</ul>
-<pre class="bash"><code>payu run -n 50</code></pre>
-<ul>
-<li><code>runspersub: 1</code> =&gt; 50 PBS submissions, single run in each</li>
-<li><code>runspersub: 23</code> =&gt; 3 PBS submissions, 23/23/4 model runs respectively</li>
-</ul>
-</section></section>
-<section><section id="upcoming-features" class="title-slide slide level1"><h1>Upcoming features</h1></section><section id="file-tracking" class="slide level2">
-<h2>File Tracking</h2>
-<p>Wanted to do this for a long long time</p>
-</section><section id="key-advantages" class="slide level2">
-<h2>Key Advantages</h2>
-<aside class="notes">
-<p>Very early in this job, there was a "dodgy aerosol file" that had been used in some simulations, but hard/impossible to say which runs/files were affected</p>
-</aside>
-<ul>
-<li>Track input files used for each model run</li>
-<li>Reproducibly re-run previous experiment</li>
-<li>Share experiments more easily as input files all specified</li>
-<li>Flexibility with specifying path to input files</li>
-<li>Identify all runs using specified file (possible future feature)</li>
-</ul>
-</section><section id="what-is-tracked" class="slide level2">
-<h2>What is tracked?</h2>
-<aside class="notes">
-<p>Executables and inputs are not expected to change. Can specify a flag to either warn if they do and stop, or update manifest and continue</p>
-<p>Restarts are the opposite, and by default are always expected to be different for each run, unless a flag is specified to reproduce a run, in which case any difference will flag an error and stop</p>
-</aside>
-<table>
-<tbody>
-<tr class="odd">
-<td>Executables</td>
-<td><code>mf_exe.yaml</code></td>
-</tr>
-<tr class="even">
-<td>Inputs</td>
-<td><code>mf_inputs.yaml</code></td>
-</tr>
-<tr class="odd">
-<td>Restarts</td>
-<td><code>mf_restarts.yaml</code></td>
-</tr>
-</tbody>
-</table>
-</section><section id="how-is-it-tracked" class="slide level2">
-<h2>How is it tracked?</h2>
-<ul>
-<li>Uses yamanifest</li>
-<li>Creates a <code>YaML</code> file</li>
-<li>Each file (symlink) in <code>work</code> is dictionary key</li>
-</ul>
-</section><section id="example-1" class="slide level2">
-<h2>Example</h2>
-<aside class="notes">
-<p>Note there is a header and a version string, can ignore All files in work are either config files (which are tracked by git) or symbolic links to files elsewhere on filesystem Issues with getting this working has to do with enforcing this for all models - can be difficult with hardwired paths etc</p>
-</aside>
-<ul>
-<li><code>fullpath</code> is the actual location of the file</li>
-<li>The hashes uniquely identify file</li>
-</ul>
-<pre class="yaml"><code>format: yamanifest
-version: 1.0
----
-work/fms_MOM_SIS.intel14:
-  fullpath: /short/v45/aph502/mom/bin/fms_MOM_SIS.intel14
-  hashes:
-    binhash: 74b079574d3160fd2024ca928f3097a0
-    md5: e10bf223ae2564701ae310d341bbe63b</code></pre>
-</section><section id="hierachy-of-hashes" class="slide level2">
-<h2>Hierachy of hashes</h2>
-<aside class="notes">
-<p>binhash uses datestamp and size combined with first 100MB of a file. Not guaranteed unique, but likely to detect if the file has changed</p>
-</aside>
-<ul>
-<li>yamanifest supports multiple hashes =&gt; hierachy of hashes</li>
-<li>Unique hashes (md5, sha128) take too long on large files</li>
-<li>Fast hashing to check for file changes</li>
-<li>Use unique hash check when necessary (or periodically?)</li>
-</ul>
-</section></section>
-<section><section id="access-om2" class="title-slide slide level1"><h1>ACCESS-OM2</h1><p>ACCESS-OM2 model suite from 1 degree global to 0.1 degree global, Ocean/Ice model forced with atmospheric data and almost identical model parameters.</p>
+<section>
+<section id="access-om2" class="title-slide slide level1">
+<h1>ACCESS-OM2</h1>
+<p>ACCESS-OM2 model suite from 1 degree global to 0.1 degree global, Ocean/Ice model forced with atmospheric data and almost identical model parameters.</p>
 <p>Single <code>access-om2</code> repository with all code and configs</p>
-<p><a href="https://github.com/OceansAus/access-om2">https://github.com/OceansAus/access-om2</a></p></section><section id="components" class="slide level2">
+<p><a href="https://github.com/OceansAus/access-om2">https://github.com/OceansAus/access-om2</a></p>
+</section>
+<section id="components" class="slide level2">
 <h2>Components</h2>
 <table>
 <tbody>
@@ -323,7 +124,8 @@ work/fms_MOM_SIS.intel14:
 </tr>
 </tbody>
 </table>
-</section><section id="code" class="slide level2">
+</section>
+<section id="code" class="slide level2">
 <h2>Code</h2>
 <table>
 <tbody>
@@ -345,7 +147,8 @@ work/fms_MOM_SIS.intel14:
 </tr>
 </tbody>
 </table>
-</section><section id="forcing-data" class="slide level2">
+</section>
+<section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
 <ul>
 <li>Uses JRA55 reanalysis derivative product JRA55-do</li>
@@ -355,21 +158,24 @@ work/fms_MOM_SIS.intel14:
 <li>IAF (Interannual Forcing) : JRA55-do (1955-present)</li>
 <li>RYF (Repeat Year Forcing) : RYF8485, RYF9091, RYF0304</li>
 </ul>
-</section><section id="access-om2-1" class="slide level2">
+</section>
+<section id="access-om2-1" class="slide level2">
 <h2>ACCESS-OM2</h2>
 <ul>
 <li>Nominal 1 degree global resolution</li>
 <li>JRA55 RYF and IAF, and CORE-II configurations</li>
 </ul>
 <p><a href="https://github.com/OceansAus/1deg_jra55_iaf">https://github.com/OceansAus/1deg_jra55_iaf</a> <a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a> <a href="https://github.com/OceansAus/1deg_core_nyf">https://github.com/OceansAus/1deg_core_nyf</a></p>
-</section><section id="access-om2-025" class="slide level2">
+</section>
+<section id="access-om2-025" class="slide level2">
 <h2>ACCESS-OM2-025</h2>
 <ul>
 <li>Nominal 0.25 degree global resolution</li>
 <li>JRA55 RYF and IAF configurations</li>
 </ul>
 <p><a href="https://github.com/OceansAus/025deg_jra55_ryf">https://github.com/OceansAus/025deg_jra55_ryf</a> <a href="https://github.com/OceansAus/025deg_jra55_iaf">https://github.com/OceansAus/025deg_jra55_iaf</a></p>
-</section><section id="access-om2-01" class="slide level2">
+</section>
+<section id="access-om2-01" class="slide level2">
 <h2>ACCESS-OM2-01</h2>
 <aside class="notes">
 <p>Don't suggest anyone runs this without contacting COSIMA as runs are expensive and a bit tricky to get running on raijin.</p>
@@ -380,7 +186,8 @@ work/fms_MOM_SIS.intel14:
 <li>Minimal JRA55 IAF configuration (fewer cores)</li>
 </ul>
 <p><a href="https://github.com/OceansAus/01deg_jra55_iaf">https://github.com/OceansAus/01deg_jra55_iaf</a> <a href="https://github.com/OceansAus/01deg_jra55_ryf">https://github.com/OceansAus/01deg_jra55_ryf</a> <a href="https://github.com/OceansAus/minimal_01deg_jra55_iaf">https://github.com/OceansAus/minimal_01deg_jra55_iaf</a></p>
-</section><section id="running-an-access-om2-model" class="slide level2">
+</section>
+<section id="running-an-access-om2-model" class="slide level2">
 <h2>Running an ACCESS-OM2 model</h2>
 <aside class="notes">
 <p>Can run in a branch to keep config clean Can fork</p>
@@ -397,7 +204,8 @@ work/fms_MOM_SIS.intel14:
 git clone https://github.com/OceansAus/1deg_jra55_iaf
 cd 1deg_jra55_iaf 
 payu run</code></pre>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p>The PBS and platform specific options for <code>normalbw</code> queue</p>
 <pre class="yaml"><code># PBS configuration
@@ -409,7 +217,8 @@ ncpus: 252
 platform:
     nodesize: 28
     nodemem: 128</code></pre>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p>The model options</p>
 <pre class="yaml"><code># Model configuration
@@ -434,7 +243,8 @@ submodels:
       exe: /short/public/access-om2/bin/cice_auscom_360x300_24p_5a56b59a.exe
       input: /short/public/access-om2/input_2407a7bc/cice_1deg
       ncpus: 24</code></pre>
-</section><section class="slide level2">
+</section>
+<section class="slide level2">
 
 <p>Miscellaneous options (including collation)</p>
 <pre class="yaml"><code># Misc
@@ -444,6 +254,115 @@ collate_walltime: 1:00:00
 collate_exe: /short/public/access-om2/bin/mppnccombine
 qsub_flags: -lother=hyperthread -W umask=027
 # postscript: sync_output_to_gdata.sh</code></pre>
+<p>Other Useful Stuff ===============</p>
+</section>
+<section id="runspersub" class="slide level2">
+<h2>runspersub</h2>
+<ul>
+<li>For low CPU count model: walltime up to 48 hours</li>
+<li>Maximise walltime to reduce effect of queue time</li>
+<li>A single 48 hour model run: What if crashes? Output non optimal?</li>
+</ul>
+<aside class="notes">
+<p>Runspersub to the rescue! Being conservative with walltime in case some runs take &gt; 2hr When last run crashes, only time of last run is lost</p>
+</aside>
+<pre class="yaml"><code>runspersub: 23
+walltime: 48:00:00</code></pre>
+<ul>
+<li>Say model takes 2hr per run</li>
+<li>Above config would run the model 23 times per PBS submit</li>
+<li><code>walltime</code> must allow for <code>runspersub</code> runs of the model</li>
+<li>If <code>walltime</code> exceeded last run will crash. <code>payu</code> will not resubmit</li>
+</ul>
+</section>
+<section id="resubmission" class="slide level2">
+<h2>Resubmission</h2>
+<ul>
+<li><code>payu</code> can resubmit itself with <code>-n</code> command line option</li>
+<li>Using same model example if I wanted 50 runs of the model:</li>
+</ul>
+<pre class="bash"><code>payu run -n 50</code></pre>
+<ul>
+<li><code>runspersub: 1</code> =&gt; 50 PBS submissions, single run in each</li>
+<li><code>runspersub: 23</code> =&gt; 3 PBS submissions, 23/23/4 model runs respectively</li>
+</ul>
+</section>
+<section id="file-tracking" class="slide level2">
+<h2>File Tracking</h2>
+</section>
+<section id="key-advantages" class="slide level2">
+<h2>Key Advantages</h2>
+<aside class="notes">
+<p>Very early in this job, there was a "dodgy aerosol file" that had been used in some simulations, but hard/impossible to say which runs/files were affected</p>
+</aside>
+<ul>
+<li>Track input files used for each model run</li>
+<li>Reproducibly re-run previous experiment</li>
+<li>Share experiments more easily as input files all specified</li>
+<li>Flexibility with specifying path to input files</li>
+<li>Identify all runs using specified file (possible future feature)</li>
+</ul>
+</section>
+<section id="what-is-tracked" class="slide level2">
+<h2>What is tracked?</h2>
+<aside class="notes">
+<p>Executables and inputs are not expected to change. Can specify a flag to either warn if they do and stop, or update manifest and continue</p>
+<p>Restarts are the opposite, and by default are always expected to be different for each run, unless a flag is specified to reproduce a run, in which case any difference will flag an error and stop</p>
+</aside>
+<table>
+<tbody>
+<tr class="odd">
+<td>Executables</td>
+<td><code>manifests/exe.yaml</code></td>
+</tr>
+<tr class="even">
+<td>Inputs</td>
+<td><code>manifests/input.yaml</code></td>
+</tr>
+<tr class="odd">
+<td>Restarts</td>
+<td><code>manifests/restart.yaml</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="how-is-it-tracked" class="slide level2">
+<h2>How is it tracked?</h2>
+<ul>
+<li>Uses yamanifest</li>
+<li>Creates a <code>YaML</code> file</li>
+<li>Each file (symlink) in <code>work</code> is dictionary key</li>
+</ul>
+</section>
+<section id="example" class="slide level2">
+<h2>Example</h2>
+<aside class="notes">
+<p>Note there is a header and a version string, can ignore All files in work are either config files (which are tracked by git) or symbolic links to files elsewhere on filesystem Issues with getting this working has to do with enforcing this for all models - can be difficult with hardwired paths etc</p>
+</aside>
+<ul>
+<li><code>fullpath</code> is the actual location of the file</li>
+<li>The hashes uniquely identify file</li>
+</ul>
+<pre class="yaml"><code>format: yamanifest
+version: 1.0
+---
+work/fms_MOM_SIS.intel14:
+  fullpath: /short/v45/aph502/mom/bin/fms_MOM_SIS.intel14
+  hashes:
+    binhash: 74b079574d3160fd2024ca928f3097a0
+    md5: e10bf223ae2564701ae310d341bbe63b</code></pre>
+</section>
+<section id="hierachy-of-hashes" class="slide level2">
+<h2>Hierachy of hashes</h2>
+<aside class="notes">
+<p>binhash uses datestamp and size combined with first 100MB of a file. Not guaranteed unique, but likely to detect if the file has changed</p>
+</aside>
+<ul>
+<li>yamanifest supports multiple hashes =&gt; hierachy of hashes</li>
+<li>Unique hashes (md5, sha128) take too long on large files</li>
+<li>Fast hashing to check for file changes</li>
+<li>Use unique hash check when necessary (or periodically?)</li>
+</ul>
 </section></section>
     </div>
   </div>
