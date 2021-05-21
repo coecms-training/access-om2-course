@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc">
   <meta name="author" content="Aidan Heerdegen">
   <meta name="dcterms.date" content="2021-05-18">
-  <title>Payu Features and Configs</title>
+  <title>Running ACCESS-OM2 Models at NCI</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -54,25 +54,21 @@
          width: 30%"
          alt="NCI">
   </div>
-  <h1 class="title">Payu Features and Configs</h1>
-  <p class="subtitle" style="text-align: left;"><p>Running ACCESS-OM2 models</p></p>
+  <h1 class="title">Running ACCESS-OM2 Models at NCI</h1>
+  <p class="subtitle" style="text-align: left;"><p>Using payu to run ACCESS-OM2 models</p></p>
   <p class="author" style="text-align: right;">Aidan Heerdegen</p>
   <p class="date" style="text-align: right;">18 May 2021</p>
 </section>
 
-<section>
 <section id="outline" class="title-slide slide level1">
 <h1>Outline</h1>
-
-</section>
-<section class="slide level2">
-
 <ul>
 <li>payu recap</li>
 <li>quickstart guide</li>
 <li>other useful stuff</li>
 </ul>
-</section></section>
+</section>
+
 <section>
 <section id="what-is-payu" class="title-slide slide level1">
 <h1>What is Payu?</h1>
@@ -98,12 +94,13 @@
 <section>
 <section id="access-om2" class="title-slide slide level1">
 <h1>ACCESS-OM2</h1>
-<p>ACCESS-OM2 model suite from 1 degree global to 0.1 degree global, Ocean/Ice model forced with atmospheric data and almost identical model parameters.</p>
+<p>ACCESS-OM2 model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice models forced with atmospheric data and almost identical model parameters.</p>
 <p>Single <code>access-om2</code> repository with all code and configs</p>
-<p><a href="https://github.com/OceansAus/access-om2">https://github.com/OceansAus/access-om2</a></p>
+<p><a href="https://github.com/COSIMA/access-om2">https://github.com/COSIMA/access-om2</a></p>
 </section>
 <section id="components" class="slide level2">
 <h2>Components</h2>
+<p>The model is a number of separate component models that run independently and share information via a coupler</p>
 <table>
 <tbody>
 <tr class="odd">
@@ -116,7 +113,7 @@
 </tr>
 <tr class="odd">
 <td>Atmosphere</td>
-<td><code>libaccessom2</code></td>
+<td><code>libaccessom2</code> + <code>yatm</code></td>
 </tr>
 <tr class="even">
 <td>Coupler</td>
@@ -127,6 +124,7 @@
 </section>
 <section id="code" class="slide level2">
 <h2>Code</h2>
+<p>All models are open source</p>
 <table>
 <tbody>
 <tr class="odd">
@@ -135,15 +133,15 @@
 </tr>
 <tr class="even">
 <td><code>CICE5</code></td>
-<td><a href="https://github.com/OceansAus/cice5">https://github.com/OceansAus/cice5</a></td>
+<td><a href="https://github.com/COSIMA/cice5">https://github.com/COSIMA/cice5</a></td>
 </tr>
 <tr class="odd">
 <td><code>libaccessom2</code></td>
-<td><a href="https://github.com/OceansAus/libaccessom2">https://github.com/OceansAus/libaccessom2</a></td>
+<td><a href="https://github.com/COSIMA/libaccessom2">https://github.com/COSIMA/libaccessom2</a></td>
 </tr>
 <tr class="even">
 <td><code>OASIS3-MCT</code></td>
-<td><a href="https://github.com/OceansAus/oasis3-mct">https://github.com/OceansAus/oasis3-mct</a></td>
+<td><a href="https://github.com/COSIMA/oasis3-mct">https://github.com/COSIMA/oasis3-mct</a></td>
 </tr>
 </tbody>
 </table>
@@ -151,7 +149,8 @@
 <section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
 <ul>
-<li>Uses JRA55 reanalysis derivative product JRA55-do</li>
+<li>The model does not have a free-running atmospheric model. The atmospheric forcing is input from a data source by <code>libaccessom2+yatm</code> and passed to the ice model</li>
+<li>Uses JRA55 reanalysis derivative product JRA55-do v1.4</li>
 </ul>
 <p><a href="http://jra.kishou.go.jp/JRA-55/index_en.html">http://jra.kishou.go.jp/JRA-55/index_en.html</a> <a href="https://www.sciencedirect.com/science/article/pii/S146350031830235X">https://www.sciencedirect.com/science/article/pii/S146350031830235X</a></p>
 <ul>
@@ -163,9 +162,9 @@
 <h2>ACCESS-OM2</h2>
 <ul>
 <li>Nominal 1 degree global resolution</li>
-<li>JRA55 RYF and IAF, and CORE-II configurations</li>
+<li>JRA55 RYF and IAF</li>
 </ul>
-<p><a href="https://github.com/OceansAus/1deg_jra55_iaf">https://github.com/OceansAus/1deg_jra55_iaf</a> <a href="https://github.com/OceansAus/1deg_jra55_ryf">https://github.com/OceansAus/1deg_jra55_ryf</a> <a href="https://github.com/OceansAus/1deg_core_nyf">https://github.com/OceansAus/1deg_core_nyf</a></p>
+<p><a href="https://github.com/COSIMA/1deg_jra55_iaf">https://github.com/COSIMA/1deg_jra55_iaf</a> <a href="https://github.com/COSIMA/1deg_jra55_ryf">https://github.com/COSIMA/1deg_jra55_ryf</a></p>
 </section>
 <section id="access-om2-025" class="slide level2">
 <h2>ACCESS-OM2-025</h2>
@@ -173,19 +172,19 @@
 <li>Nominal 0.25 degree global resolution</li>
 <li>JRA55 RYF and IAF configurations</li>
 </ul>
-<p><a href="https://github.com/OceansAus/025deg_jra55_ryf">https://github.com/OceansAus/025deg_jra55_ryf</a> <a href="https://github.com/OceansAus/025deg_jra55_iaf">https://github.com/OceansAus/025deg_jra55_iaf</a></p>
+<p><a href="https://github.com/COSIMA/025deg_jra55_ryf">https://github.com/COSIMA/025deg_jra55_ryf</a> <a href="https://github.com/COSIMA/025deg_jra55_iaf">https://github.com/COSIMA/025deg_jra55_iaf</a></p>
 </section>
 <section id="access-om2-01" class="slide level2">
 <h2>ACCESS-OM2-01</h2>
 <aside class="notes">
-<p>Don't suggest anyone runs this without contacting COSIMA as runs are expensive and a bit tricky to get running on raijin.</p>
+<p>Don't suggest anyone runs this without contacting COSIMA as runs are expensive</p>
 </aside>
 <ul>
 <li>Nominal 0.1 degree global resolution</li>
 <li>JRA55 RYF and IAF configurations</li>
 <li>Minimal JRA55 IAF configuration (fewer cores)</li>
 </ul>
-<p><a href="https://github.com/OceansAus/01deg_jra55_iaf">https://github.com/OceansAus/01deg_jra55_iaf</a> <a href="https://github.com/OceansAus/01deg_jra55_ryf">https://github.com/OceansAus/01deg_jra55_ryf</a> <a href="https://github.com/OceansAus/minimal_01deg_jra55_iaf">https://github.com/OceansAus/minimal_01deg_jra55_iaf</a></p>
+<p><a href="https://github.com/COSIMA/01deg_jra55_iaf">https://github.com/COSIMA/01deg_jra55_iaf</a> <a href="https://github.com/COSIMA/01deg_jra55_ryf">https://github.com/COSIMA/01deg_jra55_ryf</a> <a href="https://github.com/COSIMA/minimal_01deg_jra55_iaf">https://github.com/COSIMA/minimal_01deg_jra55_iaf</a></p>
 </section>
 <section id="running-an-access-om2-model" class="slide level2">
 <h2>Running an ACCESS-OM2 model</h2>
@@ -195,13 +194,10 @@
 <ul>
 <li>Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github</li>
 </ul>
-<p><a href="https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start">https://github.com/OceansAus/access-om2/wiki/Getting-started#quick-start</a></p>
-<aside class="notes">
-<p>All executables and Can fork</p>
-</aside>
+<p><a href="https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start">https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start</a></p>
 <p>Use the 1 deg JRA55 IAF configuration:</p>
 <pre class="bash"><code>module load payu/0.10
-git clone https://github.com/OceansAus/1deg_jra55_iaf
+git clone https://github.com/COSIMA/1deg_jra55_iaf
 cd 1deg_jra55_iaf 
 payu run</code></pre>
 </section>
@@ -209,40 +205,47 @@ payu run</code></pre>
 
 <p>The PBS and platform specific options for <code>normalbw</code> queue</p>
 <pre class="yaml"><code># PBS configuration
-queue: normalbw
-walltime: 1:00:00
+queue: normal
+walltime: 3:00:00
 jobname: 1deg_jra55_iaf
-ncpus: 252
-
-platform:
-    nodesize: 28
-    nodemem: 128</code></pre>
+mem: 1000GB</code></pre>
 </section>
 <section class="slide level2">
 
 <p>The model options</p>
-<pre class="yaml"><code># Model configuration
+<pre class="yaml
+# Model configuration
 name: common
 model: access-om2
-input: /short/public/access-om2/input_2407a7bc/common_1deg_jra55
+input: /g/data/ik11/inputs/access-om2/input_20201102/common_1deg_jra55
 submodels:
-    - name: atmosphere
-      model: yatm
-      exe: /short/public/access-om2/bin/yatm_037e4b61.exe
-      input: /short/public/access-om2/input_2407a7bc/yatm_1deg
-      ncpus: 1
+- name: atmosphere
+model: yatm
+exe: /g/data/ik11/inputs/access-om2/bin/yatm_5b6c697d.exe
+input:
+- /g/data/ik11/inputs/access-om2/input_20201102/yatm_1deg
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/rsds/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/rlds/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/prra/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/prsn/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/psl/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/land/day/friver/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/tas/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/huss/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/uas/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/vas/gr/v20190429
+- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/landIce/day/licalvf/gr/v20190429
+ncpus: 1"><code>- name: ocean
+  model: mom
+  exe: /g/data/ik11/inputs/access-om2/bin/fms_ACCESS-OM_af3a94d4_libaccessom2_5b6c697d.x
+  input: /g/data/ik11/inputs/access-om2/input_20201102/mom_1deg
+  ncpus: 216
 
-    - name: ocean
-      model: mom
-      exe: /short/public/access-om2/bin/fms_ACCESS-OM_304fe837.x
-      input: /short/public/access-om2/input_2407a7bc/mom_1deg
-      ncpus: 216
-
-    - name: ice
-      model: cice5
-      exe: /short/public/access-om2/bin/cice_auscom_360x300_24p_5a56b59a.exe
-      input: /short/public/access-om2/input_2407a7bc/cice_1deg
-      ncpus: 24</code></pre>
+- name: ice
+  model: cice5
+  exe: /g/data/ik11/inputs/access-om2/bin/cice_auscom_360x300_24p_2572851d_libaccessom2_5b6c697d.exe
+  input: /g/data/ik11/inputs/access-om2/input_20201102/cice_1deg
+  ncpus: 24</code></pre>
 </section>
 <section class="slide level2">
 
@@ -256,113 +259,15 @@ qsub_flags: -lother=hyperthread -W umask=027
 # postscript: sync_output_to_gdata.sh</code></pre>
 <p>Other Useful Stuff ===============</p>
 </section>
-<section id="runspersub" class="slide level2">
-<h2>runspersub</h2>
-<ul>
-<li>For low CPU count model: walltime up to 48 hours</li>
-<li>Maximise walltime to reduce effect of queue time</li>
-<li>A single 48 hour model run: What if crashes? Output non optimal?</li>
-</ul>
-<aside class="notes">
-<p>Runspersub to the rescue! Being conservative with walltime in case some runs take &gt; 2hr When last run crashes, only time of last run is lost</p>
-</aside>
-<pre class="yaml"><code>runspersub: 23
-walltime: 48:00:00</code></pre>
-<ul>
-<li>Say model takes 2hr per run</li>
-<li>Above config would run the model 23 times per PBS submit</li>
-<li><code>walltime</code> must allow for <code>runspersub</code> runs of the model</li>
-<li>If <code>walltime</code> exceeded last run will crash. <code>payu</code> will not resubmit</li>
-</ul>
+<section id="diagnostics" class="slide level2">
+<h2>Diagnostics</h2>
 </section>
-<section id="resubmission" class="slide level2">
-<h2>Resubmission</h2>
-<ul>
-<li><code>payu</code> can resubmit itself with <code>-n</code> command line option</li>
-<li>Using same model example if I wanted 50 runs of the model:</li>
-</ul>
-<pre class="bash"><code>payu run -n 50</code></pre>
-<ul>
-<li><code>runspersub: 1</code> =&gt; 50 PBS submissions, single run in each</li>
-<li><code>runspersub: 23</code> =&gt; 3 PBS submissions, 23/23/4 model runs respectively</li>
-</ul>
-</section>
-<section id="file-tracking" class="slide level2">
-<h2>File Tracking</h2>
-</section>
-<section id="key-advantages" class="slide level2">
-<h2>Key Advantages</h2>
-<aside class="notes">
-<p>Very early in this job, there was a "dodgy aerosol file" that had been used in some simulations, but hard/impossible to say which runs/files were affected</p>
-</aside>
-<ul>
-<li>Track input files used for each model run</li>
-<li>Reproducibly re-run previous experiment</li>
-<li>Share experiments more easily as input files all specified</li>
-<li>Flexibility with specifying path to input files</li>
-<li>Identify all runs using specified file (possible future feature)</li>
-</ul>
-</section>
-<section id="what-is-tracked" class="slide level2">
-<h2>What is tracked?</h2>
-<aside class="notes">
-<p>Executables and inputs are not expected to change. Can specify a flag to either warn if they do and stop, or update manifest and continue</p>
-<p>Restarts are the opposite, and by default are always expected to be different for each run, unless a flag is specified to reproduce a run, in which case any difference will flag an error and stop</p>
-</aside>
-<table>
-<tbody>
-<tr class="odd">
-<td>Executables</td>
-<td><code>manifests/exe.yaml</code></td>
-</tr>
-<tr class="even">
-<td>Inputs</td>
-<td><code>manifests/input.yaml</code></td>
-</tr>
-<tr class="odd">
-<td>Restarts</td>
-<td><code>manifests/restart.yaml</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="how-is-it-tracked" class="slide level2">
-<h2>How is it tracked?</h2>
-<ul>
-<li>Uses yamanifest</li>
-<li>Creates a <code>YaML</code> file</li>
-<li>Each file (symlink) in <code>work</code> is dictionary key</li>
-</ul>
-</section>
-<section id="example" class="slide level2">
-<h2>Example</h2>
-<aside class="notes">
-<p>Note there is a header and a version string, can ignore All files in work are either config files (which are tracked by git) or symbolic links to files elsewhere on filesystem Issues with getting this working has to do with enforcing this for all models - can be difficult with hardwired paths etc</p>
-</aside>
-<ul>
-<li><code>fullpath</code> is the actual location of the file</li>
-<li>The hashes uniquely identify file</li>
-</ul>
-<pre class="yaml"><code>format: yamanifest
-version: 1.0
----
-work/fms_MOM_SIS.intel14:
-  fullpath: /short/v45/aph502/mom/bin/fms_MOM_SIS.intel14
-  hashes:
-    binhash: 74b079574d3160fd2024ca928f3097a0
-    md5: e10bf223ae2564701ae310d341bbe63b</code></pre>
-</section>
-<section id="hierachy-of-hashes" class="slide level2">
-<h2>Hierachy of hashes</h2>
-<aside class="notes">
-<p>binhash uses datestamp and size combined with first 100MB of a file. Not guaranteed unique, but likely to detect if the file has changed</p>
-</aside>
-<ul>
-<li>yamanifest supports multiple hashes =&gt; hierachy of hashes</li>
-<li>Unique hashes (md5, sha128) take too long on large files</li>
-<li>Fast hashing to check for file changes</li>
-<li>Use unique hash check when necessary (or periodically?)</li>
-</ul>
+<section id="analysis" class="slide level2">
+<h2>Analysis</h2>
+<p>outputs (join groups)</p>
+<p>cosima cookbook</p>
+<p>explorer</p>
+<p>cosima recipes</p>
 </section></section>
     </div>
   </div>
