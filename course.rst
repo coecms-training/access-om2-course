@@ -77,10 +77,10 @@ All models are open source
 Forcing Data
 ------------
 
-* The model does not have a free-running atmospheric model. The atmospheric
+* The model does not have a free-running atmospheric model. Atmospheric
   forcing is input from a data source by ``libaccessom2+yatm`` and passed to 
   the ice model 
-* Uses JRA55 reanalysis derivative product JRA55-do v1.4
+* Atmosphere uses JRA55 reanalysis derivative product JRA55-do v1.4
 
 http://jra.kishou.go.jp/JRA-55/index_en.html
 https://www.sciencedirect.com/science/article/pii/S146350031830235X
@@ -88,6 +88,12 @@ https://www.sciencedirect.com/science/article/pii/S146350031830235X
 * IAF (Interannual Forcing) : JRA55-do (1955-present) 
 * RYF (Repeat Year Forcing) : RYF8485, RYF9091, RYF0304
 
+
+Configurations
+==============
+
+* All model configurations are global, and there are three supported resolutions
+* At each resolution interannual and repeat year forcing is supported
 
 ACCESS-OM2
 ----------
@@ -126,7 +132,7 @@ https://github.com/COSIMA/minimal_01deg_jra55_iaf
 
 
 Running an ACCESS-OM2 model
----------------------------
+===========================
 
 .. notes:: 
    Can run in a branch to keep config clean
@@ -140,14 +146,30 @@ Use the 1 deg JRA55 IAF configuration:
 
 .. code::bash
 
-    module load payu/0.10
+    module use /g/data3/hh5/public/modules
+    module load conda
     git clone https://github.com/COSIMA/1deg_jra55_iaf
     cd 1deg_jra55_iaf 
+
+-----
+
+It should work to run at this point
+This would be wasteful, so ...
+
+* Edit `accessom2.nml` and change model run time from 5 years to 1 month:
+.. code::yaml
+
+    restart_period = 0, 1, 0
+
+* Run the model
+
+.. code::bash
+
     payu run
 
 -----
 
-The PBS and platform specific options for ``normalbw`` queue
+The PBS options for ``normal`` queue
 
 .. code::yaml
     
@@ -156,7 +178,6 @@ The PBS and platform specific options for ``normalbw`` queue
     walltime: 3:00:00
     jobname: 1deg_jra55_iaf
     mem: 1000GB
-
 
 -----
 
@@ -200,17 +221,40 @@ The model options
 
 ----
 
-Miscellaneous options (including collation)
+Collation options include collating restarts, and using multiple CPUs to speed up collation
+.. code::yaml
+
+    # Collation
+    collate:
+      restart: true
+      walltime: 1:00:00
+      mem: 30GB
+      ncpus: 4
+      queue: normal
+      exe: /g/data/ik11/inputs/access-om2/bin/mppnccombine
+
+----
+
+Miscellaneous options
 
 .. code::yaml
-    
+
     # Misc
-    collate: true
+    runlog: true
     stacksize: unlimited
-    collate_walltime: 1:00:00
-    collate_exe: /short/public/access-om2/bin/mppnccombine
-    qsub_flags: -lother=hyperthread -W umask=027
-    # postscript: sync_output_to_gdata.sh
+    restart_freq: 1  # use tidy_restarts.py instead
+    mpirun: --mca io ompio --mca io_ompio_num_aggregators 1
+    qsub_flags: -W umask=027
+    # set number of cores per node (28 for normalbw, 48 for normal on gadi)
+    platform:
+        nodesize: 48
+    # sweep and resubmit on specific errors - see https://github.com/payu-org/payu/issues/241#issuecomment-610739771
+    userscripts:
+        error: resub.sh
+        run: rm -f resubmit.count
+
+    # DANGER! Do not uncomment this without checking the script is syncing to the correct location!
+    # postscript: sync_data.sh
 
 
 Other Useful Stuff

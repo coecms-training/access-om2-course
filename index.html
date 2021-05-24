@@ -149,13 +149,21 @@
 <section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
 <ul>
-<li>The model does not have a free-running atmospheric model. The atmospheric forcing is input from a data source by <code>libaccessom2+yatm</code> and passed to the ice model</li>
-<li>Uses JRA55 reanalysis derivative product JRA55-do v1.4</li>
+<li>The model does not have a free-running atmospheric model. Atmospheric forcing is input from a data source by <code>libaccessom2+yatm</code> and passed to the ice model</li>
+<li>Atmosphere uses JRA55 reanalysis derivative product JRA55-do v1.4</li>
 </ul>
 <p><a href="http://jra.kishou.go.jp/JRA-55/index_en.html">http://jra.kishou.go.jp/JRA-55/index_en.html</a> <a href="https://www.sciencedirect.com/science/article/pii/S146350031830235X">https://www.sciencedirect.com/science/article/pii/S146350031830235X</a></p>
 <ul>
 <li>IAF (Interannual Forcing) : JRA55-do (1955-present)</li>
 <li>RYF (Repeat Year Forcing) : RYF8485, RYF9091, RYF0304</li>
+</ul>
+</section></section>
+<section>
+<section id="configurations" class="title-slide slide level1">
+<h1>Configurations</h1>
+<ul>
+<li>All model configurations are global, and there are three supported resolutions</li>
+<li>At each resolution interannual and repeat year forcing is supported</li>
 </ul>
 </section>
 <section id="access-om2-1" class="slide level2">
@@ -185,9 +193,10 @@
 <li>Minimal JRA55 IAF configuration (fewer cores)</li>
 </ul>
 <p><a href="https://github.com/COSIMA/01deg_jra55_iaf">https://github.com/COSIMA/01deg_jra55_iaf</a> <a href="https://github.com/COSIMA/01deg_jra55_ryf">https://github.com/COSIMA/01deg_jra55_ryf</a> <a href="https://github.com/COSIMA/minimal_01deg_jra55_iaf">https://github.com/COSIMA/minimal_01deg_jra55_iaf</a></p>
-</section>
-<section id="running-an-access-om2-model" class="slide level2">
-<h2>Running an ACCESS-OM2 model</h2>
+</section></section>
+<section>
+<section id="running-an-access-om2-model" class="title-slide slide level1">
+<h1>Running an ACCESS-OM2 model</h1>
 <aside class="notes">
 <p>Can run in a branch to keep config clean Can fork</p>
 </aside>
@@ -196,14 +205,26 @@
 </ul>
 <p><a href="https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start">https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start</a></p>
 <p>Use the 1 deg JRA55 IAF configuration:</p>
-<pre class="bash"><code>module load payu/0.10
+<pre class="bash"><code>module use /g/data3/hh5/public/modules
+module load conda
 git clone https://github.com/COSIMA/1deg_jra55_iaf
-cd 1deg_jra55_iaf 
-payu run</code></pre>
+cd 1deg_jra55_iaf </code></pre>
 </section>
 <section class="slide level2">
 
-<p>The PBS and platform specific options for <code>normalbw</code> queue</p>
+<p>It should work to run at this point This would be wasteful, so ...</p>
+<p>* Edit <span class="title-ref">accessom2.nml</span> and change model run time from 5 years to 1 month: .. code::yaml</p>
+<blockquote>
+<p>restart_period = 0, 1, 0</p>
+</blockquote>
+<ul>
+<li>Run the model</li>
+</ul>
+<pre class="bash"><code>payu run</code></pre>
+</section>
+<section class="slide level2">
+
+<p>The PBS options for <code>normal</code> queue</p>
 <pre class="yaml"><code># PBS configuration
 queue: normal
 walltime: 3:00:00
@@ -249,14 +270,30 @@ ncpus: 1"><code>- name: ocean
 </section>
 <section class="slide level2">
 
-<p>Miscellaneous options (including collation)</p>
+<p>Collation options include collating restarts, and using multiple CPUs to speed up collation .. code::yaml</p>
+<blockquote>
+<p># Collation collate: restart: true walltime: 1:00:00 mem: 30GB ncpus: 4 queue: normal exe: /g/data/ik11/inputs/access-om2/bin/mppnccombine</p>
+</blockquote>
+</section>
+<section class="slide level2">
+
+<p>Miscellaneous options</p>
 <pre class="yaml"><code># Misc
-collate: true
+runlog: true
 stacksize: unlimited
-collate_walltime: 1:00:00
-collate_exe: /short/public/access-om2/bin/mppnccombine
-qsub_flags: -lother=hyperthread -W umask=027
-# postscript: sync_output_to_gdata.sh</code></pre>
+restart_freq: 1  # use tidy_restarts.py instead
+mpirun: --mca io ompio --mca io_ompio_num_aggregators 1
+qsub_flags: -W umask=027
+# set number of cores per node (28 for normalbw, 48 for normal on gadi)
+platform:
+    nodesize: 48
+# sweep and resubmit on specific errors - see https://github.com/payu-org/payu/issues/241#issuecomment-610739771
+userscripts:
+    error: resub.sh
+    run: rm -f resubmit.count
+
+# DANGER! Do not uncomment this without checking the script is syncing to the correct location!
+# postscript: sync_data.sh</code></pre>
 <p>Other Useful Stuff ===============</p>
 </section>
 <section id="diagnostics" class="slide level2">
