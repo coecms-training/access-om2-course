@@ -195,8 +195,8 @@
 <p><a href="https://github.com/COSIMA/01deg_jra55_iaf">https://github.com/COSIMA/01deg_jra55_iaf</a> <a href="https://github.com/COSIMA/01deg_jra55_ryf">https://github.com/COSIMA/01deg_jra55_ryf</a> <a href="https://github.com/COSIMA/minimal_01deg_jra55_iaf">https://github.com/COSIMA/minimal_01deg_jra55_iaf</a></p>
 </section></section>
 <section>
-<section id="running-an-access-om2-model" class="title-slide slide level1">
-<h1>Running an ACCESS-OM2 model</h1>
+<section id="running-the-model" class="title-slide slide level1">
+<h1>Running the model</h1>
 <aside class="notes">
 <p>Can run in a branch to keep config clean Can fork</p>
 </aside>
@@ -204,6 +204,9 @@
 <li>Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github</li>
 </ul>
 <p><a href="https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start">https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start</a></p>
+</section>
+<section class="slide level2">
+
 <p>Use the 1 deg JRA55 IAF configuration:</p>
 <pre class="bash"><code>module use /g/data3/hh5/public/modules
 module load conda
@@ -212,11 +215,10 @@ cd 1deg_jra55_iaf </code></pre>
 </section>
 <section class="slide level2">
 
-<p>It should work to run at this point This would be wasteful, so ...</p>
-<p>* Edit <span class="title-ref">accessom2.nml</span> and change model run time from 5 years to 1 month: .. code::yaml</p>
-<blockquote>
-<p>restart_period = 0, 1, 0</p>
-</blockquote>
+<ul>
+<li>Could run but would be wasteful as test. Change model run time from 5 years to 1 month: in <span class="title-ref">accessom2.nml</span></li>
+</ul>
+<pre class="yaml"><code>restart_period = 0, 1, 0</code></pre>
 <ul>
 <li>Run the model</li>
 </ul>
@@ -234,39 +236,40 @@ mem: 1000GB</code></pre>
 <section class="slide level2">
 
 <p>The model options</p>
-<pre class="yaml
-# Model configuration
+<pre class="yaml"><code># Model configuration
 name: common
 model: access-om2
 input: /g/data/ik11/inputs/access-om2/input_20201102/common_1deg_jra55
 submodels:
-- name: atmosphere
-model: yatm
-exe: /g/data/ik11/inputs/access-om2/bin/yatm_5b6c697d.exe
-input:
-- /g/data/ik11/inputs/access-om2/input_20201102/yatm_1deg
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/rsds/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/rlds/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/prra/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/prsn/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/psl/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/land/day/friver/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/tas/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/huss/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/uas/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/vas/gr/v20190429
-- /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/landIce/day/licalvf/gr/v20190429
-ncpus: 1"><code>- name: ocean
-  model: mom
-  exe: /g/data/ik11/inputs/access-om2/bin/fms_ACCESS-OM_af3a94d4_libaccessom2_5b6c697d.x
-  input: /g/data/ik11/inputs/access-om2/input_20201102/mom_1deg
-  ncpus: 216
+    - name: atmosphere
+      model: yatm
+      exe: /g/data/ik11/inputs/access-om2/bin/yatm_5b6c697d.exe
+      input:
+            - /g/data/ik11/inputs/access-om2/input_20201102/yatm_1deg
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/rsds/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/rlds/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/prra/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hr/prsn/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/psl/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/land/day/friver/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/tas/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/huss/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/uas/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/atmos/3hrPt/vas/gr/v20190429
+            - /g/data/qv56/replicas/input4MIPs/CMIP6/OMIP/MRI/MRI-JRA55-do-1-4-0/landIce/day/licalvf/gr/v20190429
+      ncpus: 1
 
-- name: ice
-  model: cice5
-  exe: /g/data/ik11/inputs/access-om2/bin/cice_auscom_360x300_24p_2572851d_libaccessom2_5b6c697d.exe
-  input: /g/data/ik11/inputs/access-om2/input_20201102/cice_1deg
-  ncpus: 24</code></pre>
+    - name: ocean
+      model: mom
+      exe: /g/data/ik11/inputs/access-om2/bin/fms_ACCESS-OM_af3a94d4_libaccessom2_5b6c697d.x
+      input: /g/data/ik11/inputs/access-om2/input_20201102/mom_1deg
+      ncpus: 216
+
+    - name: ice
+      model: cice5
+      exe: /g/data/ik11/inputs/access-om2/bin/cice_auscom_360x300_24p_2572851d_libaccessom2_5b6c697d.exe
+      input: /g/data/ik11/inputs/access-om2/input_20201102/cice_1deg
+      ncpus: 24</code></pre>
 </section>
 <section class="slide level2">
 
@@ -294,14 +297,41 @@ userscripts:
 
 # DANGER! Do not uncomment this without checking the script is syncing to the correct location!
 # postscript: sync_data.sh</code></pre>
-<p>Other Useful Stuff ===============</p>
+</section>
+<section id="restart-from-a-previous-experiment" class="slide level2">
+<h2>Restart from a previous experiment</h2>
+<ul>
+<li><span class="title-ref">payu</span> will examine the <span class="title-ref">archive</span> directory and if there is an existing restart directory it will use it</li>
+<li>Using the restart option in <span class="title-ref">config.yaml</span> would be best, but doesn't currently work for ACCESS-OM2</li>
+<li>See the <a href="https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment">ACCESS-OM2 wiki for details</a></li>
+</ul>
+</section></section>
+<section>
+<section id="other-useful-stuff" class="title-slide slide level1">
+<h1>Other Useful Stuff</h1>
+
 </section>
 <section id="diagnostics" class="slide level2">
 <h2>Diagnostics</h2>
+<ul>
+<li>Only a fraction of the possible diagnostic (and tracer) fields are output</li>
+<li>MOM diagnostics determined by the <span class="title-ref">diag_table</span> which is generated programmatically</li>
+<li>CICE diagnostics are definted in <span class="title-ref">cice_in.nml</span></li>
+</ul>
+</section>
+<section id="available-data" class="slide level2">
+<h2>Available data</h2>
+<ul>
+<li>Some data is published and available via THREDDS from NCI</li>
+</ul>
+<p><a href="https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_4979_4319_7298">https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_4979_4319_7298</a></p>
+<ul>
+<li>Always preferable (faster) to access directly on disk</li>
+<li>Need to go to <a href="https://my.nci.org.au">https://my.nci.org.au</a> and join groups: <span class="title-ref">hh5</span>, <span class="title-ref">ik11</span> and <span class="title-ref">cj50</span></li>
+</ul>
 </section>
 <section id="analysis" class="slide level2">
 <h2>Analysis</h2>
-<p>outputs (join groups)</p>
 <p>cosima cookbook</p>
 <p>explorer</p>
 <p>cosima recipes</p>

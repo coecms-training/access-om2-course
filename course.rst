@@ -131,8 +131,8 @@ https://github.com/COSIMA/01deg_jra55_ryf
 https://github.com/COSIMA/minimal_01deg_jra55_iaf
 
 
-Running an ACCESS-OM2 model
-===========================
+Running the model
+=================
 
 .. notes:: 
    Can run in a branch to keep config clean
@@ -141,6 +141,8 @@ Running an ACCESS-OM2 model
 * Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github
 
 https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start
+
+-----
 
 Use the 1 deg JRA55 IAF configuration:
 
@@ -153,10 +155,8 @@ Use the 1 deg JRA55 IAF configuration:
 
 -----
 
-It should work to run at this point
-This would be wasteful, so ...
+* Could run but would be wasteful as test. Change model run time from 5 years to 1 month: in `accessom2.nml` 
 
-* Edit `accessom2.nml` and change model run time from 5 years to 1 month:
 .. code::yaml
 
     restart_period = 0, 1, 0
@@ -184,6 +184,7 @@ The PBS options for ``normal`` queue
 The model options
 
 .. code::yaml
+
     # Model configuration
     name: common
     model: access-om2
@@ -257,16 +258,36 @@ Miscellaneous options
     # postscript: sync_data.sh
 
 
+Restart from a previous experiment
+----------------------------------
+
+* `payu` will examine the `archive` directory and if there is an existing restart directory it will use it
+* Using the restart option in `config.yaml` would be best, but doesn't currently work for ACCESS-OM2
+* See the `ACCESS-OM2 wiki for details <https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment>`_
+
+
 Other Useful Stuff
-===============
+==================
 
 Diagnostics
 -----------
 
+* Only a fraction of the possible diagnostic (and tracer) fields are output
+* MOM diagnostics determined by the `diag_table` which is generated programmatically
+* CICE diagnostics are definted in `cice_in.nml`
+
+Available data
+--------------
+
+* Some data is published and available via THREDDS from NCI 
+
+https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_4979_4319_7298
+
+* Always preferable (faster) to access directly on disk
+* Need to go to https://my.nci.org.au and join groups: `hh5`, `ik11` and `cj50`
+
 Analysis
 --------
-
-outputs (join groups)
 
 cosima cookbook
 
