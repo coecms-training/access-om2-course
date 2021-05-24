@@ -216,7 +216,7 @@ cd 1deg_jra55_iaf </code></pre>
 <section class="slide level2">
 
 <ul>
-<li>Could run but would be wasteful as test. Change model run time from 5 years to 1 month: in <span class="title-ref">accessom2.nml</span></li>
+<li>Could run but would be wasteful as test. Change model run time from 5 years to 1 month: in <code>accessom2.nml</code></li>
 </ul>
 <pre class="yaml"><code>restart_period = 0, 1, 0</code></pre>
 <ul>
@@ -306,8 +306,8 @@ userscripts:
 <section id="restart-from-a-previous-experiment" class="slide level2">
 <h2>Restart from a previous experiment</h2>
 <ul>
-<li><span class="title-ref">payu</span> will examine the <span class="title-ref">archive</span> directory and if there is an existing restart directory it will use it</li>
-<li>Using the restart option in <span class="title-ref">config.yaml</span> would be best, but doesn't currently work for ACCESS-OM2</li>
+<li>payu will examine the <code>archive</code> directory and if there is an existing restart directory it will use it</li>
+<li>Using the restart option in <code>config.yaml</code> would be best, but doesn't currently work for ACCESS-OM2</li>
 <li>See the <a href="https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment">ACCESS-OM2 wiki for details</a></li>
 </ul>
 </section></section>
@@ -320,8 +320,8 @@ userscripts:
 <h2>Diagnostics</h2>
 <ul>
 <li>Only a fraction of the possible diagnostic (and tracer) fields are output</li>
-<li>MOM diagnostics determined by the <span class="title-ref">diag_table</span> which is generated programmatically</li>
-<li>CICE diagnostics are definted in <span class="title-ref">cice_in.nml</span></li>
+<li>MOM diagnostics determined by the <code>diag_table</code> which is generated programmatically</li>
+<li>CICE diagnostics are definted in <code>cice_in.nml</code></li>
 </ul>
 </section>
 <section id="available-data" class="slide level2">
@@ -332,14 +332,12 @@ userscripts:
 <p><a href="https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_4979_4319_7298">https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_4979_4319_7298</a></p>
 <ul>
 <li>Always preferable (faster) to access directly on disk</li>
-<li>Need to go to <a href="https://my.nci.org.au">https://my.nci.org.au</a> and join groups: <span class="title-ref">hh5</span>, <span class="title-ref">ik11</span> and <span class="title-ref">cj50</span></li>
+<li>Need to go to <a href="https://my.nci.org.au">https://my.nci.org.au</a> and join groups: <code>hh5</code>, <code>ik11</code> and <code>cj50</code></li>
 </ul>
 </section>
 <section id="analysis" class="slide level2">
 <h2>Analysis</h2>
-<p>* COSIMA provides the <a href="https://github.com/COSIMA/cosima-cookbook">COSIMA Cookbook</a>, a database to find and load COSIMA datasets</p>
-<p>* The <a href="">COSIMA Recipes repository https://cosima-recipes.readthedocs.io/en/latest/</a> contains a number of Tutorials and Documented Examples of analyses using the COSIMA Cookbook</p>
-<p>* The Cookbook includes a <a href="https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb">Data Explorer tool</a> that is a very useful way to find available datasets in the COSIMA collection at NCI</p>
+<p>* COSIMA provides the <a href="https://github.com/COSIMA/cosima-cookbook">COSIMA Cookbook</a>, a database to find and load COSIMA datasets * The <a href="https://cosima-recipes.readthedocs.io/en/latest/">COSIMA Recipes repository</a> contains Tutorials and Documented Examples * Cookbook includes an interactive <a href="https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb">Data Explorer tool</a> to find and load available datasets in the COSIMA collection at NCI</p>
 </section></section>
     </div>
   </div>

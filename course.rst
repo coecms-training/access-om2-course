@@ -155,7 +155,8 @@ Use the 1 deg JRA55 IAF configuration:
 
 -----
 
-* Could run but would be wasteful as test. Change model run time from 5 years to 1 month: in `accessom2.nml` 
+* Could run but would be wasteful as test. Change model run time from 5 years to 
+  1 month: in ``accessom2.nml`` 
 
 .. code::yaml
 
@@ -262,8 +263,8 @@ Miscellaneous options
 Restart from a previous experiment
 ----------------------------------
 
-* `payu` will examine the `archive` directory and if there is an existing restart directory it will use it
-* Using the restart option in `config.yaml` would be best, but doesn't currently work for ACCESS-OM2
+* payu will examine the ``archive`` directory and if there is an existing restart directory it will use it
+* Using the restart option in ``config.yaml`` would be best, but doesn't currently work for ACCESS-OM2
 * See the `ACCESS-OM2 wiki for details <https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment>`_
 
 
@@ -274,8 +275,8 @@ Diagnostics
 -----------
 
 * Only a fraction of the possible diagnostic (and tracer) fields are output
-* MOM diagnostics determined by the `diag_table` which is generated programmatically
-* CICE diagnostics are definted in `cice_in.nml`
+* MOM diagnostics determined by the ``diag_table`` which is generated programmatically
+* CICE diagnostics are definted in ``cice_in.nml``
 
 Available data
 --------------
@@ -285,17 +286,15 @@ Available data
 https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_4979_4319_7298
 
 * Always preferable (faster) to access directly on disk
-* Need to go to https://my.nci.org.au and join groups: `hh5`, `ik11` and `cj50`
+* Need to go to https://my.nci.org.au and join groups: ``hh5``, ``ik11`` and ``cj50``
 
 Analysis
 --------
 
 * COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
 find and load COSIMA datasets
-
-* The `COSIMA Recipes repository https://cosima-recipes.readthedocs.io/en/latest/`_ contains a number 
-of Tutorials and Documented Examples of analyses using the COSIMA Cookbook
-
-* The Cookbook includes a `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
-that is a very useful way to find available datasets in the COSIMA collection at NCI
+* The `COSIMA Recipes repository <https://cosima-recipes.readthedocs.io/en/latest/>`_ contains
+Tutorials and Documented Examples
+* Cookbook includes an interactive `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
+to find and load available datasets in the COSIMA collection at NCI
 
