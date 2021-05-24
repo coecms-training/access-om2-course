@@ -273,10 +273,15 @@ submodels:
 </section>
 <section class="slide level2">
 
-<p>Collation options include collating restarts, and using multiple CPUs to speed up collation .. code::yaml</p>
-<blockquote>
-<p># Collation collate: restart: true walltime: 1:00:00 mem: 30GB ncpus: 4 queue: normal exe: /g/data/ik11/inputs/access-om2/bin/mppnccombine</p>
-</blockquote>
+<p>Collation options include collating restarts, and using multiple CPUs to speed up collation</p>
+<pre class="yaml"><code># Collation
+collate:
+  restart: true
+  walltime: 1:00:00
+  mem: 30GB
+  ncpus: 4
+  queue: normal
+  exe: /g/data/ik11/inputs/access-om2/bin/mppnccombine</code></pre>
 </section>
 <section class="slide level2">
 
@@ -332,9 +337,9 @@ userscripts:
 </section>
 <section id="analysis" class="slide level2">
 <h2>Analysis</h2>
-<p>cosima cookbook</p>
-<p>explorer</p>
-<p>cosima recipes</p>
+<p>* COSIMA provides the <a href="https://github.com/COSIMA/cosima-cookbook">COSIMA Cookbook</a>, a database to find and load COSIMA datasets</p>
+<p>* The <a href="">COSIMA Recipes repository https://cosima-recipes.readthedocs.io/en/latest/</a> contains a number of Tutorials and Documented Examples of analyses using the COSIMA Cookbook</p>
+<p>* The Cookbook includes a <a href="https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb">Data Explorer tool</a> that is a very useful way to find available datasets in the COSIMA collection at NCI</p>
 </section></section>
     </div>
   </div>

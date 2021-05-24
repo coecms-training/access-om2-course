@@ -223,6 +223,7 @@ The model options
 ----
 
 Collation options include collating restarts, and using multiple CPUs to speed up collation
+
 .. code::yaml
 
     # Collation
@@ -289,9 +290,12 @@ https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_
 Analysis
 --------
 
-cosima cookbook
+* COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
+find and load COSIMA datasets
 
-explorer
+* The `COSIMA Recipes repository https://cosima-recipes.readthedocs.io/en/latest/`_ contains a number 
+of Tutorials and Documented Examples of analyses using the COSIMA Cookbook
 
-cosima recipes
+* The Cookbook includes a `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
+that is a very useful way to find available datasets in the COSIMA collection at NCI
 
