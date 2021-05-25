@@ -341,8 +341,7 @@ userscripts:
 <li><code>access-om2.out</code> and <code>access-om2.err</code> still present in control directory</li>
 <li>Non-zero return code in PBS log file</li>
 </ul>
-<p>..code:</p>
-<pre><code>======================================================================================
+<pre class=""><code>======================================================================================
                 Resource Usage on 2021-05-25 17:02:12:
 Job Id:             22990186.gadi-pbs
 Project:            w97
@@ -360,11 +359,17 @@ JobFS requested:    600.0MB                JobFS used: 0B
 <ul>
 <li>Check <code>access-om2.err</code> and find the first error message that looks like this</li>
 </ul>
-<p>..code::sh</p>
-<blockquote>
-<p>FATAL from PE 178: ==&gt;Error: time step instability detected for baroclinic gravity waves in ocean_model_mod</p>
-<p>Image PC Routine Line Source fms_ACCESS-OM_af3 0000000001C458BA Unknown Unknown Unknown fms_ACCESS-OM_af3 0000000001825DAC mpp_mod_mp_mpp_er 58 mpp_util_mpi.inc fms_ACCESS-OM_af3 0000000000D8FF91 ocean_velocity_mo 886 ocean_velocity.F90 fms_ACCESS-OM_af3 0000000000466493 ocean_model_mod_m 1258 ocean_model.F90 fms_ACCESS-OM_af3 0000000000410FDB MAIN__ 358 ocean_solo.F90 fms_ACCESS-OM_af3 000000000040F662 Unknown Unknown Unknown libc-2.28.so 000014E858A3D7B3 __libc_start_main Unknown Unknown fms_ACCESS-OM_af3 000000000040F56E Unknown Unknown Unknown</p>
-</blockquote>
+<pre class="sh"><code>FATAL from PE   178: ==&gt;Error: time step instability detected for baroclinic gravity waves in ocean_model_mod                                                                                   
+
+Image              PC                Routine            Line        Source
+fms_ACCESS-OM_af3  0000000001C458BA  Unknown               Unknown  Unknown
+fms_ACCESS-OM_af3  0000000001825DAC  mpp_mod_mp_mpp_er          58  mpp_util_mpi.inc
+fms_ACCESS-OM_af3  0000000000D8FF91  ocean_velocity_mo         886  ocean_velocity.F90
+fms_ACCESS-OM_af3  0000000000466493  ocean_model_mod_m        1258  ocean_model.F90
+fms_ACCESS-OM_af3  0000000000410FDB  MAIN__                    358  ocean_solo.F90
+fms_ACCESS-OM_af3  000000000040F662  Unknown               Unknown  Unknown
+libc-2.28.so       000014E858A3D7B3  __libc_start_main     Unknown  Unknown
+fms_ACCESS-OM_af3  000000000040F56E  Unknown               Unknown  Unknown</code></pre>
 <ul>
 <li>This is a backtrace (or stacktrace) that shows the location in the code where the error occurred. The code was compiled to include human readable source code names which makes it easier to debug</li>
 <li>There will be a lot of other stack traces as this is an MPI program running multiple copies of the models, and each will be signalled to "die" when there is a fatal error</li>
@@ -372,11 +377,18 @@ JobFS requested:    600.0MB                JobFS used: 0B
 </section>
 <section class="slide level2">
 
-<p>..code::sh</p>
-<blockquote>
-<p>FATAL from PE 142: Error: salinity out of range with value -9.223462738696E-01 at (i,j,k) = ( 214, 184, 21), (lon,lat,dpt) = ( -66.5000, 17.8501, 261.0993 m)</p>
-<p>Image PC Routine Line Source fms_ACCESS-OM_af3 0000000001C458BA Unknown Unknown Unknown fms_ACCESS-OM_af3 0000000001825DAC mpp_mod_mp_mpp_er 58 mpp_util_mpi.inc fms_ACCESS-OM_af3 00000000005EC1D5 ocean_tempsalt_mo 1360 ocean_tempsalt.F90 fms_ACCESS-OM_af3 00000000008440CC <a href="">ocean_tracer_mod</a> 2540 ocean_tracer.F90 fms_ACCESS-OM_af3 000000000044795F ocean_model_mod_m 1864 ocean_model.F90 fms_ACCESS-OM_af3 0000000000416592 MAIN__ 468 ocean_solo.F90 fms_ACCESS-OM_af3 000000000040F662 Unknown Unknown Unknown libc-2.28.so 0000148096D7A7B3 __libc_start_main Unknown Unknown fms_ACCESS-OM_af3 000000000040F56E Unknown Unknown Unknown</p>
-</blockquote>
+<pre class="sh"><code>FATAL from PE   142:  Error: salinity out of range with value    -9.223462738696E-01 at (i,j,k) = ( 214, 184, 21),  (lon,lat,dpt) = (  -66.5000,   17.8501,  261.0993 m)
+
+Image              PC                Routine            Line        Source             
+fms_ACCESS-OM_af3  0000000001C458BA  Unknown               Unknown  Unknown
+fms_ACCESS-OM_af3  0000000001825DAC  mpp_mod_mp_mpp_er          58  mpp_util_mpi.inc
+fms_ACCESS-OM_af3  00000000005EC1D5  ocean_tempsalt_mo        1360  ocean_tempsalt.F90
+fms_ACCESS-OM_af3  00000000008440CC  ocean_tracer_mod_        2540  ocean_tracer.F90
+fms_ACCESS-OM_af3  000000000044795F  ocean_model_mod_m        1864  ocean_model.F90
+fms_ACCESS-OM_af3  0000000000416592  MAIN__                    468  ocean_solo.F90
+fms_ACCESS-OM_af3  000000000040F662  Unknown               Unknown  Unknown
+libc-2.28.so       0000148096D7A7B3  __libc_start_main     Unknown  Unknown
+fms_ACCESS-OM_af3  000000000040F56E  Unknown               Unknown  Unknown</code></pre>
 <ul>
 <li>If the cause of the crash isn't obvious might have to dig into log files within the model subdirectories in <code>work/</code></li>
 </ul>

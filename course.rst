@@ -326,7 +326,7 @@ Signs your model has crashed:
 
 * Non-zero return code in PBS log file
 
-..code::
+.. code::
 
     ======================================================================================
                     Resource Usage on 2021-05-25 17:02:12:
@@ -348,7 +348,7 @@ Diagnosing crashes
 
 * Check ``access-om2.err`` and find the first error message that looks like this
 
-..code::sh
+.. code::sh
 
     FATAL from PE   178: ==>Error: time step instability detected for baroclinic gravity waves in ocean_model_mod                                                                                   
 
@@ -370,7 +370,7 @@ Diagnosing crashes
 
 -----
 
-..code::sh
+.. code::sh
 
     FATAL from PE   142:  Error: salinity out of range with value    -9.223462738696E-01 at (i,j,k) = ( 214, 184, 21),  (lon,lat,dpt) = (  -66.5000,   17.8501,  261.0993 m)
 
