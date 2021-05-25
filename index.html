@@ -332,54 +332,28 @@ userscripts:
 <li>Using the restart option in <code>config.yaml</code> would be best, but doesn't currently work for ACCESS-OM2</li>
 <li>Copy or link previous restart and output directories into your <code>archive</code>. See the <a href="https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment">ACCESS-OM2 wiki for details</a></li>
 </ul>
-<p>Has my model crashed ------------------</p>
+</section>
+<section id="has-my-model-crashed" class="slide level2">
+<h2>Has my model crashed</h2>
 <p>Signs your model has crashed:</p>
 <ul>
 <li><code>work/</code> directory still present in control directory</li>
 <li><code>access-om2.out</code> and <code>access-om2.err</code> still present in control directory</li>
 <li>Non-zero return code in PBS log file</li>
 </ul>
-<p>..code</p>
-<blockquote>
-<table>
-<tbody>
-<tr class="odd">
-<td><blockquote>
-<p>Resource Usage on 2021-05-25 17:02:12:</p>
-</blockquote></td>
-</tr>
-<tr class="even">
-<td>Job Id: 22990186.gadi-pbs</td>
-</tr>
-<tr class="odd">
-<td>Project: w97</td>
-</tr>
-<tr class="even">
-<td>Exit Status: 1</td>
-</tr>
-<tr class="odd">
-<td>Service Units: 6.88</td>
-</tr>
-<tr class="even">
-<td>NCPUs Requested: 288 NCPUs Used: 288</td>
-</tr>
-<tr class="odd">
-<td><blockquote>
-<p>CPU Time Used: 00:21:24</p>
-</blockquote></td>
-</tr>
-<tr class="even">
-<td>Memory Requested: 1000.0GB Memory Used: 121.07GB</td>
-</tr>
-<tr class="odd">
-<td>Walltime requested: 03:00:00 Walltime Used: 00:00:43</td>
-</tr>
-<tr class="even">
-<td>JobFS requested: 600.0MB JobFS used: 0B</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
+<p>..code:</p>
+<pre><code>======================================================================================
+                Resource Usage on 2021-05-25 17:02:12:
+Job Id:             22990186.gadi-pbs
+Project:            w97
+Exit Status:        1
+Service Units:      6.88
+NCPUs Requested:    288                    NCPUs Used: 288             
+                                        CPU Time Used: 00:21:24                                   
+Memory Requested:   1000.0GB              Memory Used: 121.07GB        
+Walltime requested: 03:00:00            Walltime Used: 00:00:43        
+JobFS requested:    600.0MB                JobFS used: 0B              
+======================================================================================</code></pre>
 </section>
 <section id="diagnosing-crashes" class="slide level2">
 <h2>Diagnosing crashes</h2>

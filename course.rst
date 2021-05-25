@@ -316,7 +316,7 @@ Restart from a previous experiment
 
 
 Has my model crashed
-------------------
+--------------------
 
 Signs your model has crashed:
 
@@ -326,7 +326,7 @@ Signs your model has crashed:
 
 * Non-zero return code in PBS log file
 
-..code
+..code::
 
     ======================================================================================
                     Resource Usage on 2021-05-25 17:02:12:
