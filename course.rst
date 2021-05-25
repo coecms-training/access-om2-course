@@ -20,20 +20,22 @@ Outline
 ACCESS-OM2
 ==========
 
-* ACCESS-OM2 model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice
+* Model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice
 models forced with atmospheric data and almost identical model parameters.
 
 * Single ``access-om2`` repository with all code and configs
 
 https://github.com/COSIMA/access-om2
 
-* Well documented in `wiki <https://github.com/COSIMA/access-om2/wiki>`_
+* Well documented in wiki 
+
+https://github.com/COSIMA/access-om2/wiki
 
 
 Components
 ----------
 
-* The model consists of separate component models that run independently and
+The model consists of separate component models that run independently and
 share information via a coupler
 
 ========== ===========================
@@ -47,7 +49,7 @@ Coupler    ``OASIS3-MCT``
 Code
 ----
 
-* All models are open source
+All models are open source
 
 ================ =========================================
 ``MOM5``         https://github.com/mom-ocean/MOM5
@@ -123,7 +125,7 @@ Running the model
    Can run in a branch to keep config clean
    Can fork on GitHub and push config changes back to fork
 
-* Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github
+Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github
 
 https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start
 
@@ -302,9 +304,10 @@ Available data
 
 * Some data is published and available via THREDDS from NCI 
 
-https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_4979_4319_7298
+http://dx.doi.org/10.4225/41/5a2dc8543105a
 
 * Always preferable (faster) to access directly on disk
+
 * Need to go to https://my.nci.org.au and join groups: ``hh5``, ``ik11`` and ``cj50``
 
 
