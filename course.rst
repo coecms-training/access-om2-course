@@ -302,21 +302,20 @@ Miscellaneous options
     # postscript: sync_data.sh
 
 
-Restart from a previous experiment
-----------------------------------
+Restart from another experiment
+-------------------------------
 
-* payu will examine the ``archive`` directory and if there is an existing restart 
-  directory it will use it
+* payu will use any existing restart in the ``archive`` directory
 
-* Using the restart option in ``config.yaml`` would be best, but doesn't currently 
+* restart option in ``config.yaml`` is best, but doesn't currently 
   work for ACCESS-OM2
 
 * Copy or link previous restart and output directories into your ``archive``. See 
   the `ACCESS-OM2 wiki for details <https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment>`_
 
 
-Has my model crashed
---------------------
+Has my model crashed?
+---------------------
 
 Signs your model has crashed:
 
@@ -324,7 +323,7 @@ Signs your model has crashed:
 
 * ``access-om2.out`` and ``access-om2.err`` still present in control directory 
 
-* Non-zero return code in PBS log file
+* Non-zero ``Exit Status`` in PBS log file
 
 .. code::
 
@@ -343,8 +342,14 @@ Signs your model has crashed:
 
 
 
-Diagnosing crashes
+Diagnosing a crash
 ------------------
+
+.. notes::
+   The code was compiled to include human readable source code names which makes it easier to debug
+
+   This is an MPI program running multiple copies of
+   the models, and each will be signalled to "die" when there is a fatal error
 
 * Check ``access-om2.err`` and find the first error message that looks like this
 
@@ -362,13 +367,13 @@ Diagnosing crashes
     libc-2.28.so       000014E858A3D7B3  __libc_start_main     Unknown  Unknown
     fms_ACCESS-OM_af3  000000000040F56E  Unknown               Unknown  Unknown
 
-* This is a backtrace (or stacktrace) that shows the location in the code where the error occurred.
-  The code was compiled to include human readable source code names which makes it easier to debug
+* Backtrace (or stacktrace) shows location in the code where error occurred
 
-* There will be a lot of other stack traces as this is an MPI program running multiple copies of
-  the models, and each will be signalled to "die" when there is a fatal error
+* A stack trace for every cpu (rank)
 
 -----
+
+Another example of an error
 
 .. code::sh
 
