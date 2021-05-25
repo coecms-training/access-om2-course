@@ -167,6 +167,7 @@ body {
   padding: 5px;
   overflow: auto;
   max-height: 400px;
+  white-space: pre;
   word-wrap: normal; }
 
 .reveal table {

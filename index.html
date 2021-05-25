@@ -63,40 +63,20 @@
 <section id="outline" class="title-slide slide level1">
 <h1>Outline</h1>
 <ul>
-<li>payu recap</li>
-<li>quickstart guide</li>
-<li>other useful stuff</li>
+<li>ACCESS-OM2 Model</li>
+<li>Configurations</li>
+<li>Running the model</li>
+<li>Other useful stuff</li>
 </ul>
 </section>
 
-<section>
-<section id="what-is-payu" class="title-slide slide level1">
-<h1>What is Payu?</h1>
-
-</section>
-<section id="payu-is" class="slide level2">
-<h2>Payu is</h2>
-<blockquote>
-<p>... a python based "scientific workflow manager"</p>
-</blockquote>
-</section>
-<section id="huh" class="slide level2">
-<h2>Huh?</h2>
-<p>That means it runs your model for you. In short:</p>
-<ul>
-<li>Setup model run directory (<code>work</code>)</li>
-<li>Run the model</li>
-<li>Move outputs/restarts to <code>archive</code> directory</li>
-<li>Clean up the run directory</li>
-<li>Run again (if instructed to do so)</li>
-</ul>
-</section></section>
 <section>
 <section id="access-om2" class="title-slide slide level1">
 <h1>ACCESS-OM2</h1>
 <p>ACCESS-OM2 model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice models forced with atmospheric data and almost identical model parameters.</p>
 <p>Single <code>access-om2</code> repository with all code and configs</p>
 <p><a href="https://github.com/COSIMA/access-om2">https://github.com/COSIMA/access-om2</a></p>
+<p>Contains a <a href="https://github.com/COSIMA/access-om2/wiki">wiki with lots of documentation</a></p>
 </section>
 <section id="components" class="slide level2">
 <h2>Components</h2>
@@ -149,37 +129,32 @@
 <section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
 <ul>
-<li>The model does not have a free-running atmospheric model. Atmospheric forcing is input from a data source by <code>libaccessom2+yatm</code> and passed to the ice model</li>
+<li>Atmosphere is not free-running model.</li>
+<li>Atmospheric forcing is input from a data source by <code>libaccessom2+yatm</code> and passed to the ice model</li>
 <li>Atmosphere uses JRA55 reanalysis derivative product JRA55-do v1.4</li>
 </ul>
 <p><a href="http://jra.kishou.go.jp/JRA-55/index_en.html">http://jra.kishou.go.jp/JRA-55/index_en.html</a> <a href="https://www.sciencedirect.com/science/article/pii/S146350031830235X">https://www.sciencedirect.com/science/article/pii/S146350031830235X</a></p>
 <ul>
 <li>IAF (Interannual Forcing) : JRA55-do (1955-present)</li>
-<li>RYF (Repeat Year Forcing) : RYF8485, RYF9091, RYF0304</li>
+<li>RYF (Repeat Year Forcing) : RYF9091 (RYF8485, RYF0304 also available)</li>
 </ul>
 </section></section>
 <section>
 <section id="configurations" class="title-slide slide level1">
 <h1>Configurations</h1>
-<ul>
-<li>All model configurations are global, and there are three supported resolutions</li>
-<li>At each resolution interannual and repeat year forcing is supported</li>
-</ul>
+<p>All model configurations are global, and there are three supported resolutions</p>
+<p>At each resolution interannual and repeat year forcing is supported</p>
 </section>
 <section id="access-om2-1" class="slide level2">
 <h2>ACCESS-OM2</h2>
-<ul>
-<li>Nominal 1 degree global resolution</li>
-<li>JRA55 RYF and IAF</li>
-</ul>
+<p>Nominal 1 degree global resolution</p>
+<p>JRA55 RYF and IAF</p>
 <p><a href="https://github.com/COSIMA/1deg_jra55_iaf">https://github.com/COSIMA/1deg_jra55_iaf</a> <a href="https://github.com/COSIMA/1deg_jra55_ryf">https://github.com/COSIMA/1deg_jra55_ryf</a></p>
 </section>
 <section id="access-om2-025" class="slide level2">
 <h2>ACCESS-OM2-025</h2>
-<ul>
-<li>Nominal 0.25 degree global resolution</li>
-<li>JRA55 RYF and IAF configurations</li>
-</ul>
+<p>Nominal 0.25 degree global resolution</p>
+<p>JRA55 RYF and IAF configurations</p>
 <p><a href="https://github.com/COSIMA/025deg_jra55_ryf">https://github.com/COSIMA/025deg_jra55_ryf</a> <a href="https://github.com/COSIMA/025deg_jra55_iaf">https://github.com/COSIMA/025deg_jra55_iaf</a></p>
 </section>
 <section id="access-om2-01" class="slide level2">
@@ -187,18 +162,15 @@
 <aside class="notes">
 <p>Don't suggest anyone runs this without contacting COSIMA as runs are expensive</p>
 </aside>
-<ul>
-<li>Nominal 0.1 degree global resolution</li>
-<li>JRA55 RYF and IAF configurations</li>
-<li>Minimal JRA55 IAF configuration (fewer cores)</li>
-</ul>
-<p><a href="https://github.com/COSIMA/01deg_jra55_iaf">https://github.com/COSIMA/01deg_jra55_iaf</a> <a href="https://github.com/COSIMA/01deg_jra55_ryf">https://github.com/COSIMA/01deg_jra55_ryf</a> <a href="https://github.com/COSIMA/minimal_01deg_jra55_iaf">https://github.com/COSIMA/minimal_01deg_jra55_iaf</a></p>
+<p>Nominal 0.1 degree global resolution</p>
+<p>JRA55 RYF and IAF configurations</p>
+<p><a href="https://github.com/COSIMA/01deg_jra55_iaf">https://github.com/COSIMA/01deg_jra55_iaf</a> <a href="https://github.com/COSIMA/01deg_jra55_ryf">https://github.com/COSIMA/01deg_jra55_ryf</a></p>
 </section></section>
 <section>
 <section id="running-the-model" class="title-slide slide level1">
 <h1>Running the model</h1>
 <aside class="notes">
-<p>Can run in a branch to keep config clean Can fork</p>
+<p>Can run in a branch to keep config clean Can fork on GitHub and push config changes back to fork</p>
 </aside>
 <ul>
 <li>Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github</li>
@@ -207,7 +179,7 @@
 </section>
 <section class="slide level2">
 
-<p>Use the 1 deg JRA55 IAF configuration:</p>
+<p>As an example, using the 1 deg JRA55 IAF configuration:</p>
 <pre class="bash"><code>module use /g/data3/hh5/public/modules
 module load conda
 git clone https://github.com/COSIMA/1deg_jra55_iaf
@@ -215,13 +187,33 @@ cd 1deg_jra55_iaf </code></pre>
 </section>
 <section class="slide level2">
 
-<ul>
-<li>Could run but would be wasteful as test. Change model run time from 5 years to 1 month: in <code>accessom2.nml</code></li>
-</ul>
+<p>The <code>libaccessom2</code> namelist <code>accessom2.nml</code> controls logging, timesetp, forcing dates and model run length (<code>restart_period</code>)</p>
+<pre class="yaml"><code>&amp;accessom2_nml
+    log_level = &#39;DEBUG&#39;
+
+    ! ice_ocean_timestep defines the MOM baroclinic timestep, CICE thermodynamic timestep
+    ! and MOM-CICE coupling interval, in seconds.
+    ! ice_ocean_timestep is normally a factor of the JRA55-do forcing period of 3hr = 10800s,
+    ! e.g. one of 100, 108, 120, 135, 144, 150, 180, 200, 216, 225, 240, 270, 300, 360, 400, 432,
+    ! 450, 540, 600, 675, 720, 900, 1080, 1200, 1350, 1800, 2160, 2700, 3600 or 5400 seconds.
+    ! The model is usually stable with a 5400s timestep, including in the initial spinup from rest.
+    ice_ocean_timestep = 5400
+&amp;end
+
+&amp;date_manager_nml
+    forcing_start_date = &#39;1958-01-01T00:00:00&#39;
+    forcing_end_date = &#39;2019-01-01T00:00:00&#39;
+
+    ! Runtime for a single segment/job/submit, format is years, months, seconds,
+    ! two of which must be zero.
+    restart_period = 5, 0, 0
+&amp;end</code></pre>
+</section>
+<section class="slide level2">
+
+<p>To run the model as a test change model run time from 5 years to 1 month: in <code>accessom2.nml</code></p>
 <pre class="yaml"><code>restart_period = 0, 1, 0</code></pre>
-<ul>
-<li>Run the model</li>
-</ul>
+<p>Run the model</p>
 <pre class="bash"><code>payu run</code></pre>
 </section>
 <section class="slide level2">
@@ -337,7 +329,9 @@ userscripts:
 </section>
 <section id="analysis" class="slide level2">
 <h2>Analysis</h2>
-<p>* COSIMA provides the <a href="https://github.com/COSIMA/cosima-cookbook">COSIMA Cookbook</a>, a database to find and load COSIMA datasets * The <a href="https://cosima-recipes.readthedocs.io/en/latest/">COSIMA Recipes repository</a> contains Tutorials and Documented Examples * Cookbook includes an interactive <a href="https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb">Data Explorer tool</a> to find and load available datasets in the COSIMA collection at NCI</p>
+<p>* COSIMA provides the <a href="https://github.com/COSIMA/cosima-cookbook">COSIMA Cookbook</a>, a database to find and load COSIMA datasets</p>
+<p>* The <a href="https://cosima-recipes.readthedocs.io/en/latest/">COSIMA Recipes repository</a> contains Tutorials and Documented Examples</p>
+<p>* Cookbook includes an interactive <a href="https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb">Data Explorer tool</a> to find and load available datasets in the COSIMA collection at NCI</p>
 </section></section>
     </div>
   </div>

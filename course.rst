@@ -11,30 +11,11 @@ Running ACCESS-OM2 Models at NCI
 Outline
 =======
 
-* payu recap
-* quickstart guide
-* other useful stuff
+* ACCESS-OM2 Model
+* Configurations
+* Running the model
+* Other useful stuff
 
-
-What is Payu?
-=============
-
-Payu is
--------
-
- ... a python based "scientific workflow manager"
-
-Huh?
-----
-
-That means it runs your model for you. In short:
-
-* Setup model run directory (``work``)
-* Run the model
-* Move outputs/restarts to ``archive`` directory
-* Clean up the run directory
-* Run again (if instructed to do so)
-  
 
 ACCESS-OM2
 ==========
@@ -45,6 +26,8 @@ models forced with atmospheric data and almost identical model parameters.
 Single ``access-om2`` repository with all code and configs
 
 https://github.com/COSIMA/access-om2
+
+Contains a `wiki with lots of documentation <https://github.com/COSIMA/access-om2/wiki>`_
 
 
 Components
@@ -77,8 +60,8 @@ All models are open source
 Forcing Data
 ------------
 
-* The model does not have a free-running atmospheric model. Atmospheric
-  forcing is input from a data source by ``libaccessom2+yatm`` and passed to 
+* Atmosphere is not free-running model. 
+* Atmospheric forcing is input from a data source by ``libaccessom2+yatm`` and passed to 
   the ice model 
 * Atmosphere uses JRA55 reanalysis derivative product JRA55-do v1.4
 
@@ -86,20 +69,22 @@ http://jra.kishou.go.jp/JRA-55/index_en.html
 https://www.sciencedirect.com/science/article/pii/S146350031830235X
 
 * IAF (Interannual Forcing) : JRA55-do (1955-present) 
-* RYF (Repeat Year Forcing) : RYF8485, RYF9091, RYF0304
+* RYF (Repeat Year Forcing) : RYF9091 (RYF8485, RYF0304 also available)
 
 
 Configurations
 ==============
 
-* All model configurations are global, and there are three supported resolutions
-* At each resolution interannual and repeat year forcing is supported
+All model configurations are global, and there are three supported resolutions
+
+At each resolution interannual and repeat year forcing is supported
 
 ACCESS-OM2
 ----------
 
-* Nominal 1 degree global resolution
-* JRA55 RYF and IAF
+Nominal 1 degree global resolution
+
+JRA55 RYF and IAF
 
 https://github.com/COSIMA/1deg_jra55_iaf
 https://github.com/COSIMA/1deg_jra55_ryf
@@ -108,8 +93,9 @@ https://github.com/COSIMA/1deg_jra55_ryf
 ACCESS-OM2-025
 --------------
 
-* Nominal 0.25 degree global resolution
-* JRA55 RYF and IAF configurations
+Nominal 0.25 degree global resolution
+
+JRA55 RYF and IAF configurations
 
 https://github.com/COSIMA/025deg_jra55_ryf
 https://github.com/COSIMA/025deg_jra55_iaf
@@ -122,13 +108,12 @@ ACCESS-OM2-01
    Don't suggest anyone runs this without contacting COSIMA
      as runs are expensive
 
-* Nominal 0.1 degree global resolution
-* JRA55 RYF and IAF configurations
-* Minimal JRA55 IAF configuration (fewer cores)
+Nominal 0.1 degree global resolution
+
+JRA55 RYF and IAF configurations
 
 https://github.com/COSIMA/01deg_jra55_iaf
 https://github.com/COSIMA/01deg_jra55_ryf
-https://github.com/COSIMA/minimal_01deg_jra55_iaf
 
 
 Running the model
@@ -136,7 +121,7 @@ Running the model
 
 .. notes:: 
    Can run in a branch to keep config clean
-   Can fork 
+   Can fork on GitHub and push config changes back to fork
 
 * Follow the Quick Start instructions in the ACCESS-OM2 Wiki on github
 
@@ -144,7 +129,7 @@ https://github.com/COSIMA/access-om2/wiki/Getting-started#quick-start
 
 -----
 
-Use the 1 deg JRA55 IAF configuration:
+As an example, using the 1 deg JRA55 IAF configuration:
 
 .. code::bash
 
@@ -155,14 +140,42 @@ Use the 1 deg JRA55 IAF configuration:
 
 -----
 
-* Could run but would be wasteful as test. Change model run time from 5 years to 
-  1 month: in ``accessom2.nml`` 
+The ``libaccessom2`` namelist ``accessom2.nml`` controls logging, timesetp, forcing dates and
+model run length (``restart_period``)
+
+.. code::yaml
+
+    &accessom2_nml
+        log_level = 'DEBUG'
+
+        ! ice_ocean_timestep defines the MOM baroclinic timestep, CICE thermodynamic timestep
+        ! and MOM-CICE coupling interval, in seconds.
+        ! ice_ocean_timestep is normally a factor of the JRA55-do forcing period of 3hr = 10800s,
+        ! e.g. one of 100, 108, 120, 135, 144, 150, 180, 200, 216, 225, 240, 270, 300, 360, 400, 432,
+        ! 450, 540, 600, 675, 720, 900, 1080, 1200, 1350, 1800, 2160, 2700, 3600 or 5400 seconds.
+        ! The model is usually stable with a 5400s timestep, including in the initial spinup from rest.
+        ice_ocean_timestep = 5400
+    &end
+
+    &date_manager_nml
+        forcing_start_date = '1958-01-01T00:00:00'
+        forcing_end_date = '2019-01-01T00:00:00'
+
+        ! Runtime for a single segment/job/submit, format is years, months, seconds,
+        ! two of which must be zero.
+        restart_period = 5, 0, 0
+    &end
+
+
+-----
+
+To run the model as a test change model run time from 5 years to 1 month: in ``accessom2.nml`` 
 
 .. code::yaml
 
     restart_period = 0, 1, 0
 
-* Run the model
+Run the model
 
 .. code::bash
 
@@ -263,8 +276,12 @@ Miscellaneous options
 Restart from a previous experiment
 ----------------------------------
 
-* payu will examine the ``archive`` directory and if there is an existing restart directory it will use it
-* Using the restart option in ``config.yaml`` would be best, but doesn't currently work for ACCESS-OM2
+* payu will examine the ``archive`` directory and if there is an existing restart 
+  directory it will use it
+
+* Using the restart option in ``config.yaml`` would be best, but doesn't currently 
+  work for ACCESS-OM2
+
 * See the `ACCESS-OM2 wiki for details <https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment>`_
 
 
@@ -275,7 +292,9 @@ Diagnostics
 -----------
 
 * Only a fraction of the possible diagnostic (and tracer) fields are output
+
 * MOM diagnostics determined by the ``diag_table`` which is generated programmatically
+
 * CICE diagnostics are definted in ``cice_in.nml``
 
 Available data
@@ -288,13 +307,16 @@ https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/f1296_
 * Always preferable (faster) to access directly on disk
 * Need to go to https://my.nci.org.au and join groups: ``hh5``, ``ik11`` and ``cj50``
 
+
 Analysis
 --------
 
 * COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
 find and load COSIMA datasets
+
 * The `COSIMA Recipes repository <https://cosima-recipes.readthedocs.io/en/latest/>`_ contains
 Tutorials and Documented Examples
+
 * Cookbook includes an interactive `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
 to find and load available datasets in the COSIMA collection at NCI
 
