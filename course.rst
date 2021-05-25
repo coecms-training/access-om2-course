@@ -189,11 +189,10 @@ Run the model
 
 -----
 
-* payu prints the the command it is submitting and some other information to the terminal
+* payu prints the the command it submits and other information
 
-* Some errors can be picked up by inspecting this command: incorrect payu path, insufficient
-  storage flags for all the locations required to run the model, inefficient processor count
-  for physical processor layout
+* Some errors visible by inspection: incorrect payu path, incorrect
+  storage flags, inefficient processor count
 
 .. code::sh
 
