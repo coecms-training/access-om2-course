@@ -313,12 +313,11 @@ http://dx.doi.org/10.4225/41/5a2dc8543105a
 
 * Always preferable (faster) to access directly on disk
 
-* Need to go to https://my.nci.org.au and join groups: ``hh5``, ``ik11`` and ``cj50``
+* Need to go to https://my.nci.org.au and join groups: ``hh5``, ``ik11``, ``cj50`` and ``qv56``
 
 
 Analysis
 --------
-
 
 * COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
 find and load COSIMA datasets
@@ -328,4 +327,19 @@ Tutorials and Documented Examples
 
 * Cookbook includes an interactive `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
 to find and load available datasets in the COSIMA collection at NCI
+
+
+Compiling Executables
+---------------------
+
+* The models are compiled and then published to a shared area in ``ik11``
+
+* Build scripts Andrew Kiss has developed link the codebase to the executable name via
+  ``git`` commit hashes
+
+* Best to use published executables with known provenance
+
+* If compiling own executables keep the ``access-om2`` source tree separate from
+  control directories 
+
 
