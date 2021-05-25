@@ -82,38 +82,41 @@ All model configurations are global, and there are three supported resolutions
 
 At each resolution interannual and repeat year forcing is supported
 
-ACCESS-OM2
-----------
+-----
 
-Nominal 1 degree global resolution
+COSIMA Model name: ACCESS-OM2
 
-JRA55 RYF and IAF
+* Nominal 1 degree global resolution
+
+* JRA55 RYF and IAF
 
 https://github.com/COSIMA/1deg_jra55_iaf
 https://github.com/COSIMA/1deg_jra55_ryf
 
 
-ACCESS-OM2-025
---------------
+-----
 
-Nominal 0.25 degree global resolution
+COSIMA Model name: ACCESS-OM2-025
 
-JRA55 RYF and IAF configurations
+* Nominal 0.25 degree global resolution
+
+* JRA55 RYF and IAF configurations
 
 https://github.com/COSIMA/025deg_jra55_ryf
 https://github.com/COSIMA/025deg_jra55_iaf
 
 
-ACCESS-OM2-01
---------------
+-----
 
 .. notes:: 
    Don't suggest anyone runs this without contacting COSIMA
      as runs are expensive
 
-Nominal 0.1 degree global resolution
+COSIMA Model name: ACCESS-OM2-01
 
-JRA55 RYF and IAF configurations
+* Nominal 0.1 degree global resolution
+
+* JRA55 RYF and IAF configurations
 
 https://github.com/COSIMA/01deg_jra55_iaf
 https://github.com/COSIMA/01deg_jra55_ryf
