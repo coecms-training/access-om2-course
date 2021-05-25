@@ -20,20 +20,20 @@ Outline
 ACCESS-OM2
 ==========
 
-ACCESS-OM2 model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice
+* ACCESS-OM2 model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice
 models forced with atmospheric data and almost identical model parameters.
 
-Single ``access-om2`` repository with all code and configs
+* Single ``access-om2`` repository with all code and configs
 
 https://github.com/COSIMA/access-om2
 
-Contains a `wiki with lots of documentation <https://github.com/COSIMA/access-om2/wiki>`_
+* Well documented in `wiki <https://github.com/COSIMA/access-om2/wiki>`_
 
 
 Components
 ----------
 
-The model is a number of separate component models that run independently and
+* The model consists of separate component models that run independently and
 share information via a coupler
 
 ========== ===========================
@@ -47,7 +47,7 @@ Coupler    ``OASIS3-MCT``
 Code
 ----
 
-All models are open source
+* All models are open source
 
 ================ =========================================
 ``MOM5``         https://github.com/mom-ocean/MOM5
