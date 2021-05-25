@@ -28,6 +28,10 @@ body {
   text-align: left;
   color: #333; }
 
+.reveal .slides {
+    text-align: left;
+}
+
 ::selection {
   color: #fff;
   background: #134674;
