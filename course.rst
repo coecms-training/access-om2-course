@@ -320,12 +320,12 @@ Analysis
 --------
 
 
-* COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
+COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
 find and load COSIMA datasets
 
-* The `COSIMA Recipes repository <https://cosima-recipes.readthedocs.io/en/latest/>`_ contains
+The `COSIMA Recipes repository <https://cosima-recipes.readthedocs.io/en/latest/>`_ contains
 Tutorials and Documented Examples
 
-* Cookbook includes an interactive `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
+Cookbook includes an interactive `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
 to find and load available datasets in the COSIMA collection at NCI
 
