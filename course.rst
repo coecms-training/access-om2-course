@@ -288,7 +288,8 @@ Restart from a previous experiment
 * Using the restart option in ``config.yaml`` would be best, but doesn't currently 
   work for ACCESS-OM2
 
-* See the `ACCESS-OM2 wiki for details <https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment>`_
+* Copy or link previous restart and output directories into your ``archive``. See 
+  the `ACCESS-OM2 wiki for details <https://github.com/COSIMA/access-om2/wiki/Tutorials#starting-a-new-experiment-using-restarts-from-a-previous-experiment>`_
 
 
 Other Useful Stuff
