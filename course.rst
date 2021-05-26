@@ -453,20 +453,20 @@ http://dx.doi.org/10.4225/41/5a2dc8543105a
 
 * Always preferable (faster) to access directly on disk
 
-* Need to go to https://my.nci.org.au and join groups: ``hh5``, ``ik11``, ``cj50`` and ``qv56``
+* Need to join groups: ``hh5``, ``ik11``, ``cj50`` and ``qv56`` at https://my.nci.org.au
 
 
 Analysis
 --------
 
-* COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
+COSIMA provides the `COSIMA Cookbook <https://github.com/COSIMA/cosima-cookbook>`_, a database to 
 find and load COSIMA datasets
 
-* The `COSIMA Recipes repository <https://cosima-recipes.readthedocs.io/en/latest/>`_ contains
+`COSIMA Recipes repository <https://cosima-recipes.readthedocs.io/en/latest/>`_ contains
 Tutorials and Documented Examples
 
-* Cookbook includes an interactive `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
-to find and load available datasets in the COSIMA collection at NCI
+Cookbook includes interactive `Data Explorer tool <https://cosima-recipes.readthedocs.io/en/latest/tutorials/Using_Explorer_tools.html#gallery-tutorials-using-explorer-tools-ipynb>`_ 
+to find and load COSIMA datasets at NCI
 
 
 Compiling Executables
