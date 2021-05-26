@@ -195,6 +195,41 @@ cd 1deg_jra55_iaf </code></pre>
 </section>
 <section class="slide level2">
 
+<pre class=""><code>1deg_jra55_iaf/
+|-- accessom2.nml
+|-- atmosphere
+|   |-- atm.nml
+|   `-- forcing.json
+|-- config.yaml
+|-- doc
+|   `-- Fabio2018_Namelist_meeting_final.pdf
+|-- ice
+|   |-- cice_in.nml
+|   |-- input_ice_gfdl.nml
+|   |-- input_ice_monin.nml
+|   `-- input_ice.nml
+|-- manifests
+|   |-- exe.yaml
+|   |-- input.yaml
+|   `-- restart.yaml
+|-- metadata.yaml
+|-- namcouple
+|-- nmltab.py
+|-- ocean
+|   |-- data_table
+|   |-- diag_table
+|   |-- diag_table_source.yaml
+|   |-- field_table
+|   |-- input.nml
+|   `-- make_diag_table.py
+|-- README.md
+|-- resub.sh
+|-- run_summary.py
+|-- sync_data.sh
+`-- tidy_restarts.py</code></pre>
+</section>
+<section class="slide level2">
+
 <p>The <code>libaccessom2</code> namelist <code>accessom2.nml</code> controls logging, timesetp, forcing dates and model run length (<code>restart_period</code>)</p>
 <pre class="yaml"><code>&amp;accessom2_nml
     log_level = &#39;DEBUG&#39;
@@ -460,7 +495,7 @@ fms_ACCESS-OM_af3  000000000040F56E  Unknown               Unknown  Unknown</cod
 <li>The models are compiled and then published to a shared area in <code>ik11</code></li>
 <li>Build scripts Andrew Kiss has developed link the codebase to the executable name via <code>git</code> commit hashes</li>
 <li>Best to use published executables with known provenance</li>
-<li>If compiling own executables keep the <code>access-om2</code> source tree separate from control directories</li>
+<li>If compiling executables keep <code>access-om2</code> source tree separate from your control directories</li>
 </ul>
 </section></section>
     </div>

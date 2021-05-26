@@ -145,6 +145,43 @@ As an example, using the 1 deg JRA55 IAF configuration:
 
 -----
 
+.. code::
+
+  1deg_jra55_iaf/
+  |-- accessom2.nml
+  |-- atmosphere
+  |   |-- atm.nml
+  |   `-- forcing.json
+  |-- config.yaml
+  |-- doc
+  |   `-- Fabio2018_Namelist_meeting_final.pdf
+  |-- ice
+  |   |-- cice_in.nml
+  |   |-- input_ice_gfdl.nml
+  |   |-- input_ice_monin.nml
+  |   `-- input_ice.nml
+  |-- manifests
+  |   |-- exe.yaml
+  |   |-- input.yaml
+  |   `-- restart.yaml
+  |-- metadata.yaml
+  |-- namcouple
+  |-- nmltab.py
+  |-- ocean
+  |   |-- data_table
+  |   |-- diag_table
+  |   |-- diag_table_source.yaml
+  |   |-- field_table
+  |   |-- input.nml
+  |   `-- make_diag_table.py
+  |-- README.md
+  |-- resub.sh
+  |-- run_summary.py
+  |-- sync_data.sh
+  `-- tidy_restarts.py
+
+-----
+
 The ``libaccessom2`` namelist ``accessom2.nml`` controls logging, timesetp, forcing dates and
 model run length (``restart_period``)
 
@@ -479,7 +516,7 @@ Compiling Executables
 
 * Best to use published executables with known provenance
 
-* If compiling own executables keep the ``access-om2`` source tree separate from
+* If compiling executables keep ``access-om2`` source tree separate from your
   control directories 
 
 
