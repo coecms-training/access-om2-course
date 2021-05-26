@@ -73,14 +73,10 @@
 <section>
 <section id="access-om2" class="title-slide slide level1">
 <h1>ACCESS-OM2</h1>
-<p>* Model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice models forced with atmospheric data and almost identical model parameters.</p>
-<ul>
-<li>Single <code>access-om2</code> repository with all code and configs</li>
-</ul>
+<p>Model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice models forced with atmospheric data and almost identical model parameters.</p>
+<p>Single <code>access-om2</code> repository with all code and configs</p>
 <p><a href="https://github.com/COSIMA/access-om2">https://github.com/COSIMA/access-om2</a></p>
-<ul>
-<li>Well documented in wiki</li>
-</ul>
+<p>Well documented in wiki</p>
 <p><a href="https://github.com/COSIMA/access-om2/wiki">https://github.com/COSIMA/access-om2/wiki</a></p>
 </section>
 <section id="components" class="slide level2">
@@ -416,10 +412,30 @@ fms_ACCESS-OM_af3  000000000040F56E  Unknown               Unknown  Unknown</cod
 <ul>
 <li>Possible to add offsets to atmospheric forcing fields, and also multiply by scale factors, either single value, spatially and or temporally varying e.g.</li>
 </ul>
-<p>..code::json</p>
-<blockquote>
-<p>{ "description": "JRA55-do V1.3 RYF 1990-91 forcing", "inputs": [ { "filename": "/g/data/ua8/JRA55-do/RYF/v1-3/RYF.rsds.1990_1991.nc", "fieldname": "rsds", "cname": "swfld_ai", "perturbations": [ { "type": "scaling", "dimension": "spatiotemporal", "value": "../test_data/scaling.RYF.rsds.1990_1991.nc", "calendar": "forcing" }, { "type": "offset", "dimension": "constant", "value": 5, "calendar": "forcing" } ] } ] }</p>
-</blockquote>
+<pre class="json"><code>{
+&quot;description&quot;: &quot;JRA55-do V1.3 RYF 1990-91 forcing&quot;,
+&quot;inputs&quot;: [
+    {
+    &quot;filename&quot;: &quot;/g/data/ua8/JRA55-do/RYF/v1-3/RYF.rsds.1990_1991.nc&quot;,
+    &quot;fieldname&quot;: &quot;rsds&quot;,
+    &quot;cname&quot;: &quot;swfld_ai&quot;,
+    &quot;perturbations&quot;: [
+        {
+        &quot;type&quot;: &quot;scaling&quot;,
+        &quot;dimension&quot;: &quot;spatiotemporal&quot;,
+        &quot;value&quot;: &quot;../test_data/scaling.RYF.rsds.1990_1991.nc&quot;,
+        &quot;calendar&quot;: &quot;forcing&quot;
+        },
+        {
+        &quot;type&quot;: &quot;offset&quot;,
+        &quot;dimension&quot;: &quot;constant&quot;,
+        &quot;value&quot;: 5,
+        &quot;calendar&quot;: &quot;forcing&quot;
+        }
+    ]
+    }
+]
+}</code></pre>
 <ul>
 <li>See the wiki for details</li>
 </ul>

@@ -20,15 +20,14 @@ Outline
 ACCESS-OM2
 ==========
 
-
-* Model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice
+Model suite includes 1, 0.25 and 0.1 degree global Ocean/Sea Ice
 models forced with atmospheric data and almost identical model parameters.
 
-* Single ``access-om2`` repository with all code and configs
+Single ``access-om2`` repository with all code and configs
 
 https://github.com/COSIMA/access-om2
 
-* Well documented in wiki 
+Well documented in wiki 
 
 https://github.com/COSIMA/access-om2/wiki
 
@@ -413,7 +412,7 @@ Perturbations
 * Possible to add offsets to atmospheric forcing fields, and also multiply by scale
   factors, either single value, spatially and or temporally varying e.g.
 
-..code::json
+.. code::json
 
     {
     "description": "JRA55-do V1.3 RYF 1990-91 forcing",
