@@ -62,9 +62,9 @@ All models are open source
 Forcing Data
 ------------
 
-* Atmosphere is not free-running model. 
-* Atmospheric forcing is input from a data source by ``libaccessom2+yatm`` and passed to 
-  the ice model 
+* Atmosphere is not free-running model
+* Atmospheric forcing from data source. Read by ``libaccessom2+yatm``, passed to 
+  ice model 
 * Atmosphere uses JRA55 reanalysis derivative product JRA55-do v1.4
 
 http://jra.kishou.go.jp/JRA-55/index_en.html
@@ -409,8 +409,8 @@ Diagnostics
 Perturbations
 -------------
 
-* Possible to add offsets to atmospheric forcing fields, and also multiply by scale
-  factors, either single value, spatially and or temporally varying e.g.
+Add offsets or scale atmospheric forcing fields. Either single value, spatially and/or 
+temporally varying e.g.
 
 .. code::json
 
@@ -439,7 +439,7 @@ Perturbations
     ]
     }
 
-* See the wiki for details
+See the wiki for details
 
 https://github.com/COSIMA/access-om2/wiki/Tutorials#Scaling-the-forcing-fields
 

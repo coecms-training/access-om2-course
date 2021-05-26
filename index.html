@@ -130,8 +130,8 @@
 <section id="forcing-data" class="slide level2">
 <h2>Forcing Data</h2>
 <ul>
-<li>Atmosphere is not free-running model.</li>
-<li>Atmospheric forcing is input from a data source by <code>libaccessom2+yatm</code> and passed to the ice model</li>
+<li>Atmosphere is not free-running model</li>
+<li>Atmospheric forcing from data source. Read by <code>libaccessom2+yatm</code>, passed to ice model</li>
 <li>Atmosphere uses JRA55 reanalysis derivative product JRA55-do v1.4</li>
 </ul>
 <p><a href="http://jra.kishou.go.jp/JRA-55/index_en.html">http://jra.kishou.go.jp/JRA-55/index_en.html</a> <a href="https://www.sciencedirect.com/science/article/pii/S146350031830235X">https://www.sciencedirect.com/science/article/pii/S146350031830235X</a></p>
@@ -409,9 +409,7 @@ fms_ACCESS-OM_af3  000000000040F56E  Unknown               Unknown  Unknown</cod
 </section>
 <section id="perturbations" class="slide level2">
 <h2>Perturbations</h2>
-<ul>
-<li>Possible to add offsets to atmospheric forcing fields, and also multiply by scale factors, either single value, spatially and or temporally varying e.g.</li>
-</ul>
+<p>Add offsets or scale atmospheric forcing fields. Either single value, spatially and/or temporally varying e.g.</p>
 <pre class="json"><code>{
 &quot;description&quot;: &quot;JRA55-do V1.3 RYF 1990-91 forcing&quot;,
 &quot;inputs&quot;: [
@@ -436,9 +434,7 @@ fms_ACCESS-OM_af3  000000000040F56E  Unknown               Unknown  Unknown</cod
     }
 ]
 }</code></pre>
-<ul>
-<li>See the wiki for details</li>
-</ul>
+<p>See the wiki for details</p>
 <p><a href="https://github.com/COSIMA/access-om2/wiki/Tutorials#Scaling-the-forcing-fields">https://github.com/COSIMA/access-om2/wiki/Tutorials#Scaling-the-forcing-fields</a></p>
 </section>
 <section id="available-data" class="slide level2">
